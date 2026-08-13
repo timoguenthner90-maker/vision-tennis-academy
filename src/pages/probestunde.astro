@@ -83,6 +83,12 @@ const levels = [
                 <label class="choice">
                   <input type="radio" name="club" value={c.name} checked={i === 0} />
                   <span class="choice__body choice__body--club">
+                    <span>
+                      <span class="choice__t">{c.name}</span>
+                      <span class="choice__s">
+                        {c.zip} {c.city}
+                      </span>
+                    </span>
                     <img
                       src={`/img/${c.logo}.webp`}
                       alt=""
@@ -92,12 +98,6 @@ const levels = [
                       loading="lazy"
                       decoding="async"
                     />
-                    <span>
-                      <span class="choice__t">{c.name}</span>
-                      <span class="choice__s">
-                        {c.zip} {c.city}
-                      </span>
-                    </span>
                   </span>
                 </label>
               ))
@@ -347,20 +347,26 @@ const levels = [
   .choice--sm .choice__body {
     padding: 0.6rem 0.85rem;
   }
-  /* Vereinsauswahl: Wappen links, Name und Ort rechts. Das Wappen ist rein
-     dekorativ (alt=""), der Vereinsname steht direkt daneben im Text. */
+  /* Vereinsauswahl: Name und Ort links, Wappen rechts als Ankerpunkt. Das
+     Wappen ist rein dekorativ (alt=""), der Vereinsname steht daneben im Text.
+     Die weiße Platte darunter ist Absicht — sie hält die Wappen auch auf der
+     gelben Auswahlfläche lesbar. */
   .choice__body--club {
     display: flex;
     align-items: center;
-    gap: 0.8rem;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 0.7rem;
   }
   .choice__body--club img {
-    width: 2.4rem;
-    height: 2.4rem;
+    width: clamp(3.4rem, 6vw, 4.2rem);
+    height: clamp(3.4rem, 6vw, 4.2rem);
     flex: none;
     object-fit: contain;
-    border-radius: 3px;
+    border-radius: 4px;
     background: #fff;
+    padding: 0.3rem;
+    box-shadow: 0 0 0 1px rgba(20, 20, 20, 0.12);
   }
   .choice__t {
     display: block;

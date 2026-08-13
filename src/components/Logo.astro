@@ -19,6 +19,14 @@
     transition: height 0.2s ease;
   }
 
+  /* Auf schmalen Geräten kostet die Kopfleiste sonst 200 px Höhe und drückt den
+     CTA im Hero unter die Falz. */
+  @media (max-width: 30rem) {
+    .logo {
+      height: 2.7rem;
+    }
+  }
+
   /* Beim Scrollen schrumpft der Header — das Logo geht mit, damit die Leiste
      schmal bleibt und trotzdem präsent wirkt. */
   :global(.is-stuck) .logo {

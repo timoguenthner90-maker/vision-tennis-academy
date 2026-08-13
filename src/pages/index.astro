@@ -14,7 +14,7 @@
  */
 import Base from "../layouts/Base.astro";
 import Cta from "../components/Cta.astro";
-import { clubs, coachCount, site } from "../data/site";
+import { clubs, coachCount, headCoaches, site } from "../data/site";
 import { organizationLd, websiteLd } from "../data/jsonld";
 
 const title = "Vision Tennis Academy — Tennistraining Dormagen & Köln";
@@ -116,10 +116,8 @@ const testimonials = [
         <span class="eyebrow">Dormagen · Köln · Neuss</span>
         <h1>Tennistraining, das zu deinem Kind passt.</h1>
         <p class="lead">
-          Wir ordnen jede:n Spieler:in einer Gruppe nach Alter und Niveau zu — höchstens
-          vier Personen, feste Zeit, fester Trainer, an drei Vereinen zwischen Düsseldorf
-          und Köln. Die erste Stunde ist kostenlos, damit ihr vorher wisst, worauf ihr
-          euch einlasst.
+          Passende Gruppe nach Alter und Niveau, höchstens vier Personen, feste Zeit
+          und fester Trainer — an drei Vereinen zwischen Düsseldorf und Köln.
         </p>
         <Cta withNote />
       </div>
@@ -181,34 +179,23 @@ const testimonials = [
         <div class="cta-row"><Cta /></div>
       </div>
 
+      <!-- Reihenfolge und Großbild werden beim Laden per Skript gewürfelt, damit
+           bei jedem Aufruf ein anderer Gründer vorn steht. Ohne JavaScript bleibt
+           es bei der Reihenfolge aus den Stammdaten. -->
       <div class="guide__pics">
-        <img
-          data-reveal
-          src="/img/coach-jan.webp"
-          alt="Jan Gerring, Head Coach der Vision Tennis Academy"
-          width="640"
-          height="640"
-          loading="lazy"
-          decoding="async"
-        />
-        <img
-          data-reveal
-          src="/img/coach-max.webp"
-          alt="Max Gumz, Head Coach der Vision Tennis Academy"
-          width="640"
-          height="640"
-          loading="lazy"
-          decoding="async"
-        />
-        <img
-          data-reveal
-          src="/img/coach-timo.webp"
-          alt="Timo Günthner, Head Coach der Vision Tennis Academy"
-          width="640"
-          height="640"
-          loading="lazy"
-          decoding="async"
-        />
+        {
+          headCoaches.map((c) => (
+            <img
+              data-reveal
+              src={`/img/${c.img}.webp`}
+              alt={`${c.name}, ${c.role} der Vision Tennis Academy`}
+              width="640"
+              height="640"
+              loading="lazy"
+              decoding="async"
+            />
+          ))
+        }
       </div>
     </div>
   </section>
@@ -354,13 +341,22 @@ const testimonials = [
 </Base>
 
 <style>
+  /* Der Hero füllt höchstens einen Bildschirm abzüglich Kopfleiste. Sonst rutscht
+     der CTA unter die Falz — genau das war vorher der Fall. Nach unten begrenzt,
+     damit er auf sehr flachen Fenstern nicht zusammengedrückt wird. */
   .hero {
     position: relative;
     isolation: isolate;
     background: #241009; /* Sandplatz-Ton als Fallback, falls das Bild noch lädt */
     color: #fff;
-    padding-block: clamp(3.5rem, 10vw, 8rem);
+    min-height: clamp(30rem, calc(100svh - 7rem), 44rem);
+    display: flex;
+    align-items: center;
+    padding-block: clamp(2.25rem, 5vw, 3.5rem);
     overflow: hidden;
+  }
+  .hero > .wrap {
+    width: min(100% - var(--gutter) * 2, var(--wrap));
   }
 
   .hero__bg {
@@ -428,6 +424,31 @@ const testimonials = [
     }
   }
 
+  /* Schmale Geräte: Textstufen und Abstände zurücknehmen, damit der CTA
+     zusammen mit Headline und Einleitung auf den ersten Bildschirm passt. */
+  @media (max-width: 30rem) {
+    .hero {
+      min-height: 0;
+      padding-block: 1.75rem 2rem;
+    }
+    .hero h1 {
+      font-size: 1.85rem;
+      margin-bottom: 0.85rem;
+    }
+    .hero .lead {
+      font-size: 1rem;
+      line-height: 1.45;
+    }
+    .hero .cta-row {
+      margin-top: 1.5rem;
+      gap: 0.75rem;
+    }
+    .hero .cta-note {
+      font-size: 0.75rem;
+    }
+  }
+
+
   /* Das Framework zeichnet die Painpoints als 3×2-Raster. Ohne feste Spaltenzahl
      bricht auto-fit auf breiten Viewports in 4+2 um — unruhig und asymmetrisch. */
   .pain-list {
@@ -457,7 +478,16 @@ const testimonials = [
     border-radius: var(--radius);
     width: 100%;
   }
+  /* Ohne JavaScript ist das erste Bild das große — feste, sinnvolle Vorgabe. */
   .guide__pics img:first-child {
+    grid-column: span 2;
+  }
+
+  /* Sobald das Skript gewürfelt hat, entscheidet die Klasse statt der Position. */
+  .guide__pics.is-rotated img:first-child {
+    grid-column: auto;
+  }
+  .guide__pics.is-rotated img.is-lead {
     grid-column: span 2;
   }
 
@@ -468,7 +498,8 @@ const testimonials = [
     .guide__pics {
       grid-template-columns: repeat(3, 1fr);
     }
-    .guide__pics img:first-child {
+    .guide__pics img:first-child,
+    .guide__pics.is-rotated img.is-lead {
       grid-column: auto;
     }
   }
@@ -518,3 +549,35 @@ const testimonials = [
     }
   }
 </style>
+
+<script>
+  // Gründer-Porträts bei jedem Aufruf neu anordnen: Wer groß erscheint und in
+  // welcher Reihenfolge die drei stehen, wird zufällig bestimmt.
+  //
+  // Die Seite ist statisch ausgeliefert, es gibt also keinen Server, der pro
+  // Abruf variieren könnte — deshalb im Browser. Ohne JavaScript bleibt es bei
+  // der Reihenfolge aus den Stammdaten, das erste Bild ist dann das große.
+  // Umgestellt wird vor dem Einblenden, es gibt also kein sichtbares Springen.
+  const pics = document.querySelector<HTMLElement>(".guide__pics");
+
+  if (pics) {
+    const imgs = Array.from(pics.querySelectorAll<HTMLImageElement>("img"));
+
+    if (imgs.length > 1) {
+      // Fisher-Yates: jede Reihenfolge gleich wahrscheinlich.
+      const order = imgs.map((_, i) => i);
+      for (let i = order.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [order[i], order[j]] = [order[j], order[i]];
+      }
+
+      imgs.forEach((img, i) => {
+        const pos = order.indexOf(i);
+        img.style.order = String(pos);
+        img.classList.toggle("is-lead", pos === 0);
+      });
+
+      pics.classList.add("is-rotated");
+    }
+  }
+</script>
