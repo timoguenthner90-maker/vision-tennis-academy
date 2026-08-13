@@ -4,15 +4,22 @@
 > Hier endet die Automatik: Es braucht genau eine Entscheidung — **freigeben**
 > oder **zurück mit Kommentar**.
 
-## Preview
+## Status: freigegeben und auf Production
 
-**https://6a7d92afd9b015497ab355c1--vision-tennis-academy.netlify.app**
+**Live: https://vision-tennis-academy.netlify.app**
 
-Die Preview trägt `X-Robots-Tag: noindex` (setzt Netlify auf Draft-Deploys
-automatisch). **vision-tennis.de zeigt unverändert auf Shopify** — der bestehende
-Shop läuft weiter, an der DNS wurde nichts geändert.
+Freigabe erteilt am 13.08.2026, Production-Deploy durchgeführt. Alle 11 Seiten
+liefern 200, die 301-Redirects der alten Shop-URLs greifen, kein `noindex` mehr —
+die Seite ist indexierbar.
 
-Production-Ziel nach Freigabe: `https://vision-tennis-academy.netlify.app`
+**vision-tennis.de zeigt unverändert auf Shopify.** An der DNS wurde nichts
+geändert; der bestehende Shop läuft weiter. Der Umzug liegt beim Kunden.
+
+Lighthouse gegen Production: **0.98 / 1.00 / 1.00 / 1.00** (LCP 1,6 s · CLS 0 ·
+TBT 0 ms). Der Performance-Wert liegt über realem Netz minimal unter dem lokalen
+1.00 — normale Netzwerkvarianz, deutlich über der Schwelle von 0.90.
+
+Vorherige Preview (Gate-Stand): `6a7d92afd9b015497ab355c1--vision-tennis-academy.netlify.app`
 
 ## Ergebnis des Verify-Gauntlets
 
@@ -85,15 +92,12 @@ AGB und Widerrufsrecht (ohne Warenverkauf keine Pflichtangabe), Kontaktformular,
 Analytics/Tracking, Cookie-Banner (nicht nötig — es werden keine Cookies gesetzt),
 CMS, Blog, Mehrsprachigkeit, eigenes Buchungssystem (bleibt Sportision).
 
-## Nach der Freigabe
+## Erledigt nach der Freigabe
 
-```bash
-netlify deploy --prod
-```
+- [x] `netlify deploy --prod`
+- [x] Branch `delivery/vision-tennis-academy-relaunch` nach `main` gemergt
 
-Danach Branch `delivery/vision-tennis-academy-relaunch` mergen.
-
-**Der DNS-Umzug bleibt bei dir.** Erst wenn `vision-tennis.de` auf Netlify zeigt,
+**Offen — der DNS-Umzug bleibt bei dir.** Erst wenn `vision-tennis.de` auf Netlify zeigt,
 greifen die Redirects in `netlify.toml` — und erst dann geht der Shopify-Shop
 offline. Vor dem Umzug außerdem `site` in `astro.config.mjs` und die Sitemap-URL
 in `public/robots.txt` auf die echte Domain umstellen.
