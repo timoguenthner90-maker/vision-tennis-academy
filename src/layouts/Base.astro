@@ -71,5 +71,56 @@ const blocks = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
       <slot />
     </main>
     <Footer />
+
+    <script>
+      // Sticky-Header: verdichtet sich, sobald die Seite angescrollt ist.
+      // Ein Sentinel-Element statt eines Scroll-Listeners — der Observer feuert
+      // nur an der Schwelle und kostet nichts bei jedem Scroll-Frame.
+      const sentinel = document.createElement("div");
+      sentinel.setAttribute("aria-hidden", "true");
+      sentinel.style.cssText = "position:absolute;top:0;height:1px;width:1px";
+      document.body.prepend(sentinel);
+
+      new IntersectionObserver(
+        ([e]) =>
+          document.documentElement.classList.toggle("is-stuck", !e.isIntersecting),
+        { threshold: 0 },
+      ).observe(sentinel);
+
+      // Bilder beim Scrollen einblenden. Die Klasse am <html> schaltet den
+      // Startzustand erst ein, wenn JavaScript läuft — ohne Skript bleibt jedes
+      // Bild sichtbar. Bei reduzierter Bewegung passiert nichts.
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const targets = Array.from(
+        document.querySelectorAll<HTMLElement>("[data-reveal]"),
+      );
+
+      if (!reduce && targets.length && "IntersectionObserver" in window) {
+        document.documentElement.classList.add("js-reveal");
+
+        // Bilder derselben Gruppe laufen versetzt an, damit ein Raster nicht
+        // als Block aufploppt, sondern sich der Reihe nach setzt.
+        const counters = new Map<Element, number>();
+        for (const el of targets) {
+          const group = el.closest("section") ?? document.body;
+          const i = counters.get(group) ?? 0;
+          counters.set(group, i + 1);
+          el.style.setProperty("--reveal-delay", `${Math.min(i, 8) * 70}ms`);
+        }
+
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (!e.isIntersecting) continue;
+              e.target.classList.add("is-in");
+              io.unobserve(e.target);
+            }
+          },
+          { rootMargin: "0px 0px -12% 0px", threshold: 0.12 },
+        );
+
+        for (const el of targets) io.observe(el);
+      }
+    </script>
   </body>
 </html>

@@ -29,10 +29,17 @@ export const site = {
   facebook: "https://www.facebook.com/visiontennisacdmy",
 } as const;
 
-/** Der EINE Call-to-Action (Story-Element #9) — Wording und Ziel nie variieren. */
+/**
+ * Der EINE Call-to-Action (Story-Element #9) — Wording und Ziel nie variieren.
+ *
+ * Ziel ist die Probestunden-Seite und nicht mehr direkt WhatsApp: Dort wählt man
+ * Verein, Spielstärke und Wunschzeiten aus, und der letzte Klick öffnet dann
+ * WhatsApp oder E-Mail mit fertigem Text. Der Kanal bleibt derselbe, nur die
+ * Nachricht schreibt sich nicht mehr selbst.
+ */
 export const cta = {
   label: "Kostenloses Probetraining sichern",
-  href: site.whatsapp,
+  href: "/probestunde/",
   note: "Per WhatsApp oder E-Mail – wir melden uns kurzfristig zurück.",
 } as const;
 
@@ -57,6 +64,8 @@ export type Club = {
   memberYouth: number;
   clubSite: string;
   booking: string;
+  /** Vereinswappen — bleibt farbig, im Gegensatz zu allen Fotos der Seite. */
+  logo: string;
 };
 
 export const clubs: Club[] = [
@@ -73,6 +82,7 @@ export const clubs: Club[] = [
     memberYouth: 120,
     clubSite: "https://www.tc-bayer-dormagen.de",
     booking: "https://www.sportision.de/club/tc-bayer-dormagen",
+    logo: "club-dormagen",
   },
   {
     slug: "tc-ford-koeln",
@@ -87,6 +97,7 @@ export const clubs: Club[] = [
     memberYouth: 115,
     clubSite: "https://www.tcfk.de",
     booking: "https://www.sportision.de/club/tc-ford-koln-1",
+    logo: "club-koeln",
   },
   {
     slug: "uedesheimer-tv",
@@ -100,6 +111,7 @@ export const clubs: Club[] = [
     memberYouth: 85,
     clubSite: "https://www.uetv.de",
     booking: "https://www.sportision.de/club/uedesheimer-tv-1",
+    logo: "club-neuss",
   },
 ];
 

@@ -41,11 +41,21 @@ const path = Astro.url.pathname;
 </header>
 
 <style>
+  /* Sticky: Die Leiste bleibt beim Scrollen oben stehen — inklusive CTA, der
+     damit auf jeder Bildschirmhöhe erreichbar ist. Beim Verlassen des
+     Seitenkopfs verdichtet sie sich (Klasse .is-stuck kommt aus Base.astro). */
   .site-header {
     border-bottom: 1px solid var(--line);
     background: var(--paper);
-    position: relative;
-    z-index: 10;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+
+  :global(.is-stuck) .site-header {
+    box-shadow: 0 6px 24px rgba(20, 20, 20, 0.09);
+    border-bottom-color: transparent;
   }
 
   .site-header__inner {
@@ -53,7 +63,12 @@ const path = Astro.url.pathname;
     grid-template-columns: auto 1fr auto;
     align-items: center;
     gap: 1rem 2rem;
-    padding-block: 0.9rem;
+    padding-block: 1.1rem;
+    transition: padding-block 0.2s ease;
+  }
+
+  :global(.is-stuck) .site-header__inner {
+    padding-block: 0.55rem;
   }
 
   .site-header__brand {

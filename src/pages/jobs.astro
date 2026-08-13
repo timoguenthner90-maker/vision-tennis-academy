@@ -16,6 +16,18 @@ const description =
 <Base title={title} description={description}>
   <section class="section section--tight">
     <div class="wrap">
+      <figure class="jobs-band">
+        <img
+          data-reveal
+          src="/img/jobs-team.webp"
+          alt="Die drei Head Coaches der Vision Tennis Academy in der Halle"
+          width="1240"
+          height="500"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+
       <span class="eyebrow">Jobs</span>
       <h1>Werde Teil des Trainerteams.</h1>
       <p class="lead">
@@ -111,6 +123,16 @@ const description =
 </Base>
 
 <style>
+  .jobs-band {
+    margin: 0 0 clamp(1.75rem, 4vw, 2.5rem);
+  }
+  .jobs-band img {
+    width: 100%;
+    aspect-ratio: 62 / 25;
+    object-fit: cover;
+    border-radius: var(--radius);
+  }
+
   .two {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));

@@ -50,9 +50,25 @@ const offers = [
 
   <section class="section section--muted">
     <div class="wrap">
-      <div class="section-head">
-        <span class="eyebrow">Angebote</span>
-        <h2>Für wen wir trainieren.</h2>
+      <div class="offer-head">
+        <div class="section-head">
+          <span class="eyebrow">Angebote</span>
+          <h2>Für wen wir trainieren.</h2>
+          <p class="lead">
+            Drei Formate, ein Konzept: kleine Gruppen, feste Zeiten, lizenzierte
+            Trainer:innen.
+          </p>
+        </div>
+        <img
+          data-reveal
+          class="offer-pic"
+          src="/img/training-schwung.webp"
+          alt="Spieler beim Ausholen zur Rückhand"
+          width="1000"
+          height="750"
+          loading="lazy"
+          decoding="async"
+        />
       </div>
       <div class="grid grid--3">
         {
@@ -225,6 +241,28 @@ const offers = [
 </Base>
 
 <style>
+  .offer-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+    gap: clamp(2rem, 5vw, 3.5rem);
+    align-items: center;
+    margin-bottom: clamp(2rem, 4vw, 3.25rem);
+  }
+  .offer-head .section-head {
+    margin-bottom: 0;
+  }
+  .offer-pic {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--radius);
+  }
+  @media (max-width: 55rem) {
+    .offer-head {
+      grid-template-columns: 1fr;
+    }
+  }
+
   .sub {
     margin-top: 3rem;
     margin-bottom: 0.6rem;

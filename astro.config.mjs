@@ -12,4 +12,17 @@ export default defineConfig({
       filter: (page) => !page.includes("/404"),
     }),
   ],
+  build: {
+    // Kleine Skripte würde Astro sonst inline ins HTML schreiben. Die Content
+    // Security Policy erlaubt aber nur `script-src 'self'` und kein
+    // 'unsafe-inline' — Inline-Skripte wären damit blockiert. Als eigene Dateien
+    // unter /_astro/ laufen sie sauber durch.
+    inlineStylesheets: "auto",
+    assets: "_astro",
+  },
+  vite: {
+    build: {
+      assetsInlineLimit: 0,
+    },
+  },
 });

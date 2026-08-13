@@ -28,6 +28,7 @@
   },
   "requiredUrls": [
     "/",
+    "/probestunde/",
     "/training/",
     "/standorte/",
     "/academy/",

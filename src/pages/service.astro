@@ -19,18 +19,24 @@ const services = [
     t: "Neue Saiten für 25 €",
     d: "Gib deinen Schläger beim Training ab. Für Premium-Saiten kommt je nach Material ein Aufpreis dazu — den nennen wir dir vorher.",
     points: ["Abgabe direkt beim Training", "25 € pro Besaitung", "Aufpreis nur bei Premium-Saiten"],
+    img: "service-schlaeger",
+    alt: "Tennisschläger und Schuhe auf einem Hartplatz",
   },
   {
     tag: "Testschläger",
     t: "Erst spielen, dann entscheiden",
     d: "Du kannst bei uns jederzeit Testschläger ausleihen. Welcher Schläger passt, merkst du in einer Trainingsstunde deutlich schneller als in jeder Produktbeschreibung.",
     points: ["Ausleihe jederzeit möglich", "Auch schon zur Probestunde", "Mehrere Modelle vergleichen"],
+    img: "service-equipment",
+    alt: "Schläger, Tasche und Schuhe vor einem Tennisnetz",
   },
   {
     tag: "Beratung",
     t: "Was zu deinem Spiel passt",
     d: "Griffstärke, Schlägergewicht, Saitenhärte, Bälle für Kinder — sprich deinen Trainer an. Er sieht dich spielen und kann konkret einordnen, was sinnvoll ist.",
     points: ["Beratung durch deinen Coach", "Auf Basis deines Spiels", "Ohne Verkaufsdruck"],
+    img: "service-tasche",
+    alt: "Spieler mit Schlägertasche am Spielfeldrand",
   },
 ];
 ---
@@ -58,7 +64,16 @@ const services = [
       <div class="grid grid--3">
         {
           services.map((s) => (
-            <article class="card">
+            <article class="card card--pic">
+              <img
+                data-reveal
+                src={`/img/${s.img}.webp`}
+                alt={s.alt}
+                width="1000"
+                height="700"
+                loading="lazy"
+                decoding="async"
+              />
               <span class="card__tag">{s.tag}</span>
               <h3>{s.t}</h3>
               <p>{s.d}</p>
@@ -112,6 +127,29 @@ const services = [
 </Base>
 
 <style>
+  /* Bild sitzt bündig in der Karte, Text bekommt den Innenabstand zurück. */
+  .card--pic {
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .card--pic img {
+    width: 100%;
+    aspect-ratio: 10 / 7;
+    object-fit: cover;
+    border-bottom: 1px solid var(--line);
+  }
+  .card--pic > :not(img) {
+    margin-inline: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .card--pic > .card__tag {
+    margin-top: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .card--pic > :last-child {
+    margin-bottom: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+
   .two {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);

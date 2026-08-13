@@ -84,11 +84,24 @@ const initials = (n: string) => n.slice(0, 2).toUpperCase();
         </p>
       </div>
 
+      <figure class="team-band">
+        <img
+          data-reveal
+          src="/img/team-band.webp"
+          alt="Jan Gerring, Max Gumz und Timo Günthner auf dem Tennisplatz"
+          width="1400"
+          height="600"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+
       <div class="grid grid--3 heads">
         {
           headCoaches.map((c) => (
             <figure class="person">
               <img
+                data-reveal
                 src={`/img/${c.img}.webp`}
                 alt={`${c.name}, ${c.role} der Vision Tennis Academy`}
                 width="640"
@@ -126,6 +139,7 @@ const initials = (n: string) => n.slice(0, 2).toUpperCase();
             <figure class="person">
               {c.img ? (
                 <img
+                  data-reveal
                   src={`/img/${c.img}.webp`}
                   alt={`${c.name}, Coach der Vision Tennis Academy`}
                   width="480"
@@ -134,7 +148,7 @@ const initials = (n: string) => n.slice(0, 2).toUpperCase();
                   decoding="async"
                 />
               ) : (
-                <div class="person__initials" aria-hidden="true">
+                <div class="person__initials" data-reveal aria-hidden="true">
                   {initials(c.name)}
                 </div>
               )}
@@ -199,5 +213,15 @@ const initials = (n: string) => n.slice(0, 2).toUpperCase();
 
   .heads {
     max-width: 60rem;
+  }
+
+  .team-band {
+    margin: 0 0 clamp(1.75rem, 4vw, 2.75rem);
+  }
+  .team-band img {
+    width: 100%;
+    aspect-ratio: 7 / 3;
+    object-fit: cover;
+    border-radius: var(--radius);
   }
 </style>

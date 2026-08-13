@@ -183,6 +183,7 @@ const testimonials = [
 
       <div class="guide__pics">
         <img
+          data-reveal
           src="/img/coach-jan.webp"
           alt="Jan Gerring, Head Coach der Vision Tennis Academy"
           width="640"
@@ -191,6 +192,7 @@ const testimonials = [
           decoding="async"
         />
         <img
+          data-reveal
           src="/img/coach-max.webp"
           alt="Max Gumz, Head Coach der Vision Tennis Academy"
           width="640"
@@ -199,6 +201,7 @@ const testimonials = [
           decoding="async"
         />
         <img
+          data-reveal
           src="/img/coach-timo.webp"
           alt="Timo Günthner, Head Coach der Vision Tennis Academy"
           width="640"
@@ -356,9 +359,11 @@ const testimonials = [
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* Motiv sitzt rechts — bei schmalen Viewports nach rechts ausrichten,
-       damit das Kind im Bild bleibt und links Fläche für den Text frei wird. */
-    object-position: 72% 50%;
+    /* Das Bild ist breiter als der Ausschnitt, es wird also horizontal
+       beschnitten. 100% schiebt den Ausschnitt ganz nach rechts — dadurch
+       rutscht das Kind, das im Original nah am rechten Rand steht, so weit
+       wie möglich Richtung Bildmitte. */
+    object-position: 100% 50%;
     z-index: -2;
   }
 
@@ -404,7 +409,7 @@ const testimonials = [
       padding-block: clamp(3rem, 9vw, 5rem);
     }
     .hero__bg {
-      object-position: 68% 50%;
+      object-position: 88% 50%;
     }
     .hero::before {
       background:

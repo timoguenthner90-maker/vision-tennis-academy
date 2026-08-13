@@ -44,11 +44,18 @@ for (const p of pages) {
   await Page.navigate({ url: `${BASE}/${p}` });
   await Page.loadEventFired();
 
-  // loading="lazy" verhindert sonst, dass Bilder unterhalb des Viewports in den
-  // Vollseiten-Screenshot gelangen — sie wären leer, obwohl die Seite korrekt
-  // ist. Genau dieser Fehlalarm ist beim Bau dieser Seite einmal aufgetreten.
+  // Zwei Dinge würden sonst leere Bilder in den Vollseiten-Screenshot bringen,
+  // obwohl die Seite korrekt ist — beide Fehlalarme sind hier schon aufgetreten:
+  //  1. loading="lazy" lädt unterhalb des Viewports nicht.
+  //  2. Die Scroll-Einblendung hält Bilder auf opacity:0, bis der
+  //     IntersectionObserver feuert — was beim Capture-über-den-Viewport-hinaus
+  //     nicht passiert. Deshalb den Reveal-Modus für den Screenshot abschalten.
   await Runtime.evaluate({
-    expression: `document.querySelectorAll('img[loading="lazy"]').forEach(i => { i.loading = 'eager'; i.src = i.src; });`,
+    expression: `
+      document.querySelectorAll('img[loading="lazy"]').forEach(i => { i.loading = 'eager'; i.src = i.src; });
+      document.documentElement.classList.remove('js-reveal');
+      document.querySelectorAll('[data-reveal]').forEach(el => el.classList.add('is-in'));
+    `,
   });
   await new Promise((r) => setTimeout(r, 1800));
 
