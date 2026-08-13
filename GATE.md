@@ -6,7 +6,7 @@
 
 ## Preview
 
-**https://6a7d9001e17b303b1f8cbdfb--vision-tennis-academy.netlify.app**
+**https://6a7d92afd9b015497ab355c1--vision-tennis-academy.netlify.app**
 
 Die Preview trägt `X-Robots-Tag: noindex` (setzt Netlify auf Draft-Deploys
 automatisch). **vision-tennis.de zeigt unverändert auf Shopify** — der bestehende
