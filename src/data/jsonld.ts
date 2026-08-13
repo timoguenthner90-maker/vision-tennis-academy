@@ -1,9 +1,7 @@
 // Strukturierte Daten. Die Typen entsprechen dem Acceptance-Set in acceptance.json:
 // Organization + WebSite global, SportsActivityLocation je Standort, FAQPage auf /faq/.
 
-import { site, clubs } from "./site";
-
-const BASE = "https://vision-tennis-academy.netlify.app";
+import { site, clubs, SITE_URL as BASE } from "./site";
 
 export const organizationLd = {
   "@context": "https://schema.org",

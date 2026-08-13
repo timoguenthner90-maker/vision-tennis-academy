@@ -3,6 +3,13 @@
 // Werte, die vor Production bestätigt werden müssen, sind in SPEC.md Abschnitt 7
 // gelistet.
 
+/**
+ * Production-URL. Muss mit `site` in astro.config.mjs und der Sitemap-Zeile in
+ * public/robots.txt übereinstimmen — Canonical, OG-URLs, Sitemap und JSON-LD
+ * hängen daran. Beim Umzug auf die Kundendomain alle drei zusammen umstellen.
+ */
+export const SITE_URL = "https://vision-tennis-academy.netlify.app";
+
 export const site = {
   name: "Vision Tennis Academy",
   legalName: "Vision Tennis Academy GbR",
