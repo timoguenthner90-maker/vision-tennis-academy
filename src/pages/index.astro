@@ -95,8 +95,22 @@ const testimonials = [
 ---
 
 <Base title={title} description={description} jsonLd={[organizationLd, websiteLd]}>
-  <!-- #3 Heroshot · #4 Headline · #5 Einleitung · #9 CTA -->
+  <!-- #3 Heroshot · #4 Headline · #5 Einleitung · #9 CTA
+       Das Bild trägt die Sektion vollflächig. Die Bildkomposition hat links freie
+       Platzfläche — genau dort sitzt der Text. Ein Verlaufs-Scrim von links sichert
+       den Kontrast, ohne das Motiv rechts zuzudecken. -->
   <section class="hero">
+    <img
+      class="hero__bg"
+      src="/img/hero-court-1280.webp"
+      srcset="/img/hero-court-800.webp 800w, /img/hero-court-1280.webp 1280w, /img/hero-court-1720.webp 1720w"
+      sizes="100vw"
+      alt="Ein Kind spielt auf einem sonnenbeschienenen Sandplatz eine Vorhand über das Netz"
+      width="1720"
+      height="914"
+      fetchpriority="high"
+      decoding="async"
+    />
     <div class="wrap hero__inner">
       <div class="hero__text">
         <span class="eyebrow">Dormagen · Köln · Neuss</span>
@@ -109,20 +123,6 @@ const testimonials = [
         </p>
         <Cta withNote />
       </div>
-
-      <figure class="hero__figure">
-        <img
-          src="/img/hero-team.webp"
-          alt="Die drei Head Coaches der Vision Tennis Academy mit Schlägern in der Tennishalle"
-          width="1600"
-          height="900"
-          fetchpriority="high"
-          decoding="async"
-        />
-        <figcaption>
-          Jan Gerring, Max Gumz und Timo Günthner — die drei Head Coaches und Gründer.
-        </figcaption>
-      </figure>
     </div>
   </section>
 
@@ -342,40 +342,74 @@ const testimonials = [
 
 <style>
   .hero {
-    border-bottom: 1px solid var(--line);
-    padding-block: clamp(2.5rem, 6vw, 5rem);
+    position: relative;
+    isolation: isolate;
+    background: #241009; /* Sandplatz-Ton als Fallback, falls das Bild noch lädt */
+    color: #fff;
+    padding-block: clamp(3.5rem, 10vw, 8rem);
+    overflow: hidden;
+  }
+
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Motiv sitzt rechts — bei schmalen Viewports nach rechts ausrichten,
+       damit das Kind im Bild bleibt und links Fläche für den Text frei wird. */
+    object-position: 72% 50%;
+    z-index: -2;
+  }
+
+  /* Scrim: links kräftig, rechts offen, damit das Motiv sichtbar bleibt.
+     Der zweite Verlauf von unten fängt den CTA-Bereich ab. */
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      linear-gradient(100deg, rgba(10, 6, 4, 0.92) 0%, rgba(10, 6, 4, 0.82) 34%,
+        rgba(10, 6, 4, 0.42) 62%, rgba(10, 6, 4, 0.12) 100%),
+      linear-gradient(to top, rgba(10, 6, 4, 0.55) 0%, rgba(10, 6, 4, 0) 45%);
   }
 
   .hero__inner {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: clamp(2rem, 5vw, 4rem);
-    align-items: center;
+  }
+
+  .hero__text {
+    max-width: 34rem;
+  }
+
+  .hero .eyebrow {
+    color: var(--brand);
   }
 
   .hero h1 {
     margin-bottom: 1.25rem;
+    text-shadow: 0 2px 24px rgba(10, 6, 4, 0.5);
   }
 
-  .hero__figure {
-    margin: 0;
+  .hero .lead {
+    color: #ece9e2;
   }
-  .hero__figure img {
-    border-radius: var(--radius);
-    width: 100%;
-  }
-  .hero__figure figcaption {
-    margin-top: 0.7rem;
-    font-size: var(--step--1);
-    color: var(--ink-3);
-  }
+
+  /* Button und Hinweiszeile stehen in global.css — sie kommen aus Cta.astro
+     und werden von diesem scoped Block nicht erreicht. */
 
   @media (max-width: 55rem) {
-    .hero__inner {
-      grid-template-columns: 1fr;
+    .hero {
+      padding-block: clamp(3rem, 9vw, 5rem);
     }
-    .hero__figure {
-      order: -1;
+    .hero__bg {
+      object-position: 68% 50%;
+    }
+    .hero::before {
+      background:
+        linear-gradient(180deg, rgba(10, 6, 4, 0.8) 0%, rgba(10, 6, 4, 0.7) 45%,
+          rgba(10, 6, 4, 0.86) 100%);
     }
   }
 

@@ -253,6 +253,20 @@ dd {
   box-shadow: 4px 4px 0 var(--brand-deep);
 }
 
+/* Hero mit Foto-Hintergrund. Diese Regeln müssen hier stehen und nicht im
+   scoped <style> von index.astro: Button und Hinweiszeile kommen aus
+   Cta.astro und tragen deren Scope-ID, nicht die der Startseite. */
+.hero .btn {
+  border-color: var(--brand);
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.45);
+}
+.hero .cta-note {
+  color: #e6e2da;
+}
+.hero .cta-note a {
+  color: var(--brand);
+}
+
 .btn-ghost {
   display: inline-flex;
   align-items: center;
