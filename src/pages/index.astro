@@ -297,8 +297,18 @@ const testimonials = [
       <div class="grid grid--3">
         {
           clubs.map((c) => (
-            <article class="card">
-              <h3>{c.name}</h3>
+            <article class="card club-card">
+              <div class="club-card__head">
+                <img
+                  src={`/img/${c.logo}.webp`}
+                  alt={`Vereinswappen ${c.name}`}
+                  width="320"
+                  height="320"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <h3>{c.name}</h3>
+              </div>
               <p class="muted">
                 {c.street} · {c.zip} {c.city}
               </p>

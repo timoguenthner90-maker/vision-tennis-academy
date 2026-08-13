@@ -183,11 +183,29 @@ for (const file of htmlFiles) {
   else if (h1Count > 1) warn.push(`${h1Count} <h1> elements (expect 1)`);
 
   // images
+  //
+  // Ein leeres alt="" ist nach WCAG die RICHTIGE Auszeichnung für rein
+  // dekorative Bilder — es hält sie aus dem Screenreader heraus. Ein fehlendes
+  // alt ist dagegen immer ein Fehler. Damit ein versehentlich leeres alt nicht
+  // durchrutscht, muss die Dekorativ-Absicht ausdrücklich dastehen:
+  // aria-hidden="true" oder role="presentation". Alles andere bleibt hart.
   for (const tag of html.match(/<img\b[^>]*>/gi) || []) {
     const alt = getAttr(tag, "alt");
-    if (alt === null || alt === "") {
-      const src = getAttr(tag, "src") || "?";
+    const src = getAttr(tag, "src") || "?";
+    if (alt === null) {
       hard.push(`<img> without alt text → ${src}`);
+      continue;
+    }
+    if (alt === "") {
+      const decorative =
+        getAttr(tag, "aria-hidden") === "true" ||
+        ["presentation", "none"].includes(getAttr(tag, "role") ?? "");
+      if (!decorative) {
+        hard.push(
+          `<img> with empty alt but not marked decorative → ${src}` +
+            ` (add aria-hidden="true" or role="presentation")`,
+        );
+      }
     }
   }
 
