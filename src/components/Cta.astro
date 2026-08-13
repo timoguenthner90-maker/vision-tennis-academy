@@ -1,0 +1,65 @@
+---
+// Der EINE Call-to-Action (Story-Element #9): immer dasselbe Wording, immer
+// dasselbe Ziel. Varianten betreffen nur die Größe. Das Ziel ist WhatsApp —
+// bewusste Kundenentscheidung; die E-Mail-Alternative steht als Zweitweg daneben
+// (siehe `withNote`), damit niemand ohne WhatsApp abspringt.
+import { cta, site } from "../data/site";
+
+interface Props {
+  size?: "md" | "sm";
+  withNote?: boolean;
+  class?: string;
+}
+const { size = "md", withNote = false, class: extra = "" } = Astro.props;
+---
+
+{
+  withNote ? (
+    <div class="cta-row">
+      <a
+        href={cta.href}
+        class:list={["btn", size === "sm" && "btn--sm", extra]}
+        rel="noopener"
+      >
+        {cta.label}
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.6"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M5 12h14M13 6l6 6-6 6" />
+        </svg>
+      </a>
+      <p class="cta-note">
+        oder <a href={`mailto:${site.email}`}>{site.email}</a> · {cta.note}
+      </p>
+    </div>
+  ) : (
+    <a
+      href={cta.href}
+      class:list={["btn", size === "sm" && "btn--sm", extra]}
+      rel="noopener"
+    >
+      {cta.label}
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.6"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M5 12h14M13 6l6 6-6 6" />
+      </svg>
+    </a>
+  )
+}

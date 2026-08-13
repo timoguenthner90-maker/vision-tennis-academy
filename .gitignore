@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.astro/
+.netlify/
+verify-report.json
+.lighthouseci/
+.DS_Store
+npm-debug.log*
+screenshots/

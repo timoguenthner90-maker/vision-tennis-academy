@@ -1,0 +1,129 @@
+---
+/**
+ * Ersetzt den Shop. Bewusste Entscheidung des Kunden: Die Services rund um
+ * Material (Besaitung, Testschläger, Beratung) bleiben als Leistung erhalten —
+ * ohne Verkaufsfunktion, ohne Produkte, ohne Warenkorb. Der Weg ist Kontakt oder
+ * das Gespräch mit dem Trainer, nicht der Kauf.
+ */
+import Base from "../layouts/Base.astro";
+import Cta from "../components/Cta.astro";
+import { site } from "../data/site";
+
+const title = "Service rund um dein Material — Vision Tennis Academy";
+const description =
+  "Besaitung, Testschläger und ehrliche Ausrüstungsberatung direkt bei deinem Trainer. Kein Onlinekauf, sondern Beratung auf dem Platz.";
+
+const services = [
+  {
+    tag: "Besaitung",
+    t: "Neue Saiten für 25 €",
+    d: "Gib deinen Schläger beim Training ab. Für Premium-Saiten kommt je nach Material ein Aufpreis dazu — den nennen wir dir vorher.",
+    points: ["Abgabe direkt beim Training", "25 € pro Besaitung", "Aufpreis nur bei Premium-Saiten"],
+  },
+  {
+    tag: "Testschläger",
+    t: "Erst spielen, dann entscheiden",
+    d: "Du kannst bei uns jederzeit Testschläger ausleihen. Welcher Schläger passt, merkst du in einer Trainingsstunde deutlich schneller als in jeder Produktbeschreibung.",
+    points: ["Ausleihe jederzeit möglich", "Auch schon zur Probestunde", "Mehrere Modelle vergleichen"],
+  },
+  {
+    tag: "Beratung",
+    t: "Was zu deinem Spiel passt",
+    d: "Griffstärke, Schlägergewicht, Saitenhärte, Bälle für Kinder — sprich deinen Trainer an. Er sieht dich spielen und kann konkret einordnen, was sinnvoll ist.",
+    points: ["Beratung durch deinen Coach", "Auf Basis deines Spiels", "Ohne Verkaufsdruck"],
+  },
+];
+---
+
+<Base title={title} description={description}>
+  <section class="section section--tight">
+    <div class="wrap">
+      <span class="eyebrow">Service</span>
+      <h1>Material-Service — dort, wo du ohnehin schon bist.</h1>
+      <p class="lead">
+        Besaitung, Testschläger und Beratung laufen bei uns direkt über das Training. Du
+        gibst deinen Schläger beim Coach ab oder sprichst ihn auf dem Platz an — das ist
+        schneller und ehrlicher als jede Bestellung.
+      </p>
+      <div class="cta-row"><Cta withNote /></div>
+    </div>
+  </section>
+
+  <section class="section section--muted">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Was wir anbieten</span>
+        <h2>Drei Leistungen rund um dein Material.</h2>
+      </div>
+      <div class="grid grid--3">
+        {
+          services.map((s) => (
+            <article class="card">
+              <span class="card__tag">{s.tag}</span>
+              <h3>{s.t}</h3>
+              <p>{s.d}</p>
+              <ul class="ticks">
+                {s.points.map((p) => <li>{p}</li>)}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap two">
+      <div>
+        <span class="eyebrow">Kein Onlineshop</span>
+        <h2>Welcher Schläger der richtige ist, entscheidet sich auf dem Platz.</h2>
+      </div>
+      <div>
+        <p>
+          Wir verkaufen keine Ausrüstung mehr über die Website. Der Grund ist einfach: Bei
+          Schlägern, Saiten und Griffen entscheidet das persönliche Gefühl mehr als jede
+          Spezifikation. Wer einen Schläger einmal eine Stunde lang gespielt hat, weiß
+          mehr als nach dem Vergleich von zehn Produktseiten.
+        </p>
+        <p>
+          Deshalb leihen wir dir lieber einen Testschläger, sehen dich damit spielen und
+          sagen dir ehrlich, was passt — auch wenn das heißt, dass du woanders kaufst.
+        </p>
+        <a class="btn-ghost" href={`mailto:${site.email}`}>
+          Frage zu Material stellen
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Noch kein Training bei uns?</span>
+        <h2>Bring einfach deinen Schläger zur Probestunde mit.</h2>
+        <p class="lead">
+          Die erste Stunde ist kostenlos. Wenn du noch keinen eigenen Schläger hast,
+          stellen wir für die Probestunde einen zur Verfügung.
+        </p>
+      </div>
+      <Cta withNote />
+    </div>
+  </section>
+</Base>
+
+<style>
+  .two {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+  }
+  .two p {
+    max-width: 60ch;
+  }
+  @media (max-width: 55rem) {
+    .two {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

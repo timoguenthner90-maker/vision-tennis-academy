@@ -1,0 +1,58 @@
+---
+/**
+ * Fängt insbesondere die alten Shop-URLs ab, falls ein Redirect einmal nicht
+ * greift — deshalb steht der Hinweis auf den entfallenen Shop hier ausdrücklich.
+ */
+import Base from "../layouts/Base.astro";
+import Cta from "../components/Cta.astro";
+import { nav } from "../data/site";
+---
+
+<Base
+  title="Seite nicht gefunden — Vision Tennis Academy"
+  description="Diese Seite gibt es nicht mehr. Hier findest du den Weg zurück zu Training, Standorten und Kontakt."
+  noindex
+>
+  <section class="section">
+    <div class="wrap notfound">
+      <span class="eyebrow">Fehler 404</span>
+      <h1>Diese Seite gibt es nicht.</h1>
+      <p class="lead">
+        Möglicherweise suchst du etwas aus unserem früheren Onlineshop — den führen wir
+        nicht mehr. Besaitung, Testschläger und Materialberatung gibt es weiterhin, jetzt
+        direkt über das Training.
+      </p>
+
+      <ul class="links">
+        {nav.map((i) => <li><a href={i.href}>{i.label}</a></li>)}
+      </ul>
+
+      <div class="cta-row"><Cta withNote /></div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .notfound {
+    max-width: 50rem;
+  }
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 0.75rem;
+    list-style: none;
+    margin-top: 2rem;
+  }
+  .links a {
+    display: block;
+    font-weight: 700;
+    text-decoration: none;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0.45rem 1rem;
+  }
+  .links a:hover {
+    border-color: var(--ink);
+    background: var(--brand);
+  }
+</style>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Auge mit Tennisball — reduzierte Fassung der Bildmarke des Kunden. -->
+  <rect width="64" height="64" fill="#141414"/>
+  <path d="M6 32c8-12 18-18 26-18s18 6 26 18c-8 12-18 18-26 18S14 44 6 32Z"
+        fill="none" stroke="#ffffff" stroke-width="4"/>
+  <circle cx="32" cy="32" r="10" fill="#ece43f"/>
+  <path d="M25 25c5 3 6 11 0 14M39 25c-5 3-6 11 0 14"
+        fill="none" stroke="#141414" stroke-width="2"/>
+</svg>

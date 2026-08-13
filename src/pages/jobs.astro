@@ -1,0 +1,138 @@
+---
+/**
+ * Die Bestandsseite zeigt hier nur ein Banner-Bild und ein Formular ohne
+ * Stellenbeschreibung. Diese Seite formuliert aus, was aus der Strategie belegbar
+ * ist (Trainerbedarf, drei Standorte, Ausbildung möglich) — ohne Angaben zu
+ * erfinden, die nicht bekannt sind (Vergütung, Umfang, Eintrittstermin).
+ */
+import Base from "../layouts/Base.astro";
+import { site, coachCount, clubs } from "../data/site";
+
+const title = "Jobs — Trainer:in bei der Vision Tennis Academy";
+const description =
+  "Wir suchen laufend Trainerinnen und Trainer für unsere drei Standorte in Dormagen, Köln und Neuss — mit Lizenz oder mit dem Ziel, eine zu machen.";
+---
+
+<Base title={title} description={description}>
+  <section class="section section--tight">
+    <div class="wrap">
+      <span class="eyebrow">Jobs</span>
+      <h1>Werde Teil des Trainerteams.</h1>
+      <p class="lead">
+        Aus drei Trainern sind seit 2022 {coachCount} geworden — und wir suchen weiter.
+        Für unsere Standorte in Dormagen, Köln und Neuss brauchen wir Menschen, die
+        Tennis vermitteln können und Lust auf ein Team haben.
+      </p>
+      <a class="btn" href={`mailto:${site.jobsEmail}`}>
+        Bewirb dich per E-Mail
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.6"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M5 12h14M13 6l6 6-6 6" />
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <section class="section section--muted">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Die Stelle</span>
+        <h2>Wen wir suchen — und was du bekommst.</h2>
+      </div>
+      <div class="grid grid--2">
+        <article class="card">
+          <span class="card__tag">Wen wir suchen</span>
+          <h3>Trainer:innen mit Lizenz — oder mit dem Ziel, eine zu machen</h3>
+          <ul class="ticks">
+            <li>DTB-Lizenz (A, B oder C) oder vergleichbare Qualifikation</li>
+            <li>Auch ohne Lizenz: Wir bilden Nachwuchscoaches im Team aus</li>
+            <li>Erfahrung im Kinder- und Jugendtraining ist ein Plus</li>
+            <li>Zuverlässigkeit — feste Zeiten sind unser wichtigstes Versprechen</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <span class="card__tag">Was dich erwartet</span>
+          <h3>Kleine Gruppen und eine Organisation, die funktioniert</h3>
+          <ul class="ticks">
+            <li>Gruppen von 1 bis 4 Personen statt Großgruppen</li>
+            <li>Drei Anlagen mit Hallenkapazität für ganzjähriges Training</li>
+            <li>Digitale Planung und Abrechnung statt Zettelwirtschaft</li>
+            <li>Ein Team von {coachCount} Coaches, das sich gegenseitig vertritt</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap two">
+      <div>
+        <span class="eyebrow">Standorte</span>
+        <h2>Wo eingesetzt wird.</h2>
+        <ul class="places">
+          {
+            clubs.map((c) => (
+              <li>
+                <a href={`/standorte/#${c.slug}`}>{c.name}</a>
+                <span class="muted">
+                  {c.zip} {c.city} · {c.season}
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div>
+        <span class="eyebrow">So bewirbst du dich</span>
+        <h2>Eine E-Mail genügt für den Anfang.</h2>
+        <p>
+          Schreib uns kurz, welche Qualifikation du hast, an welchem Standort du
+          trainieren könntest und wie viel Zeit du einbringen willst. Zeugnisse und
+          Lebenslauf brauchen wir erst im zweiten Schritt.
+        </p>
+        <p>
+          Wir melden uns zurück und laden dich zu einem Gespräch ein — meistens direkt auf
+          den Platz.
+        </p>
+        <a class="btn-ghost" href={`mailto:${site.jobsEmail}`}>{site.jobsEmail}</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .two {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+  }
+  .two p {
+    max-width: 60ch;
+  }
+  .places {
+    list-style: none;
+    display: grid;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .places li {
+    display: grid;
+    gap: 0.15rem;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 1rem;
+  }
+  .places a {
+    font-weight: 800;
+  }
+</style>

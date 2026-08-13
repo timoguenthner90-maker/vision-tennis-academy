@@ -1,0 +1,89 @@
+---
+/**
+ * Pflichtangaben nach § 5 DDG, übernommen aus dem Impressum der Bestandsseite.
+ * Abweichung: Die dort genannte Adresse shop@vision-tennis.de ist durch
+ * info@vision-tennis.de ersetzt, da der Shop entfällt (SPEC.md §7.7).
+ */
+import Base from "../layouts/Base.astro";
+import { site } from "../data/site";
+
+const title = "Impressum — Vision Tennis Academy";
+const description =
+  "Anbieterkennzeichnung der Vision Tennis Academy GbR aus Dormagen mit Vertretungsberechtigten, Kontaktdaten und Umsatzsteuer-Identifikationsnummer.";
+---
+
+<Base title={title} description={description} noindex>
+  <section class="section">
+    <div class="wrap prose">
+      <span class="eyebrow">Rechtliches</span>
+      <h1>Impressum</h1>
+
+      <h2>Angaben gemäß § 5 DDG</h2>
+      <address>
+        {site.legalName}<br />
+        {site.street}<br />
+        {site.zip} {site.city}<br />
+        Deutschland
+      </address>
+
+      <h2>Vertreten durch</h2>
+      <ul>
+        {site.partners.map((p) => <li>{p}</li>)}
+      </ul>
+
+      <h2>Kontakt</h2>
+      <ul>
+        <li>Telefon: <a href={`tel:${site.phoneHref}`}>{site.phone}</a></li>
+        <li>E-Mail: <a href={`mailto:${site.email}`}>{site.email}</a></li>
+      </ul>
+
+      <h2>Umsatzsteuer-Identifikationsnummer</h2>
+      <p>Gemäß § 27 a Umsatzsteuergesetz: {site.vatId}</p>
+
+      <h2>Registereintrag</h2>
+      <p>
+        Als Gesellschaft bürgerlichen Rechts (GbR) besteht kein Eintrag im
+        Handelsregister.
+      </p>
+
+      <h2>Verantwortlich für den Inhalt</h2>
+      <p>
+        {site.partners.join(", ")}<br />
+        Anschrift wie oben.
+      </p>
+
+      <h2>Verbraucherstreitbeilegung</h2>
+      <p>
+        Wir sind nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor
+        einer Verbraucherschlichtungsstelle teilzunehmen.
+      </p>
+
+      <h2>Haftung für Inhalte</h2>
+      <p>
+        Als Diensteanbieter sind wir für eigene Inhalte auf diesen Seiten nach den
+        allgemeinen Gesetzen verantwortlich. Wir sind jedoch nicht verpflichtet,
+        übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach
+        Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.
+        Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach
+        den allgemeinen Gesetzen bleiben hiervon unberührt.
+      </p>
+
+      <h2>Haftung für Links</h2>
+      <p>
+        Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir
+        keinen Einfluss haben. Für die Inhalte der verlinkten Seiten ist stets der
+        jeweilige Anbieter verantwortlich. Zum Zeitpunkt der Verlinkung waren keine
+        Rechtsverstöße erkennbar. Bei Bekanntwerden von Rechtsverletzungen entfernen wir
+        derartige Links umgehend.
+      </p>
+
+      <h2>Urheberrecht</h2>
+      <p>
+        Die durch uns erstellten Inhalte und Werke auf diesen Seiten unterliegen dem
+        deutschen Urheberrecht. Beiträge Dritter sind als solche gekennzeichnet.
+        Vervielfältigung, Bearbeitung und Verbreitung außerhalb der Grenzen des
+        Urheberrechts bedürfen unserer schriftlichen Zustimmung.
+      </p>
+    </div>
+  </section>
+</Base>

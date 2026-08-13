@@ -1,0 +1,114 @@
+---
+/**
+ * Purchase + After-Sale. Alle 30 Fragen der Bestandsseite, gegliedert in fünf
+ * Kategorien. FAQPage-Strukturdaten, damit die Antworten auch in der Suche
+ * erscheinen — die Journey nennt Google als Hauptkanal der Awareness-Phase.
+ */
+import Base from "../layouts/Base.astro";
+import Cta from "../components/Cta.astro";
+import { faqGroups, faqFlat } from "../data/faq";
+import { faqLd } from "../data/jsonld";
+
+const title = "Häufige Fragen — Vision Tennis Academy";
+const description =
+  "Antworten zu Training, Gruppen, Preisen, Saison, Mitgliedschaft und Material — von der Probestunde bis zur Abrechnung per SEPA-Lastschrift.";
+
+const slug = (s: string) =>
+  s
+    .toLowerCase()
+    .replace(/ä/g, "ae")
+    .replace(/ö/g, "oe")
+    .replace(/ü/g, "ue")
+    .replace(/ß/g, "ss")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+---
+
+<Base title={title} description={description} jsonLd={faqLd(faqFlat)}>
+  <section class="section section--tight">
+    <div class="wrap">
+      <span class="eyebrow">FAQ</span>
+      <h1>Häufige Fragen.</h1>
+      <p class="lead">
+        Von der Probestunde bis zur Abrechnung. Wenn deine Frage hier nicht steht:
+        Schreib uns einfach — wir antworten kurzfristig.
+      </p>
+
+      <nav class="faq-toc" aria-label="Themen">
+        <ul>
+          {
+            faqGroups.map((g) => (
+              <li>
+                <a href={`#${slug(g.title)}`}>{g.title}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="wrap faq-body">
+      {
+        faqGroups.map((g) => (
+          <div class="faq-group" id={slug(g.title)}>
+            <h2>{g.title}</h2>
+            {g.items.map((item) => (
+              <article class="faq-item">
+                <h3>{item.q}</h3>
+                {item.a.map((p) => (
+                  <p>{p}</p>
+                ))}
+              </article>
+            ))}
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Frage offen geblieben?</span>
+        <h2>Schreib uns — meistens ist es in zwei Sätzen geklärt.</h2>
+      </div>
+      <Cta withNote />
+    </div>
+  </section>
+</Base>
+
+<style>
+  .faq-toc {
+    margin-top: 2rem;
+  }
+  .faq-toc ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 0.75rem;
+    list-style: none;
+  }
+  .faq-toc a {
+    display: block;
+    font-size: var(--step--1);
+    font-weight: 700;
+    text-decoration: none;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0.4rem 0.9rem;
+  }
+  .faq-toc a:hover {
+    border-color: var(--ink);
+    background: var(--brand);
+  }
+
+  .faq-body {
+    max-width: 52rem;
+  }
+  .faq-group h2 {
+    font-size: var(--step-2);
+    margin-bottom: 1.25rem;
+    scroll-margin-top: 2rem;
+  }
+</style>

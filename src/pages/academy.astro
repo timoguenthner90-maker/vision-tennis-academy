@@ -1,0 +1,203 @@
+---
+/**
+ * Consideration + Loyalty. Trägt Purpose, Werte und das vollständige Trainerteam —
+ * laut Empathy Map ist „guter Trainer, gleicher Trainer" der stärkste Gain, also
+ * bekommen die Coaches Gesicht und Lizenzstufe statt einer bloßen Zahl.
+ * Der Ausblick auf Padel und Pickleball steht bewusst unter „Wohin wir wollen"
+ * und nicht im Angebot — beides ist noch nicht buchbar.
+ */
+import Base from "../layouts/Base.astro";
+import Cta from "../components/Cta.astro";
+import { headCoaches, coaches, coachCount } from "../data/site";
+
+const title = "Die Academy — Vision Tennis Academy";
+const description =
+  "Gegründet 2022 in Dormagen: 21 lizenzierte Trainerinnen und Trainer, drei Vereine, ein Konzept. Werte, Team und Ausblick der Vision Tennis Academy.";
+
+const values = [
+  { t: "Qualität", d: "Lizenzierte Trainer:innen und kleine Gruppen statt Masse." },
+  { t: "Verlässlichkeit", d: "Feste Zeiten, fester Trainer, klare Absprachen." },
+  { t: "Gemeinschaft", d: "Training, Camps und Vereinsleben gehören zusammen." },
+  { t: "Leidenschaft", d: "Begeisterung für den Sport ist der Grund, wiederzukommen." },
+  { t: "Persönliche Betreuung", d: "Jede:r wird einzeln gesehen, nicht als Gruppenmitglied." },
+];
+
+const initials = (n: string) => n.slice(0, 2).toUpperCase();
+---
+
+<Base title={title} description={description}>
+  <section class="section section--tight">
+    <div class="wrap">
+      <span class="eyebrow">Die Academy</span>
+      <h1>Gemeinschaft, Leidenschaft und sportlicher Erfolg gehören zusammen.</h1>
+      <p class="lead">
+        Im Juni 2022 haben wir unsere Tennisschule gegründet und das Trainerteam nach und
+        nach vergrößert. Heute sind wir {coachCount} Trainerinnen und Trainer an drei
+        Vereinen — mit einem Anspruch, der sich nicht verändert hat.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--muted">
+    <div class="wrap">
+      <div class="two">
+        <div>
+          <span class="eyebrow">Warum wir das machen</span>
+          <h2>Menschen für Racketsport begeistern — und in Bewegung halten.</h2>
+        </div>
+        <div>
+          <p>
+            Wir wollen ein Umfeld schaffen, in dem sich Freizeitspieler und ambitionierte
+            Spieler gleichermaßen weiterentwickeln können — sportlich und persönlich. Ob
+            Anfängerin, Fortgeschrittener oder Turnierspieler: Unser Ziel ist es, dich auf
+            deinem Weg zu begleiten.
+          </p>
+          <p>
+            Dabei setzen wir auf persönliche und nachhaltige Förderung, zugeschnitten auf
+            deine Stärken, deine Ziele und deine Leidenschaft. Unsere Trainerinnen und
+            Trainer sind nicht nur Fachleute, sondern deine größten Unterstützer.
+          </p>
+        </div>
+      </div>
+
+      <ul class="values grid grid--3">
+        {
+          values.map((v) => (
+            <li class="pain">
+              <h3>{v.t}</h3>
+              <p>{v.d}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Head Coaches</span>
+        <h2>Die drei Gründer.</h2>
+        <p class="lead">
+          Jan, Max und Timo haben die Academy 2022 gegründet — alle drei DTB-B-Trainer und
+          alle drei weiterhin selbst auf dem Platz.
+        </p>
+      </div>
+
+      <div class="grid grid--3 heads">
+        {
+          headCoaches.map((c) => (
+            <figure class="person">
+              <img
+                src={`/img/${c.img}.webp`}
+                alt={`${c.name}, ${c.role} der Vision Tennis Academy`}
+                width="640"
+                height="640"
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption>
+                <span class="person__name">{c.name}</span>
+                <span class="person__role">
+                  {c.role} · {c.license}
+                </span>
+              </figcaption>
+            </figure>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--muted">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Das Team</span>
+        <h2>Unsere Trainerinnen und Trainer.</h2>
+        <p class="lead">
+          Vom DTB-A-Trainer bis zu den Nachwuchscoaches in Ausbildung — die Lizenzstufe
+          steht bei jeder Person dabei.
+        </p>
+      </div>
+
+      <div class="grid grid--4">
+        {
+          coaches.map((c) => (
+            <figure class="person">
+              {c.img ? (
+                <img
+                  src={`/img/${c.img}.webp`}
+                  alt={`${c.name}, Coach der Vision Tennis Academy`}
+                  width="480"
+                  height="480"
+                  loading="lazy"
+                  decoding="async"
+                />
+              ) : (
+                <div class="person__initials" aria-hidden="true">
+                  {initials(c.name)}
+                </div>
+              )}
+              <figcaption>
+                <span class="person__name">{c.name}</span>
+                <span class="person__role">{c.license}</span>
+              </figcaption>
+            </figure>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="wrap">
+      <div class="two">
+        <div>
+          <span class="eyebrow">Wohin wir wollen</span>
+          <h2>Von der Tennisschule zur Racketsport-Academy.</h2>
+        </div>
+        <div>
+          <p>
+            Wir wollen die erfolgreichste Racketsport-Academy der Region werden: mit
+            hochwertigem Training, starken Trainerinnen und Trainern und einer
+            Organisation, auf die man sich verlassen kann.
+          </p>
+          <p>
+            Perspektivisch sollen neben Tennis auch <strong>Padel und Pickleball</strong>
+            feste Bestandteile unseres Angebots werden, dazu weitere Standorte und
+            Partnervereine. Beides ist in Planung und noch nicht buchbar — sobald es
+            losgeht, steht es hier.
+          </p>
+          <Cta />
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .two {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+  .two p {
+    max-width: 60ch;
+  }
+  @media (max-width: 55rem) {
+    .two {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .values {
+    list-style: none;
+    margin-bottom: 0;
+  }
+
+  .heads {
+    max-width: 60rem;
+  }
+</style>

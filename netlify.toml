@@ -1,0 +1,133 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# ---------------------------------------------------------------------------
+# Redirects der alten Shopify-URLs.
+#
+# Sie greifen erst, wenn vision-tennis.de auf Netlify zeigt. Solange die Domain
+# bei Shopify liegt, laufen sie ins Leere — schaden aber auch nicht. Zweck: Beim
+# späteren DNS-Umzug geht kein Ranking und kein Bookmark verloren.
+#
+# Alle Produkt- und Collection-URLs landen auf /service/, weil dort steht, was
+# aus dem Shop geworden ist. AGB und Widerrufsrecht entfallen ersatzlos — ohne
+# Warenverkauf besteht keine Pflicht dazu; sie zeigen aufs Impressum.
+# ---------------------------------------------------------------------------
+
+[[redirects]]
+  from = "/pages/academy"
+  to = "/academy/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pages/training-buchen"
+  to = "/training/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pages/faqs"
+  to = "/faq/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pages/jobs"
+  to = "/jobs/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pages/contact"
+  to = "/kontakt/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pages/shop"
+  to = "/service/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/collections/*"
+  to = "/service/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/products/*"
+  to = "/service/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/cart"
+  to = "/service/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/account/*"
+  to = "/kontakt/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/policies/legal-notice"
+  to = "/impressum/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/policies/privacy-policy"
+  to = "/datenschutz/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/policies/contact-information"
+  to = "/kontakt/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/policies/refund-policy"
+  to = "/impressum/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/policies/terms-of-service"
+  to = "/impressum/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blogs/*"
+  to = "/"
+  status = 301
+  force = true
+
+# ---------------------------------------------------------------------------
+# Security-Header. Die CSP ist eng gefasst, weil die Seite kein JavaScript und
+# keine externen Ressourcen lädt — Styles kommen inline aus Astro-Komponenten.
+# ---------------------------------------------------------------------------
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "SAMEORIGIN"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=(), interest-cohort=()"
+    Content-Security-Policy = "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'none'; font-src 'self'; form-action 'none'; frame-ancestors 'self'; base-uri 'self'"
+
+[[headers]]
+  for = "/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

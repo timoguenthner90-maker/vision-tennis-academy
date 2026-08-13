@@ -1,0 +1,471 @@
+---
+/**
+ * Startseite nach dem Storytelling Skill Framework (12 Elemente, feste Reihenfolge).
+ * Held = Elternteil (Empathy Map des Kunden). Die Marke tritt als Guide auf (#7).
+ *
+ *  1 Logo + 2 Navigation → Header.astro
+ *  3 Heroshot · 4 Headline · 5 Einleitung · 9 CTA   → Hero
+ *  6 Painpoints · 9 CTA
+ *  7 Vorstellung (Autorität) · 9 CTA
+ *  8 Plan (3 Schritte) · 9 CTA
+ * 10 Trust
+ * 11 Testimonials · 9 CTA
+ * 12 Weitere Elemente + Footer
+ */
+import Base from "../layouts/Base.astro";
+import Cta from "../components/Cta.astro";
+import { clubs, coachCount, site } from "../data/site";
+import { organizationLd, websiteLd } from "../data/jsonld";
+
+const title = "Vision Tennis Academy — Tennistraining Dormagen & Köln";
+const description =
+  "Tennistraining für Kinder, Jugendliche und Erwachsene an drei Vereinen zwischen Düsseldorf und Köln. Gruppen von 1 bis 4, feste Zeiten, Probestunde gratis.";
+
+// Element #6 — die sechs Painpoints stammen unverändert aus der Empathy Map
+// des Kunden (Pains + die offenen Fragen aus „Was sagt sie?").
+const pains = [
+  {
+    t: "„Ist die Gruppe wirklich passend?“",
+    d: "Zu stark, zu schwach, zu alt, zu jung — in der falschen Gruppe verliert ein Kind schnell die Lust am Sport.",
+  },
+  {
+    t: "Trainingszeiten, die nicht in die Woche passen",
+    d: "Zwischen Schule, Job und Geschwisterkindern bleibt nur ein schmales Zeitfenster. Passt der Slot nicht, fällt das Training aus.",
+  },
+  {
+    t: "Eine Anmeldung, die sich zieht",
+    d: "Formular abschicken und dann warten. Wer sich für einen Sport entscheidet, will keine zwei Wochen auf eine Rückmeldung warten.",
+  },
+  {
+    t: "Kommunikation, die abreißt",
+    d: "Fällt Training aus? Wie läuft es überhaupt? Ohne verlässliche Rückmeldung bleibt bei Eltern Unsicherheit zurück.",
+  },
+  {
+    t: "Ständig wechselnde Trainer",
+    d: "Vertrauen entsteht über Monate. Wer alle paar Wochen einen neuen Coach vor sich hat, fängt jedes Mal von vorn an.",
+  },
+  {
+    t: "Preise, die man erst erfragen muss",
+    d: "Was kostet eine Stunde, was die Saison, was kommt an Vereinsbeitrag dazu? Wer vergleichen will, braucht diese Zahlen vorher.",
+  },
+];
+
+// Element #8 — der 3-Schritte-Plan
+const steps = [
+  {
+    t: "Melde dich — kurz reicht",
+    d: "Eine Nachricht per WhatsApp oder E-Mail: Alter, bisherige Erfahrung und wann ihr Zeit habt. Mehr brauchen wir nicht.",
+  },
+  {
+    t: "Kostenlos ausprobieren",
+    d: "Eine ganze Trainingsstunde in einer passenden Gruppe an einem unserer drei Vereine — kostenlos und unverbindlich.",
+  },
+  {
+    t: "Feste Zeit, fester Trainer",
+    d: "Passt es, ordnen wir eine Gruppe nach Alter und Niveau zu. Ab dann: derselbe Termin und derselbe Coach über die ganze Saison.",
+  },
+];
+
+// Element #10 — nur belegbare Fakten, keine erfundenen Siegel oder Auszeichnungen.
+const facts = [
+  { n: String(coachCount), l: "Trainer:innen im Team" },
+  { n: "1–4", l: "Personen pro Gruppe" },
+  { n: "3", l: "Vereine in der Region" },
+  { n: "2022", l: "gegründet in Dormagen" },
+  { n: "DTB", l: "lizenzierte Coaches" },
+  { n: "0 €", l: "für die Probestunde" },
+];
+
+// Element #11 — PLATZHALTER. Auf der Bestandsseite existieren keine Kundenstimmen.
+// Vor dem Production-Deploy ersetzen oder Sektion entfernen (siehe SPEC.md §7.1).
+const testimonials = [
+  {
+    q: "Unsere Tochter ist als blutige Anfängerin gestartet und geht jetzt jede Woche freiwillig hin. Die Gruppe passt einfach.",
+    a: "Beispieltext — Mutter, TC Bayer Dormagen",
+  },
+  {
+    q: "Ich wollte nach zwanzig Jahren Pause wieder anfangen. Nach der Probestunde war klar, dass das Niveau passt.",
+    a: "Beispieltext — Erwachsener Freizeitspieler, TC Ford Köln",
+  },
+  {
+    q: "Im Mannschaftstraining wird konkret an den Punkten gearbeitet, die im Match fehlen. Das merkt man in der Medenrunde.",
+    a: "Beispieltext — Mannschaftsspieler, Uedesheimer TV",
+  },
+];
+---
+
+<Base title={title} description={description} jsonLd={[organizationLd, websiteLd]}>
+  <!-- #3 Heroshot · #4 Headline · #5 Einleitung · #9 CTA -->
+  <section class="hero">
+    <div class="wrap hero__inner">
+      <div class="hero__text">
+        <span class="eyebrow">Dormagen · Köln · Neuss</span>
+        <h1>Tennistraining, das zu deinem Kind passt.</h1>
+        <p class="lead">
+          Wir ordnen jede:n Spieler:in einer Gruppe nach Alter und Niveau zu — höchstens
+          vier Personen, feste Zeit, fester Trainer, an drei Vereinen zwischen Düsseldorf
+          und Köln. Die erste Stunde ist kostenlos, damit ihr vorher wisst, worauf ihr
+          euch einlasst.
+        </p>
+        <Cta withNote />
+      </div>
+
+      <figure class="hero__figure">
+        <img
+          src="/img/hero-team.webp"
+          alt="Die drei Head Coaches der Vision Tennis Academy mit Schlägern in der Tennishalle"
+          width="1600"
+          height="900"
+          fetchpriority="high"
+          decoding="async"
+        />
+        <figcaption>
+          Jan Gerring, Max Gumz und Timo Günthner — die drei Head Coaches und Gründer.
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- #6 Painpoints · #9 CTA -->
+  <section class="section section--muted">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Warum die Wahl so schwerfällt</span>
+        <h2>Beim Tennistraining entscheidet sich vieles vor der ersten Stunde.</h2>
+        <p class="lead">
+          Nicht die Frage, ob trainiert wird — sondern in welcher Gruppe, zu welcher
+          Zeit und bei wem. Genau daran scheitern die meisten Anmeldungen.
+        </p>
+      </div>
+
+      <ul class="grid grid--3 pain-list">
+        {
+          pains.map((p) => (
+            <li class="pain">
+              <h3>{p.t}</h3>
+              <p>{p.d}</p>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="cta-row"><Cta /></div>
+    </div>
+  </section>
+
+  <!-- #7 Vorstellung / Autorität -->
+  <section class="section">
+    <div class="wrap guide">
+      <div>
+        <span class="eyebrow">Wer wir sind</span>
+        <h2>Drei Trainer, die eine Tennisschule wollten, die verlässlich läuft.</h2>
+        <p>
+          Im Juni 2022 haben Jan, Max und Timo die Vision Tennis Academy gegründet — alle
+          drei DTB-B-Trainer, alle drei selbst noch auf dem Platz. Aus drei Coaches sind
+          inzwischen {coachCount} geworden, vom DTB-A-Trainer bis zu den Nachwuchscoaches
+          in Ausbildung.
+        </p>
+        <p>
+          Der Anspruch ist dabei derselbe geblieben: Training, das sich an der einzelnen
+          Person orientiert, nicht an der Gruppengröße. Deshalb trainieren bei uns
+          höchstens vier Personen gleichzeitig, und deshalb bleibt der Trainer über die
+          Saison derselbe. Was wir ergänzt haben, ist die Organisation drumherum —
+          Anmeldung, Gruppeneinteilung und Abrechnung laufen digital, damit vom Training
+          mehr übrig bleibt als Verwaltung.
+        </p>
+        <ul class="ticks">
+          <li>Ganzjährig trainieren: im Sommer draußen, im Winter in der Halle</li>
+          <li>Kinder und Jugendliche ab 5 Jahren, Erwachsene bis 90</li>
+          <li>Von der ersten Ballschule bis zum Mannschafts- und Turniertraining</li>
+        </ul>
+        <div class="cta-row"><Cta /></div>
+      </div>
+
+      <div class="guide__pics">
+        <img
+          src="/img/coach-jan.webp"
+          alt="Jan Gerring, Head Coach der Vision Tennis Academy"
+          width="640"
+          height="640"
+          loading="lazy"
+          decoding="async"
+        />
+        <img
+          src="/img/coach-max.webp"
+          alt="Max Gumz, Head Coach der Vision Tennis Academy"
+          width="640"
+          height="640"
+          loading="lazy"
+          decoding="async"
+        />
+        <img
+          src="/img/coach-timo.webp"
+          alt="Timo Günthner, Head Coach der Vision Tennis Academy"
+          width="640"
+          height="640"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- #8 Plan · #9 CTA -->
+  <section class="section section--dark">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">So einfach geht es</span>
+        <h2>In drei Schritten auf den Platz.</h2>
+      </div>
+
+      <ol class="grid grid--3 steps">
+        {
+          steps.map((s, i) => (
+            <li class="step">
+              <span class="step__num" aria-hidden="true">{i + 1}</span>
+              <h3>{s.t}</h3>
+              <p>{s.d}</p>
+            </li>
+          ))
+        }
+      </ol>
+
+      <div class="cta-row">
+        <Cta />
+        <p class="cta-note">
+          Lieber direkt selbst buchen? Die Termine der drei Vereine findest du unter
+          <a href="/training/">Training</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- #10 Trust — belegbare Fakten statt Siegel -->
+  <section class="section section--tight">
+    <div class="wrap">
+      <ul class="facts">
+        {
+          facts.map((f) => (
+            <li class="fact">
+              <span class="fact__n">{f.n}</span>
+              <span class="fact__l">{f.l}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- #11 Testimonials · #9 CTA -->
+  <section class="section section--muted">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Stimmen</span>
+        <h2>Was Spielerinnen, Spieler und Eltern sagen.</h2>
+      </div>
+
+      <div class="grid grid--3">
+        {
+          testimonials.map((t) => (
+            <figure class="quote">
+              <blockquote>{t.q}</blockquote>
+              <figcaption>{t.a}</figcaption>
+            </figure>
+          ))
+        }
+      </div>
+
+      <div class="cta-row"><Cta /></div>
+    </div>
+  </section>
+
+  <!-- #12 Weitere Elemente: Standorte + Kontaktfinale -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Wo wir trainieren</span>
+        <h2>Drei Vereine, ein Trainerteam.</h2>
+        <p class="lead">
+          In Dormagen und Köln trainieren wir ganzjährig, im Winter in der Halle. In
+          Uedesheim läuft die Sommersaison; über den Winter geht es in Dormagen weiter.
+        </p>
+      </div>
+
+      <div class="grid grid--3">
+        {
+          clubs.map((c) => (
+            <article class="card">
+              <h3>{c.name}</h3>
+              <p class="muted">
+                {c.street} · {c.zip} {c.city}
+              </p>
+              <p>{c.courts}.</p>
+              <a class="btn-ghost" href={`/standorte/#${c.slug}`}>
+                Zur Anlage
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark" id="kontakt">
+    <div class="wrap finale">
+      <div>
+        <span class="eyebrow">Der nächste Schritt</span>
+        <h2>Eine Stunde ausprobieren, dann entscheiden.</h2>
+        <p class="lead">
+          Schreib uns kurz, wie alt dein Kind ist und wann ihr Zeit habt — oder ob du
+          selbst wieder anfangen willst. Wir suchen die passende Gruppe und melden uns
+          zurück.
+        </p>
+        <Cta withNote />
+      </div>
+      <ul class="finale__contact">
+        <li>
+          <span>WhatsApp &amp; Telefon</span>
+          <a href={`tel:${site.phoneHref}`}>{site.phone}</a>
+        </li>
+        <li>
+          <span>E-Mail</span>
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+        </li>
+        <li>
+          <span>Adresse</span>
+          {site.street}, {site.zip} {site.city}
+        </li>
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    border-bottom: 1px solid var(--line);
+    padding-block: clamp(2.5rem, 6vw, 5rem);
+  }
+
+  .hero__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+  }
+
+  .hero h1 {
+    margin-bottom: 1.25rem;
+  }
+
+  .hero__figure {
+    margin: 0;
+  }
+  .hero__figure img {
+    border-radius: var(--radius);
+    width: 100%;
+  }
+  .hero__figure figcaption {
+    margin-top: 0.7rem;
+    font-size: var(--step--1);
+    color: var(--ink-3);
+  }
+
+  @media (max-width: 55rem) {
+    .hero__inner {
+      grid-template-columns: 1fr;
+    }
+    .hero__figure {
+      order: -1;
+    }
+  }
+
+  /* Das Framework zeichnet die Painpoints als 3×2-Raster. Ohne feste Spaltenzahl
+     bricht auto-fit auf breiten Viewports in 4+2 um — unruhig und asymmetrisch. */
+  .pain-list {
+    list-style: none;
+  }
+  @media (min-width: 62rem) {
+    .pain-list {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .guide {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+  }
+  .guide p {
+    max-width: 60ch;
+  }
+  .guide__pics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+  .guide__pics img {
+    border-radius: var(--radius);
+    width: 100%;
+  }
+  .guide__pics img:first-child {
+    grid-column: span 2;
+  }
+
+  @media (max-width: 55rem) {
+    .guide {
+      grid-template-columns: 1fr;
+    }
+    .guide__pics {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .guide__pics img:first-child {
+      grid-column: auto;
+    }
+  }
+
+  .steps {
+    list-style: none;
+    counter-reset: none;
+  }
+
+  .finale {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+  }
+  .finale__contact {
+    list-style: none;
+    display: grid;
+    gap: 1.4rem;
+    border-top: 1px solid #333330;
+    padding-top: 1.75rem;
+  }
+  .finale__contact li {
+    display: grid;
+    gap: 0.2rem;
+    color: #d5d5d0;
+  }
+  .finale__contact span {
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--brand);
+  }
+  .finale__contact a {
+    text-decoration: none;
+    border-bottom: 1px solid #55554f;
+    justify-self: start;
+  }
+  .finale__contact a:hover {
+    border-bottom-color: var(--brand);
+  }
+
+  @media (max-width: 55rem) {
+    .finale {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

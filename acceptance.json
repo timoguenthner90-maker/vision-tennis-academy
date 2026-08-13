@@ -1,0 +1,47 @@
+{
+  "titleMaxLen": 60,
+  "descMinLen": 50,
+  "descMaxLen": 160,
+  "hard": {
+    "brokenInternalLinks": true,
+    "missingTitle": true,
+    "missingH1": true,
+    "missingMetaDescription": true,
+    "imageMissingAlt": true,
+    "invalidJsonLd": true,
+    "missingHtmlLang": true,
+    "missingViewport": true
+  },
+  "warn": {
+    "multipleH1": true,
+    "titleTooLong": true,
+    "descLength": true,
+    "missingCanonical": true,
+    "missingOpenGraph": true
+  },
+  "exemptFromSeo": ["404.html"],
+  "lighthouse": {
+    "performance": 0.9,
+    "accessibility": 0.95,
+    "bestPractices": 0.95,
+    "seo": 1.0
+  },
+  "requiredUrls": [
+    "/",
+    "/training/",
+    "/standorte/",
+    "/academy/",
+    "/service/",
+    "/faq/",
+    "/jobs/",
+    "/kontakt/",
+    "/impressum/",
+    "/datenschutz/"
+  ],
+  "requiredStructuredData": [
+    "Organization",
+    "WebSite",
+    "SportsActivityLocation",
+    "FAQPage"
+  ]
+}

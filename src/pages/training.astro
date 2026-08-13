@@ -1,0 +1,251 @@
+---
+/**
+ * Consideration → Purchase. Diese Seite trägt die Last der Entscheidungsphase:
+ * Sie beantwortet die Fragen, die auf der Bestandsseite nur per Mail zu klären
+ * waren — welche Gruppen, welches Alter, welche Zeiten, welcher Preis.
+ */
+import Base from "../layouts/Base.astro";
+import Cta from "../components/Cta.astro";
+import { clubs, prices, teamPrices } from "../data/site";
+
+const title = "Training & Preise — Vision Tennis Academy";
+const description =
+  "Gruppentraining von 1 bis 4 Personen, Mannschafts- und Einzeltraining für Kinder ab 5 und Erwachsene. Alle Stunden- und Saisonpreise offen aufgeführt.";
+
+const offers = [
+  {
+    tag: "Kinder & Jugendliche",
+    t: "Von der Ballschule bis zum Turniertraining",
+    d: "Ab etwa 5 Jahren. Die Zuordnung erfolgt nach Alter und Niveau, nicht nach Jahrgang — Anfänger trainieren mit Anfängern, Ambitionierte mit Ambitionierten.",
+    points: ["Gruppen von 1 bis 4", "60 Minuten pro Woche", "Feste Zeit über die Saison"],
+  },
+  {
+    tag: "Erwachsene",
+    t: "Wiedereinstieg oder regelmäßiges Spiel",
+    d: "Von 18 bis 90 Jahren. Ob nach Jahren Pause oder als regelmäßig spielender Freizeitspieler — wir setzen dort an, wo du stehst.",
+    points: ["Einzeln, zu zweit oder in der Gruppe", "Auch tagsüber möglich", "Ganzjährig, im Winter in der Halle"],
+  },
+  {
+    tag: "Mannschaften",
+    t: "Medenrunde und Turnierspiel",
+    d: "Mannschaftstraining für 5 bis 8 Personen auf zwei Plätzen. Die Kapazität ist begrenzt, weil zwei Plätze gleichzeitig belegt werden.",
+    points: ["5 bis 8 Personen", "1, 1,5 oder 2 Stunden pro Woche", "Zwei Plätze parallel"],
+  },
+];
+---
+
+<Base title={title} description={description}>
+  <section class="section section--tight">
+    <div class="wrap">
+      <span class="eyebrow">Training</span>
+      <h1>Ein Trainingsplatz, der zu Alter, Niveau und Woche passt.</h1>
+      <p class="lead">
+        Wir trainieren an drei Vereinen zwischen Düsseldorf und Köln — in Gruppen von
+        höchstens vier Personen, wöchentlich zur festen Zeit und mit demselben Trainer
+        über die ganze Saison.
+      </p>
+      <div class="cta-row"><Cta withNote /></div>
+    </div>
+  </section>
+
+  <section class="section section--muted">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Angebote</span>
+        <h2>Für wen wir trainieren.</h2>
+      </div>
+      <div class="grid grid--3">
+        {
+          offers.map((o) => (
+            <article class="card">
+              <span class="card__tag">{o.tag}</span>
+              <h3>{o.t}</h3>
+              <p>{o.d}</p>
+              <ul class="ticks">
+                {o.points.map((p) => <li>{p}</li>)}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Preise</span>
+        <h2>Alle Kosten offen — vor der ersten Stunde.</h2>
+        <p class="lead">
+          Der Preis richtet sich nach der Gruppengröße und bezieht sich immer auf 60
+          Minuten. Je größer die Gruppe, desto günstiger wird es für die einzelne Person.
+        </p>
+      </div>
+
+      <div class="table-scroll">
+        <table>
+          <caption class="sr-only">
+            Stunden- und Saisonpreise nach Gruppengröße
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Gruppe</th>
+              <th scope="col">pro Stunde (60 Min.)</th>
+              <th scope="col">Saison pro Person</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              prices.map((p) => (
+                <tr>
+                  <td>{p.group}</td>
+                  <td>{p.perHour} €</td>
+                  <td>{p.season} €</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="sub">Mannschaftstraining (5 bis 8 Personen)</h3>
+      <p>
+        70 € pro Stunde. Der höhere Satz ergibt sich daraus, dass zwei Plätze gleichzeitig
+        belegt werden und die Teilnahme von acht Personen garantiert ist.
+      </p>
+      <div class="table-scroll">
+        <table>
+          <caption class="sr-only">Saisonpreise Mannschaftstraining</caption>
+          <thead>
+            <tr>
+              <th scope="col">Umfang</th>
+              <th scope="col">Saison gesamt</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              teamPrices.map((t) => (
+                <tr>
+                  <td>{t.unit}</td>
+                  <td>{t.season} €</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <div class="notes grid grid--2">
+        <div class="card">
+          <h3>Was zusätzlich dazukommt</h3>
+          <p>
+            Für regelmäßiges Training ist eine Mitgliedschaft im jeweiligen Verein nötig.
+            Die Beiträge legen die Vereine selbst fest und liegen je nach Anlage zwischen
+            85 € und 375 € im Jahr — die Übersicht steht unter
+            <a href="/standorte/">Standorte</a>.
+          </p>
+          <p>
+            Für die kostenlose Probestunde brauchst du <strong>keine</strong> Mitgliedschaft.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Wie abgerechnet wird</h3>
+          <p>
+            Nach dem Saisonstart erhältst du eine Rechnung. Der Betrag wird per
+            SEPA-Lastschrift eingezogen — es gibt keine Vorkasse und keinen Kauf im Voraus.
+          </p>
+          <p>
+            Eine Kündigung ist nicht nötig: Das Training endet automatisch mit der Saison.
+          </p>
+        </div>
+      </div>
+
+      <div class="cta-row"><Cta /></div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Ablauf</span>
+        <h2>Wie eine Saison läuft.</h2>
+      </div>
+      <div class="grid grid--4">
+        <div>
+          <h3>Einstieg jederzeit</h3>
+          <p>Du kannst das ganze Jahr über anfangen. Wir suchen dann eine Gruppe, die passt.</p>
+        </div>
+        <div>
+          <h3>60 Minuten, wöchentlich</h3>
+          <p>Eine feste Stunde pro Woche. Die konkrete Zeit erhältst du nach der Anmeldephase per E-Mail.</p>
+        </div>
+        <div>
+          <h3>Trainingsfreie Zeiten</h3>
+          <p>In den Schulferien, an gesetzlichen Feiertagen und an Karneval findet kein Training statt.</p>
+        </div>
+        <div>
+          <h3>Bei Regen</h3>
+          <p>Wenn eine Halle frei ist, gehen wir rein. Sonst gibt es Alternativtraining — Kraft, Koordination, Schnelligkeit.</p>
+        </div>
+      </div>
+      <p class="muted season-note">
+        Die Sommersaison läuft von Ende April bis Ende September, danach geht es in
+        Dormagen und Köln in der Halle weiter.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Selbst buchen</span>
+        <h2>Direkt beim Verein anmelden.</h2>
+        <p class="lead">
+          Wenn du lieber ohne Umweg buchst: Jeder unserer drei Vereine hat einen eigenen
+          Zugang im Buchungssystem. Für die kostenlose Probestunde meldest du dich am
+          besten trotzdem kurz bei uns — dann finden wir vorher die passende Gruppe.
+        </p>
+      </div>
+      <div class="grid grid--3">
+        {
+          clubs.map((c) => (
+            <article class="card">
+              <h3>{c.name}</h3>
+              <p class="muted">{c.season}</p>
+              <a class="btn-ghost" href={c.booking} rel="noopener">
+                Termine ansehen
+              </a>
+            </article>
+          ))
+        }
+      </div>
+      <div class="cta-row"><Cta withNote /></div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .sub {
+    margin-top: 3rem;
+    margin-bottom: 0.6rem;
+  }
+  .notes {
+    margin-top: 2.5rem;
+  }
+  .season-note {
+    margin-top: 2rem;
+    margin-bottom: 0;
+    color: #a6a6a1;
+  }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>

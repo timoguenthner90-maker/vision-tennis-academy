@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Beim Umzug auf die Kundendomain hier UND in astro.config.mjs (site) nachziehen.
+Sitemap: https://vision-tennis-academy.netlify.app/sitemap-index.xml

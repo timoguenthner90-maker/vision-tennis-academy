@@ -1,0 +1,158 @@
+---
+/**
+ * Kein Formular: bewusste Entscheidung des Kunden. Der CTA führt zu WhatsApp,
+ * E-Mail steht gleichwertig daneben. Ohne Formular gibt es keine Datenverarbeitung
+ * über die Website und damit keinen Consent-Bedarf.
+ */
+import Base from "../layouts/Base.astro";
+import Cta from "../components/Cta.astro";
+import { site, clubs } from "../data/site";
+
+const title = "Kontakt — Vision Tennis Academy";
+const description =
+  "Erreich uns per WhatsApp, Telefon oder E-Mail. Wir melden uns kurzfristig zurück und suchen die passende Trainingsgruppe an einem unserer drei Vereine.";
+---
+
+<Base title={title} description={description}>
+  <section class="section section--tight">
+    <div class="wrap">
+      <span class="eyebrow">Kontakt</span>
+      <h1>Schreib uns — kurz reicht.</h1>
+      <p class="lead">
+        Alter, bisherige Erfahrung und wann ihr Zeit habt: Mehr brauchen wir nicht, um
+        eine passende Gruppe zu finden und einen Termin für die kostenlose Probestunde
+        vorzuschlagen.
+      </p>
+      <div class="cta-row"><Cta withNote /></div>
+    </div>
+  </section>
+
+  <section class="section section--muted">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Wege zu uns</span>
+        <h2>Drei Adressen — je nachdem, worum es geht.</h2>
+      </div>
+      <div class="grid grid--3">
+        <article class="card">
+          <span class="card__tag">Am schnellsten</span>
+          <h3>WhatsApp &amp; Telefon</h3>
+          <p>
+            <a href={`tel:${site.phoneHref}`}>{site.phone}</a>
+          </p>
+          <p class="muted">
+            Nachrichten beantworten wir in der Regel am selben Tag. Während des Trainings
+            kann es etwas länger dauern.
+          </p>
+        </article>
+
+        <article class="card">
+          <span class="card__tag">Für alles Schriftliche</span>
+          <h3>E-Mail</h3>
+          <p>
+            <a href={`mailto:${site.email}`}>{site.email}</a>
+          </p>
+          <p class="muted">
+            Anmeldung, Abmeldung vom Training, Fragen zur Rechnung — alles an diese
+            Adresse.
+          </p>
+        </article>
+
+        <article class="card">
+          <span class="card__tag">Bewerbungen</span>
+          <h3>Jobs</h3>
+          <p>
+            <a href={`mailto:${site.jobsEmail}`}>{site.jobsEmail}</a>
+          </p>
+          <p class="muted">
+            Du bist Trainer:in oder willst es werden? Mehr dazu auf der Seite
+            <a href="/jobs/">Jobs</a>.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap two">
+      <div>
+        <span class="eyebrow">Anschrift</span>
+        <h2>Vision Tennis Academy</h2>
+        <address>
+          {site.legalName}<br />
+          {site.street}<br />
+          {site.zip} {site.city}
+        </address>
+        <p class="muted">
+          Das ist unsere Geschäftsadresse — trainiert wird an den drei Vereinsanlagen.
+        </p>
+        <ul class="social">
+          <li><a class="btn-ghost" href={site.instagram} rel="noopener">Instagram</a></li>
+          <li><a class="btn-ghost" href={site.facebook} rel="noopener">Facebook</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="eyebrow">Trainingsorte</span>
+        <h2>Wo wir auf dem Platz stehen</h2>
+        <ul class="places">
+          {
+            clubs.map((c) => (
+              <li>
+                <a href={`/standorte/#${c.slug}`}>{c.name}</a>
+                <span class="muted">
+                  {c.street}, {c.zip} {c.city}
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Der nächste Schritt</span>
+        <h2>Eine Stunde ausprobieren, dann entscheiden.</h2>
+      </div>
+      <Cta withNote />
+    </div>
+  </section>
+</Base>
+
+<style>
+  .two {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+  }
+  address {
+    font-style: normal;
+    font-size: var(--step-1);
+    line-height: 1.45;
+    margin: 1rem 0;
+  }
+  .social {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    margin-top: 1.5rem;
+  }
+  .places {
+    list-style: none;
+    display: grid;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .places li {
+    display: grid;
+    gap: 0.15rem;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 1rem;
+  }
+  .places a {
+    font-weight: 800;
+  }
+</style>
