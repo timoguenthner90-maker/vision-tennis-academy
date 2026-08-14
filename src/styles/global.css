@@ -36,7 +36,8 @@
      Überschriften. Systemschrift, also weiterhin kein Webfont und kein
      externer Request. Auf Android/Linux greift die generische Monospace —
      genauso verhält sich die Bestandsseite. */
-  --sans: "Courier New", Courier, "Nimbus Mono PS", "Liberation Mono", monospace;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, sans-serif;
 }
 
 *,
