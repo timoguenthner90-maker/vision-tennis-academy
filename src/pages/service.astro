@@ -1,9 +1,10 @@
 ---
 /**
- * Ersetzt den Shop. Bewusste Entscheidung des Kunden: Die Services rund um
- * Material (Besaitung, Testschläger, Beratung) bleiben als Leistung erhalten —
- * ohne Verkaufsfunktion, ohne Produkte, ohne Warenkorb. Der Weg ist Kontakt oder
- * das Gespräch mit dem Trainer, nicht der Kauf.
+ * Ersetzt den Shop. Bewusste Entscheidung des Kunden: kein Warenkorb, keine
+ * Produktseiten, keine Onlinebestellung. Material gibt es weiterhin — die
+ * Academy ist HEAD-Partner und bezieht Ausrüstung über die Marke, bestellt aber
+ * erst auf Anfrage und übergibt im Training. Der Weg bleibt also das Gespräch
+ * mit dem Trainer, nicht der Klick.
  */
 import Base from "../layouts/Base.astro";
 import Cta from "../components/Cta.astro";
@@ -11,7 +12,7 @@ import { site } from "../data/site";
 
 const title = "Service rund um dein Material — Vision Tennis Academy";
 const description =
-  "Besaitung, Testschläger und ehrliche Ausrüstungsberatung direkt bei deinem Trainer. Kein Onlinekauf, sondern Beratung auf dem Platz.";
+  "Besaitung, Testschläger und Beratung bei deinem Trainer. Als HEAD-Partner bestellen wir deinen Wunschschläger und bringen ihn zur Trainingsstunde mit.";
 
 const services = [
   {
@@ -47,9 +48,10 @@ const services = [
       <span class="eyebrow">Service</span>
       <h1>Material-Service — dort, wo du ohnehin schon bist.</h1>
       <p class="lead">
-        Besaitung, Testschläger und Beratung laufen bei uns direkt über das Training. Du
-        gibst deinen Schläger beim Coach ab oder sprichst ihn auf dem Platz an — das ist
-        schneller und ehrlicher als jede Bestellung.
+        Besaitung, Testschläger, Beratung und Bestellung laufen bei uns direkt über das
+        Training. Als Partner von <strong>HEAD</strong> beziehen wir Ausrüstung über die
+        Marke — du fragst uns nach dem Preis, wir bestellen und bringen es zur nächsten
+        Stunde mit.
       </p>
       <div class="cta-row"><Cta withNote /></div>
     </div>
@@ -59,7 +61,7 @@ const services = [
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">Was wir anbieten</span>
-        <h2>Drei Leistungen rund um dein Material.</h2>
+        <h2>Alles rund um dein Material.</h2>
       </div>
       <div class="grid grid--3">
         {
@@ -88,25 +90,63 @@ const services = [
   </section>
 
   <section class="section">
-    <div class="wrap two">
-      <div>
-        <span class="eyebrow">Kein Onlineshop</span>
-        <h2>Welcher Schläger der richtige ist, entscheidet sich auf dem Platz.</h2>
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">HEAD-Partner</span>
+        <h2>Deinen Wunschschläger bestellst du über uns.</h2>
+        <p class="lead">
+          Die Vision Tennis Academy ist Partner der Sportmarke HEAD und bezieht ihr
+          Equipment über die Marke. Einen Onlineshop gibt es dafür bewusst nicht — du
+          fragst uns direkt nach dem Preis, alles Weitere übernehmen wir.
+        </p>
       </div>
-      <div>
-        <p>
-          Wir verkaufen keine Ausrüstung mehr über die Website. Der Grund ist einfach: Bei
-          Schlägern, Saiten und Griffen entscheidet das persönliche Gefühl mehr als jede
-          Spezifikation. Wer einen Schläger einmal eine Stunde lang gespielt hat, weiß
-          mehr als nach dem Vergleich von zehn Produktseiten.
-        </p>
-        <p>
-          Deshalb leihen wir dir lieber einen Testschläger, sehen dich damit spielen und
-          sagen dir ehrlich, was passt — auch wenn das heißt, dass du woanders kaufst.
-        </p>
-        <a class="btn-ghost" href={`mailto:${site.email}`}>
-          Frage zu Material stellen
-        </a>
+
+      <ol class="grid grid--3 steps">
+        <li class="step">
+          <span class="step__num" aria-hidden="true">1</span>
+          <h3>Preis anfragen</h3>
+          <p>
+            Sag deinem Coach, welcher Schläger dich interessiert, oder schreib uns eine
+            Nachricht. Du bekommst den Preis von uns genannt.
+          </p>
+        </li>
+        <li class="step">
+          <span class="step__num" aria-hidden="true">2</span>
+          <h3>Wir bestellen</h3>
+          <p>
+            Passt der Preis, bestellen wir das gewünschte Produkt über HEAD. Du musst dich
+            um nichts weiter kümmern.
+          </p>
+        </li>
+        <li class="step">
+          <span class="step__num" aria-hidden="true">3</span>
+          <h3>Übergabe im Training</h3>
+          <p>
+            Wir bringen es zu deiner nächsten Trainingsstunde mit — kein Versand, keine
+            Wartezeit zu Hause, keine Rücksendung.
+          </p>
+        </li>
+      </ol>
+
+      <div class="two shop-note">
+        <div>
+          <h3>Erst spielen, dann bestellen.</h3>
+        </div>
+        <div>
+          <p>
+            Bei Schlägern, Saiten und Griffen entscheidet das persönliche Gefühl mehr als
+            jede Spezifikation. Wer einen Schläger einmal eine Stunde lang gespielt hat,
+            weiß mehr als nach dem Vergleich von zehn Produktseiten.
+          </p>
+          <p>
+            Deshalb leihen wir dir vorher einen Testschläger, sehen dich damit spielen und
+            sagen dir ehrlich, was passt — auch wenn am Ende ein anderes Modell dabei
+            herauskommt als das, nach dem du gefragt hast.
+          </p>
+          <a class="btn-ghost" href={`mailto:${site.email}`}>
+            Preis für einen Schläger anfragen
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -148,6 +188,18 @@ const services = [
   }
   .card--pic > :last-child {
     margin-bottom: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+
+  /* Nummerierung kommt aus .step__num, nicht aus dem Listenmarker. */
+  .steps {
+    list-style: none;
+  }
+
+  /* Setzt die Testschläger-Logik unter die drei Bestellschritte ab. */
+  .shop-note {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    padding-top: clamp(2rem, 4vw, 2.75rem);
+    border-top: 1px solid var(--line);
   }
 
   .two {

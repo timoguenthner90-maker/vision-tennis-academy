@@ -2,9 +2,9 @@
 // (Stand 13.08.2026).
 //
 // Bewusste Abweichungen vom Original:
-//  1. Die Kategorie „Shop & Service" heißt jetzt „Material & Service"; die Frage
-//     „Wie und wo kann ich Equipment kaufen?" ist umformuliert, weil es keinen
-//     Shop mehr gibt.
+//  1. Die Kategorie „Shop & Service" heißt jetzt „Material & Service". Es gibt
+//     keinen Onlineshop mehr, wohl aber weiterhin Equipment: Die Academy ist
+//     HEAD-Partner und bestellt auf Anfrage, Übergabe im Training.
 //  2. Der Kostenblock bildet die Wintersaison 2026/2027 ab (Preislisten der drei
 //     Vereine, Stand 14.08.2026) statt der Sommerpreise des Originals. Winter
 //     wird zweiteilig abgerechnet — Trainingsanteil plus Hallenkosten —, deshalb
@@ -185,13 +185,20 @@ export const faqGroups: FaqGroup[] = [
       {
         q: "Wo bekomme ich passende Ausrüstung?",
         a: [
-          "Wir verkaufen keine Ausrüstung mehr über die Website. Stattdessen beraten wir dich direkt auf dem Platz und leihen dir Testschläger, damit du vor einer Anschaffung vergleichen kannst.",
+          "Direkt bei uns. Die Vision Tennis Academy ist Partner der Sportmarke HEAD und bezieht ihr Equipment über die Marke.",
+          "Einen Onlineshop gibt es dafür nicht: Du fragst uns oder deinen Trainer nach dem Preis für den gewünschten Schläger, wir bestellen ihn und bringen ihn zur nächsten Trainingsstunde mit.",
+        ],
+      },
+      {
+        q: "Was kostet ein Schläger bei euch?",
+        a: [
+          "Das hängt vom Modell ab — sag uns einfach, welcher Schläger dich interessiert, dann nennen wir dir den Preis. Am schnellsten geht das direkt beim Training oder per E-Mail an info@vision-tennis.de.",
         ],
       },
       {
         q: "Welcher Schläger ist der richtige für mich?",
         a: [
-          "Das hängt vor allem vom persönlichen Gefühl ab. Probier bei uns verschiedene Testschläger aus — nach einer Trainingsstunde weißt du deutlich mehr als nach jeder Produktbeschreibung.",
+          "Das hängt vor allem vom persönlichen Gefühl ab. Probier bei uns verschiedene Testschläger aus — nach einer Trainingsstunde weißt du deutlich mehr als nach jeder Produktbeschreibung. Erst danach bestellst du.",
         ],
       },
     ],
