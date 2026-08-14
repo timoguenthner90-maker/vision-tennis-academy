@@ -83,8 +83,8 @@ Trainingspreise sind ausdrücklich erlaubt und kein Shop-Merkmal.
 - [ ] Rechtliches (Impressum/Datenschutz) freigegeben?
 - [ ] **Platzhalter bestätigen oder ersetzen (Pflicht vor Production):**
   1. **Testimonials (3×)** — auf der Bestandsseite existieren keine Kundenstimmen. Die drei Texte sind als Beispiel markiert und müssen durch echte ersetzt oder entfernt werden.
-  2. **Saison-Zeitraum** — die FAQ nennt noch `28.04.2025 – 28.09.2025`. Auf der neuen Seite generisch formuliert („Ende April bis Ende September"); echte Daten der laufenden Saison nötig.
-  3. **Preise** (50/54/57/60 € pro Stunde; Saison 750/405/285/225 €; Mannschaft 70 €/h) — aus der FAQ übernommen, Stand unbekannt.
+  2. ~~**Saison-Zeitraum**~~ — erledigt: Die Seite zeigt die Wintersaison `28.09.2026 – 25.04.2027` aus den Preislisten der Vereine.
+  3. ~~**Preise**~~ — erledigt: Ersetzt durch die Winterpreise 2026/2027 aus den offiziellen Preislisten der drei Vereine (Stand 14.08.2026, identisch in Sportision). Winter wird zweiteilig abgerechnet — Trainingsanteil plus Hallenkosten je Verein —, Zahlen in `src/data/site.ts`. Sommerpreise werden nicht mehr ausgespielt; vor dem nächsten Saisonwechsel sind sie neu zu bestätigen.
   4. **Mitgliedsbeiträge der Vereine** (375/120 · 290/115 · 210/85 €) — aus der FAQ übernommen, werden von den Vereinen festgelegt.
   5. **Besaitungspreis 25 €** — aus der FAQ.
   6. **Trainerfotos** — Kundenbilder von der Bestandsseite; Bildrechte bestätigen. Für 6 Trainer:innen (Yannick, Sabine, Norberts, Kristian, Amelie, Luke) existiert kein Foto → Initialen-Kacheln.

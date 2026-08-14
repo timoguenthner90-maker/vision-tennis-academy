@@ -75,8 +75,8 @@ vollständig, es bleibt nichts als manueller Prüfpunkt offen.
 | # | Punkt | Was gebraucht wird |
 |---|---|---|
 | 1 | **Testimonials** | Es gibt auf der Bestandsseite keine Kundenstimmen. Die drei Texte sind sichtbar als „Beispieltext" markiert. → Durch echte ersetzen **oder** Sektion entfernen. |
-| 2 | **Saison-Zeitraum** | Die FAQ nannte noch `28.04.2025 – 28.09.2025`. Jetzt generisch „Ende April bis Ende September". → Echte Daten der laufenden Saison. |
-| 3 | **Preise** | 50/54/57/60 € pro Stunde, Saison 750/405/285/225 €, Mannschaft 70 €/h — aus der FAQ übernommen, Stand unbekannt. |
+| 2 | ~~**Saison-Zeitraum**~~ | **Erledigt.** Die Seite zeigt die Wintersaison `28.09.2026 – 25.04.2027`. |
+| 3 | ~~**Preise**~~ | **Erledigt.** Winterpreise 2026/2027 aus den offiziellen Preislisten der drei Vereine (Stand 14.08.2026, identisch in Sportision): Trainingsanteil plus Hallenkosten je Verein, Zahlen in `src/data/site.ts`. Sommerpreise werden nicht mehr ausgespielt und sind vor dem nächsten Saisonwechsel neu zu bestätigen. |
 | 4 | **Mitgliedsbeiträge** | 375/120 · 290/115 · 210/85 € — werden von den Vereinen festgelegt, bitte gegenprüfen. |
 | 5 | **Besaitung 25 €** | aus der FAQ übernommen. |
 | 6 | **Trainerfotos** | Eigene Bilder von der Bestandsseite, lokal aufbereitet. Bildrechte bestätigen. Für 6 Personen (Yannick, Sabine, Norberts, Kristian, Amelie, Luke) existiert kein Foto → Initialen-Kacheln. |

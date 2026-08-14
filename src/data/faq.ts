@@ -61,10 +61,9 @@ export const faqGroups: FaqGroup[] = [
         ],
       },
       {
-        q: "Wann läuft welche Saison?",
+        q: "Wo trainieren wir im Winter?",
         a: [
-          "Die Wintersaison läuft vom 28.09.2026 bis zum 25.04.2027 in der Halle, die Sommersaison anschließend von Ende April bis Ende September auf den Außenplätzen.",
-          "In Dormagen und Köln trainieren wir ganzjährig. Der Uedesheimer TV ist reine Sommersaison — über den Winter trainiert diese Gruppe in Dormagen weiter.",
+          "In Dormagen und Köln jeweils in der eigenen Halle des Vereins. Die Anlage des Uedesheimer TV hat keine Halle — diese Gruppe trainiert über den Winter in Dormagen weiter.",
         ],
       },
       {
