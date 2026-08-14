@@ -60,6 +60,23 @@ if (fs.existsSync("public/img/logo-rgb.png")) {
   results.push(["logo", 480]);
 }
 
+// HEAD-Bandbild für die Service-Seite. Querformat 3:2 wird auf ein flaches Band
+// beschnitten (2,5:1), damit es den Abschnitt nicht erschlägt; die Ware liegt im
+// mittleren Drittel der Vorlage und überlebt den Mittenbeschnitt.
+//
+// Auch dieses Bild läuft in Graustufen: Der neongrüne Schläger würde sonst mit
+// dem Gelb des CTA konkurrieren, das laut Design-Entscheidung die einzige Farbe
+// der Seite bleibt. Die weiße HEAD-Wortmarke auf den Taschen bleibt in S/W
+// vollständig lesbar.
+if (fs.existsSync(path.join(SRC, "service-head.jpg"))) {
+  await sharp(path.join(SRC, "service-head.jpg"))
+    .resize(1600, 640, { fit: "cover" })
+    .grayscale()
+    .webp({ quality: 80 })
+    .toFile(path.join(OUT, "service-head.webp"));
+  results.push(["service-head", "1600x640"]);
+}
+
 // Zwischendateien entfernen — nur die aufbereiteten Assets gehören ins Repo.
 for (const tmp of ["hero-drei.jpg", "logo-rgb.png", "logo-original.jpg"]) {
   const p = path.join(OUT, tmp);

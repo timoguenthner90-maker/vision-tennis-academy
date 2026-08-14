@@ -101,6 +101,17 @@ const services = [
         </p>
       </div>
 
+      <img
+        data-reveal
+        class="head-band"
+        src="/img/service-head.webp"
+        alt="Tennistaschen, Schläger und Schuhe von HEAD auf einem Platz"
+        width="1600"
+        height="640"
+        loading="lazy"
+        decoding="async"
+      />
+
       <ol class="grid grid--3 steps">
         <li class="step">
           <span class="step__num" aria-hidden="true">1</span>
@@ -188,6 +199,16 @@ const services = [
   }
   .card--pic > :last-child {
     margin-bottom: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+
+  /* Flaches Band über den Bestellschritten — nicht höher werden lassen, sonst
+     drückt es die Schritte unter die Falz. */
+  .head-band {
+    width: 100%;
+    aspect-ratio: 5 / 2;
+    object-fit: cover;
+    border-radius: var(--radius);
+    margin-bottom: clamp(2rem, 4vw, 3rem);
   }
 
   /* Nummerierung kommt aus .step__num, nicht aus dem Listenmarker. */
