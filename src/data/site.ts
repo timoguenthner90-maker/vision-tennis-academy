@@ -150,16 +150,113 @@ export const coaches = [
 
 export const coachCount = headCoaches.length + coaches.length;
 
-/** Stundensätze und Saisonpreise laut FAQ der Bestandsseite. */
-export const prices = [
-  { group: "Einzeltraining", perHour: 50, season: 750 },
-  { group: "Zweiergruppe", perHour: 54, season: 405 },
-  { group: "Dreiergruppe", perHour: 57, season: 285 },
-  { group: "Vierergruppe", perHour: 60, season: 225 },
+/**
+ * Wintersaison 2026/2027 — Preise laut den Preislisten der drei Vereine
+ * (Stand 14.08.2026), die identisch auch in Sportision hinterlegt sind.
+ *
+ * Ein Winterpreis besteht immer aus zwei Teilen: dem Trainingsanteil der
+ * Academy (an allen Standorten gleich) und den Hallenkosten des Vereins. Die
+ * Halle wird für die ganze Saison gebucht; der Betrag wird durch die
+ * Teilnehmerzahl geteilt. Deshalb hängt der Endpreis nicht nur an der
+ * Gruppengröße, sondern auch an der Uhrzeit — und lässt sich nur als
+ * „ab"-Preis angeben, solange der Termin nicht feststeht.
+ *
+ * Die Sommerpreise sind bis zum nächsten Saisonwechsel bewusst nicht
+ * ausgespielt; sie stehen in der Git-Historie (vor Commit „Winterpreise").
+ */
+export const winterSeason = {
+  label: "Winter 2026/2027",
+  from: "28.09.2026",
+  to: "25.04.2027",
+} as const;
+
+/** Trainingsanteil pro Person für die gesamte Saison, zzgl. Hallenkosten. */
+export const winterTraining = [
+  { group: "Einzeltraining", size: 1, youth: 1200, adult: 1200 },
+  { group: "Zweiergruppe", size: 2, youth: 648, adult: 648 },
+  { group: "Dreiergruppe", size: 3, youth: 456, adult: 456 },
+  { group: "Vierergruppe", size: 4, youth: 324, adult: 360 },
 ];
 
-export const teamPrices = [
-  { unit: "1 Stunde pro Woche", season: 1050 },
-  { unit: "1,5 Stunden pro Woche", season: 1575 },
-  { unit: "2 Stunden pro Woche", season: 2100 },
-];
+export type HallSlot = {
+  days: string;
+  time: string;
+  /** null = in diesem Fenster kein Jugendtraining. */
+  youth: number | null;
+  adult: number | null;
+};
+
+export type HallTariff = {
+  /** Wo im Winter tatsächlich gespielt wird. */
+  venue: string;
+  /** Ferienregelung — unterscheidet sich je Verein. */
+  holidays: string;
+  /** true = ein gemeinsamer Tarif für Jugendliche und Erwachsene. */
+  oneTariff: boolean;
+  slots: HallSlot[];
+};
+
+/** Hallenkosten je Platzstunde für die gesamte Saison, vor der Teilung. */
+export const winterHall: Record<string, HallTariff> = {
+  "tc-bayer-dormagen": {
+    venue: "Eigene Sechs-Platz-Halle am Holzweg 63",
+    holidays:
+      "Jugendstunden ohne Ferien, Erwachsenenstunden mit Ferien — ausgenommen die Weihnachtsferien.",
+    oneTariff: false,
+    slots: [
+      { days: "Mo–Fr", time: "07:00–10:00", youth: 320, adult: 320 },
+      { days: "Mo–Fr", time: "10:00–13:00", youth: 340, adult: 360 },
+      { days: "Mo–Fr", time: "13:00–15:00", youth: 320, adult: 320 },
+      { days: "Mo–Fr", time: "15:00–17:00", youth: 340, adult: 380 },
+      { days: "Mo–Fr", time: "17:00–21:00", youth: 380, adult: 500 },
+      { days: "Mo–Fr", time: "ab 21:00", youth: null, adult: 380 },
+      { days: "Sa/So", time: "07:00–10:00", youth: 320, adult: 320 },
+      { days: "Sa/So", time: "10:00–22:00", youth: 380, adult: 460 },
+    ],
+  },
+  "tc-ford-koeln": {
+    venue: "Eigene Drei-Platz-Halle an der Scheibenstraße 23",
+    holidays: "Jugend- und Erwachsenenstunden laufen jeweils mit Ferien.",
+    oneTariff: false,
+    slots: [
+      { days: "Mo–Fr", time: "08:00–15:00", youth: 510, adult: 510 },
+      { days: "Mo–Fr", time: "15:00–17:00", youth: 510, adult: 610 },
+      { days: "Mo–Fr", time: "17:00–21:00", youth: 510, adult: 630 },
+      { days: "Mo–Fr", time: "21:00–22:00", youth: 510, adult: 510 },
+      { days: "Sa", time: "08:00–18:00", youth: 510, adult: 600 },
+    ],
+  },
+  "uedesheimer-tv": {
+    venue:
+      "Halle des TC Bayer Dormagen — die Uedesheimer Anlage ist reine Sommersaison",
+    holidays: "Mit Ferien — ausgenommen die Weihnachtsferien.",
+    oneTariff: true,
+    slots: [
+      { days: "Mo–Fr", time: "07:00–10:00", youth: 360, adult: 360 },
+      { days: "Mo–Fr", time: "10:00–13:00", youth: 400, adult: 400 },
+      { days: "Mo–Fr", time: "13:00–15:00", youth: 360, adult: 360 },
+      { days: "Mo–Fr", time: "15:00–17:00", youth: 480, adult: 480 },
+      { days: "Mo–Fr", time: "17:00–21:00", youth: 620, adult: 620 },
+      { days: "Mo–Fr", time: "ab 21:00", youth: 480, adult: 480 },
+      { days: "Sa/So", time: "07:00–10:00", youth: 360, adult: 360 },
+      { days: "Sa/So", time: "10:00–22:00", youth: 540, adult: 540 },
+    ],
+  },
+};
+
+/**
+ * Günstigster Gesamtpreis pro Person und Saison — Trainingsanteil plus den
+ * niedrigsten Hallenanteil, den es für diese Gruppengröße überhaupt gibt.
+ * Basis für alle „ab"-Angaben auf der Seite.
+ */
+export function winterFrom(clubSlug: string, size: number, youth: boolean): number {
+  const tariff = winterHall[clubSlug];
+  const row = winterTraining.find((t) => t.size === size);
+  if (!tariff || !row) throw new Error(`Kein Winterpreis für ${clubSlug}/${size}`);
+
+  const halls = tariff.slots
+    .map((s) => (youth ? s.youth : s.adult))
+    .filter((p): p is number => p !== null);
+
+  return (youth ? row.youth : row.adult) + Math.min(...halls) / size;
+}

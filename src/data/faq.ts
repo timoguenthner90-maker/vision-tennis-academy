@@ -1,11 +1,15 @@
-// FAQ-Inhalte, übernommen von vision-tennis.de/pages/faqs (Stand 13.08.2026).
+// FAQ-Inhalte, ursprünglich übernommen von vision-tennis.de/pages/faqs
+// (Stand 13.08.2026).
 //
-// Zwei bewusste Abweichungen vom Original:
+// Bewusste Abweichungen vom Original:
 //  1. Die Kategorie „Shop & Service" heißt jetzt „Material & Service"; die Frage
 //     „Wie und wo kann ich Equipment kaufen?" ist umformuliert, weil es keinen
 //     Shop mehr gibt.
-//  2. Der Saisonzeitraum ist generisch formuliert — das Original nennt noch
-//     28.04.2025–28.09.2025 (siehe SPEC.md §7.2).
+//  2. Der Kostenblock bildet die Wintersaison 2026/2027 ab (Preislisten der drei
+//     Vereine, Stand 14.08.2026) statt der Sommerpreise des Originals. Winter
+//     wird zweiteilig abgerechnet — Trainingsanteil plus Hallenkosten —, deshalb
+//     stehen dort „ab"-Beträge. Zahlen siehe src/data/site.ts, damit Seite und
+//     FAQ nicht auseinanderlaufen.
 
 export type FaqItem = { q: string; a: string[] };
 export type FaqGroup = { title: string; items: FaqItem[] };
@@ -57,9 +61,10 @@ export const faqGroups: FaqGroup[] = [
         ],
       },
       {
-        q: "Wie lange läuft die Sommersaison?",
+        q: "Wann läuft welche Saison?",
         a: [
-          "Die Sommersaison läuft von Ende April bis Ende September. Die genauen Termine der laufenden Saison nennen wir dir bei der Anmeldung.",
+          "Die Wintersaison läuft vom 28.09.2026 bis zum 25.04.2027 in der Halle, die Sommersaison anschließend von Ende April bis Ende September auf den Außenplätzen.",
+          "In Dormagen und Köln trainieren wir ganzjährig. Der Uedesheimer TV ist reine Sommersaison — über den Winter trainiert diese Gruppe in Dormagen weiter.",
         ],
       },
       {
@@ -105,9 +110,10 @@ export const faqGroups: FaqGroup[] = [
     title: "Kosten & Abrechnung",
     items: [
       {
-        q: "Wie setzen sich die Kosten zusammen?",
+        q: "Wie setzen sich die Kosten im Winter zusammen?",
         a: [
-          "Die Kosten hängen von der Gruppengröße und der Trainingsart ab und beziehen sich immer auf 60 Minuten. Je größer die Gruppe, desto günstiger wird es für die einzelne Person.",
+          "Aus zwei Teilen: dem Trainingsanteil der Academy und den Hallenkosten des Vereins. Der Trainingsanteil ist an allen drei Standorten gleich, die Hallenkosten legt jeder Verein selbst fest.",
+          "Die Halle wird für die gesamte Saison gebucht und der Betrag durch die Teilnehmerzahl geteilt. Deshalb hängt der Endpreis auch an der Uhrzeit: Eine Stunde am Abend ist teurer als eine am Vormittag.",
         ],
       },
       {
@@ -115,33 +121,49 @@ export const faqGroups: FaqGroup[] = [
         a: ["Die Probestunde ist kostenlos."],
       },
       {
-        q: "Was kostet eine Trainingsstunde?",
+        q: "Wie lang ist die Wintersaison?",
         a: [
-          "Einzeltraining 50 €, Zweiergruppe 54 €, Dreiergruppe 57 € und Vierergruppe 60 € pro Stunde. Die Beträge gelten jeweils für die gesamte Gruppe.",
+          "Vom 28.09.2026 bis zum 25.04.2027 — für Jugend- und Erwachsenentraining gleichermaßen.",
         ],
       },
       {
-        q: "Was kostet eine ganze Saison?",
+        q: "Was kostet der Trainingsanteil für die Wintersaison?",
         a: [
-          "Pro Person: Einzeltraining 750 €, Zweiergruppe 405 €, Dreiergruppe 285 €, Vierergruppe 225 €.",
+          "Pro Person für die gesamte Saison: Einzeltraining 1.200 €, Zweiergruppe 648 €, Dreiergruppe 456 €. In der Vierergruppe zahlen Jugendliche 324 €, Erwachsene 360 €.",
+          "Dazu kommen die Hallenkosten des jeweiligen Vereins.",
         ],
       },
       {
-        q: "Was kostet Mannschaftstraining für 5 bis 8 Personen?",
+        q: "Was kommt an Hallenkosten dazu?",
         a: [
-          "70 € pro Stunde. Über die Saison sind das 1.050 € bei einer Stunde pro Woche, 1.575 € bei 1,5 Stunden und 2.100 € bei 2 Stunden.",
+          "Das hängt von Verein, Uhrzeit und Gruppengröße ab. Ein Beispiel: Eine Vierergruppe am Abend in Dormagen zahlt 125 € pro Person (500 € für die Saison, geteilt durch vier); dieselbe Gruppe am frühen Morgen 80 €.",
+          "Alle Zeitfenster stehen offen auf der Seite Training & Preise — dieselben Listen findest du auch im Buchungssystem deines Vereins.",
         ],
       },
       {
-        q: "Warum ist Mannschaftstraining teurer?",
+        q: "Was zahle ich insgesamt mindestens?",
         a: [
-          "Weil dabei zwei Plätze gleichzeitig belegt werden und die Teilnahme von acht Personen garantiert ist. Die Kapazität dafür ist begrenzt.",
+          "In der Vierergruppe: ab 404 € (Jugendliche) beziehungsweise ab 440 € (Erwachsene) in Dormagen, ab 414 € / 450 € in Uedesheim und ab 451,50 € / 487,50 € in Köln — jeweils für die gesamte Saison.",
+          "Die Beträge gelten für den günstigsten Zeitpunkt in der Woche. Liegt deine Stunde abends, kommt entsprechend mehr dazu.",
+        ],
+      },
+      {
+        q: "Warum ist es in Köln teurer als in Dormagen?",
+        a: [
+          "Weil die Vereine ihre Hallenkosten selbst festlegen und wir sie unverändert weitergeben. Der Trainingsanteil ist überall derselbe.",
+        ],
+      },
+      {
+        q: "Gibt es Mannschaftstraining im Winter?",
+        a: [
+          "Nein, Mannschaftstraining für 5 bis 8 Personen bieten wir nur in der Sommersaison an — dabei werden zwei Plätze gleichzeitig belegt, und dafür reicht die Hallenkapazität im Winter nicht.",
         ],
       },
       {
         q: "Wie wird bezahlt?",
         a: [
-          "Nach dem Saisonstart erhältst du eine Rechnung. Der Betrag wird per SEPA-Lastschrift eingezogen.",
+          "Nach dem Saisonstart erhältst du eine Rechnung über den Trainingsanteil, der Betrag wird per SEPA-Lastschrift eingezogen.",
+          "Die Hallenkosten zieht der Verein separat und anteilig ein. Eine Kündigung ist nicht nötig: Das Training endet automatisch mit der Saison.",
         ],
       },
     ],

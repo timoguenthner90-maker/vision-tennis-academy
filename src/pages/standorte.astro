@@ -6,12 +6,18 @@
  */
 import Base from "../layouts/Base.astro";
 import Cta from "../components/Cta.astro";
-import { clubs } from "../data/site";
+import { clubs, winterSeason, winterFrom } from "../data/site";
 import { clubsLd } from "../data/jsonld";
 
 const title = "Standorte — Vision Tennis Academy";
 const description =
   "Wir trainieren am TC Bayer Dormagen, am TC Ford Köln und beim Uedesheimer TV. Anlagen, Adressen, Mitgliedsbeiträge und Buchung im Überblick.";
+
+const eur = (n: number) =>
+  `${new Intl.NumberFormat("de-DE", {
+    minimumFractionDigits: Number.isInteger(n) ? 0 : 2,
+    maximumFractionDigits: 2,
+  }).format(n)} €`;
 ---
 
 <Base title={title} description={description} jsonLd={clubsLd}>
@@ -82,6 +88,23 @@ const description =
               Training nötig. Für die kostenlose Probestunde brauchst du keine
               Mitgliedschaft.
             </p>
+
+            <h3 class="winter-head">Training im {winterSeason.label}</h3>
+            <dl>
+              <div>
+                <dt>Erwachsene</dt>
+                <dd>ab {eur(winterFrom(c.slug, 4, false))}</dd>
+              </div>
+              <div>
+                <dt>Jugendliche</dt>
+                <dd>ab {eur(winterFrom(c.slug, 4, true))}</dd>
+              </div>
+            </dl>
+            <p class="muted">
+              Vierergruppe, gesamte Saison, inklusive Hallenanteil zum günstigsten
+              Zeitpunkt. Alle Gruppengrößen und Uhrzeiten stehen unter
+              <a href="/training/">Training &amp; Preise</a>.
+            </p>
           </div>
         </div>
       </section>
@@ -141,6 +164,13 @@ const description =
     max-width: 55ch;
   }
 
+  /* Zweiter Block in der Faktenspalte: Beitrag oben, Winterpreis darunter. */
+  .winter-head {
+    margin-top: 1.75rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+  }
+
   .club__facts {
     border: 1px solid var(--line);
     border-top: 4px solid var(--brand);
@@ -170,6 +200,9 @@ const description =
   .club__facts dd {
     margin: 0;
     font-weight: 800;
+    /* Hält „ab 487,50 €" zusammen — sonst rutscht das € allein in die nächste
+       Zeile, sobald der Betrag breiter wird. */
+    white-space: nowrap;
   }
   .club__facts p {
     margin-bottom: 0;
