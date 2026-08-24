@@ -1,6 +1,7 @@
 ---
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import ChatWidget from "../components/ChatWidget.astro";
 import { site } from "../data/site";
 import "../styles/global.css";
 
@@ -71,6 +72,7 @@ const blocks = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
       <slot />
     </main>
     <Footer />
+    <ChatWidget />
 
     <script>
       // Sticky-Header: verdichtet sich, sobald die Seite angescrollt ist.
