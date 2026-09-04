@@ -1,47 +1,33 @@
 ---
 /**
- * Probestunden-Anfrage — der Buchungskalender der Seite.
+ * Schnupperstunden-Anfrage — der Buchungskalender der Seite.
  *
  * Bewusst ohne Backend: Vision bucht keine Einzeltermine, sondern feste
  * Wochenslots über eine ganze Saison; die verbindliche Buchung samt Abrechnung
  * läuft weiterhin über Sportision. Was hier fehlte, war der Schritt davor —
- * die kostenlose Probestunde. Genau dort springen Interessenten laut Journey ab.
+ * die Schnupperstunde. Genau dort springen Interessenten laut Journey ab.
  *
- * Das Wochenraster entspricht in der Form dem WeeklyCalendar aus dem
- * Little-Health-Studio-Buchungssystem (Zeilen = Stunden, Spalten = Wochentage),
- * lädt aber keine Verfügbarkeiten, sondern sammelt Wunschzeiten. Aus der Auswahl
- * entsteht eine fertige Nachricht für WhatsApp oder E-Mail.
+ * Schnupperstunden finden ausschließlich samstags statt (siehe
+ * `saturdayTimes`) — deshalb nur eine Uhrzeitauswahl statt eines vollen
+ * Wochenrasters. Die Auswahl sammelt keine echten Verfügbarkeiten, sondern
+ * Wunschzeiten; daraus entsteht eine fertige E-Mail.
+ *
+ * Bewusst kein WhatsApp-Link: Kommunikation läuft hauptsächlich über E-Mail,
+ * der noch kommende Chatbot übernimmt künftig erste Fragen.
  *
  * Datenschutz: Es verlässt nichts den Browser. Erst der Klick auf „Anfrage
- * senden" öffnet den Messenger bzw. das Mailprogramm des Nutzers mit dem
- * vorbereiteten Text. Keine Übertragung an uns, kein Server, keine Cookies.
+ * senden" öffnet das Mailprogramm des Nutzers mit dem vorbereiteten Text.
+ * Keine Übertragung an uns, kein Server, keine Cookies.
  */
 import Base from "../layouts/Base.astro";
 import { clubs, site } from "../data/site";
 
-const title = "Probestunde anfragen — Vision Tennis Academy";
+const title = "Schnupperstunde anfragen — Vision Tennis Academy";
 const description =
-  "Verein, Spielstärke und Wunschzeiten auswählen — wir suchen die passende Gruppe und melden uns zurück. Die erste Trainingsstunde ist kostenlos.";
+  "Verein, Spielstärke und Wunschuhrzeit für deine Schnupperstunde am Samstag auswählen. Wir suchen die passende Gruppe und melden uns zurück.";
 
-/** Zeitraster: nachmittags und abends, dort liegt der Trainingsbetrieb. */
-const slots = [
-  ["14", "14–15 Uhr"],
-  ["15", "15–16 Uhr"],
-  ["16", "16–17 Uhr"],
-  ["17", "17–18 Uhr"],
-  ["18", "18–19 Uhr"],
-  ["19", "19–20 Uhr"],
-  ["20", "20–21 Uhr"],
-];
-
-const days = [
-  ["Mo", "Montag"],
-  ["Di", "Dienstag"],
-  ["Mi", "Mittwoch"],
-  ["Do", "Donnerstag"],
-  ["Fr", "Freitag"],
-  ["Sa", "Samstag"],
-];
+/** Schnupperstunden finden ausschließlich samstags zu diesen Uhrzeiten statt. */
+const saturdayTimes = ["10–11 Uhr", "11–12 Uhr", "12–13 Uhr", "14–15 Uhr"];
 
 const ages = [
   "Kind, 5–9 Jahre",
@@ -51,7 +37,7 @@ const ages = [
 ];
 
 const levels = [
-  "Anfänger:in — noch nie gespielt",
+  "Anfänger:in, noch nie gespielt",
   "Grundlagen vorhanden",
   "Spielt regelmäßig",
   "Mannschaft oder Turnier",
@@ -61,12 +47,13 @@ const levels = [
 <Base title={title} description={description}>
   <section class="section section--tight">
     <div class="wrap">
-      <span class="eyebrow">Kostenlose Probestunde</span>
+      <span class="eyebrow">Schnupperstunde</span>
       <h1>Sag uns, wann es passt.</h1>
       <p class="lead">
-        Eine ganze Trainingsstunde zum Ausprobieren — kostenlos und ohne
-        Mitgliedschaft. Wähl aus, wo und wann es euch passt; wir suchen die
-        passende Gruppe und melden uns zurück.
+        Eine ganze Trainingsstunde zum Ausprobieren, ohne Mitgliedschaft.
+        Schnupperstunden finden samstags statt. Wähl aus, wo und zu welcher
+        Uhrzeit es dir passt; wir suchen die passende Gruppe und melden uns
+        zurück.
       </p>
     </div>
   </section>
@@ -142,60 +129,30 @@ const levels = [
           </div>
         </fieldset>
 
-        <!-- Schritt 3 — das Wochenraster -->
+        <!-- Schritt 3 — Uhrzeit am Schnuppertag Samstag -->
         <fieldset class="step-block">
-          <legend><span class="step-n">3</span> Wann passt es euch?</legend>
+          <legend><span class="step-n">3</span> Welche Uhrzeit am Samstag?</legend>
           <p class="hint">
-            Tipp alle Zeiten an, die grundsätzlich gehen — je mehr, desto eher
-            finden wir eine passende Gruppe. Mehrfachauswahl ist gewollt.
+            Die Schnupperstunde findet samstags statt. Tipp alle Uhrzeiten an, die
+            grundsätzlich gehen. Mehrfachauswahl ist gewollt.
           </p>
 
-          <div class="grid-scroll">
-            <table class="week" id="week">
-              <caption class="sr-only">
-                Wochenraster: Wunschzeiten für die Probestunde auswählen
-              </caption>
-              <thead>
-                <tr>
-                  <th scope="col"><span class="sr-only">Uhrzeit</span></th>
-                  {
-                    days.map(([sh, long]) => (
-                      <th scope="col">
-                        <abbr title={long}>{sh}</abbr>
-                      </th>
-                    ))
-                  }
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  slots.map(([h, label]) => (
-                    <tr>
-                      <th scope="row">{label}</th>
-                      {
-                        days.map(([sh, long]) => (
-                          <td>
-                            <button
-                              type="button"
-                              class="cell"
-                              aria-pressed="false"
-                              data-day={sh}
-                              data-hour={h}
-                              aria-label={`${long}, ${label}`}
-                            />
-                          </td>
-                        ))
-                      }
-                    </tr>
-                  ))
-                }
-              </tbody>
-            </table>
+          <div class="choices choices--times" role="group" aria-label="Uhrzeit am Samstag">
+            {
+              saturdayTimes.map((t) => (
+                <label class="choice choice--sm">
+                  <input type="checkbox" name="time" value={t} />
+                  <span class="choice__body">
+                    <span class="choice__t">Sa, {t}</span>
+                  </span>
+                </label>
+              ))
+            }
           </div>
 
           <label class="check">
             <input type="checkbox" name="flexible" />
-            <span>Wir sind zeitlich flexibel — schlagt uns gern etwas vor.</span>
+            <span>Keine der Uhrzeiten passt mir, schlagt mir gern etwas vor.</span>
           </label>
 
           <p class="sub-label" style="margin-top:1.5rem">Optional</p>
@@ -218,15 +175,14 @@ const levels = [
             <pre id="preview" aria-live="polite"></pre>
           </div>
           <div class="send">
-            <a class="btn" id="wa" href={site.whatsapp} rel="noopener">
-              Anfrage per WhatsApp
+            <a class="btn" id="mail" href={`mailto:${site.email}`} rel="noopener">
+              Anfrage per E-Mail senden
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </a>
-            <a class="btn-ghost" id="mail" href={`mailto:${site.email}`}>oder per E-Mail senden</a>
             <p class="privacy">
               Deine Angaben bleiben bis zum Klick in deinem Browser. Erst dann
-              öffnet sich WhatsApp bzw. dein Mailprogramm mit dem vorbereiteten
-              Text — wir empfangen vorher nichts.
+              öffnet sich dein Mailprogramm mit dem vorbereiteten Text. Wir
+              empfangen vorher nichts.
             </p>
           </div>
         </div>
@@ -247,11 +203,11 @@ const levels = [
         </div>
         <div>
           <h3>Termin steht</h3>
-          <p>Wir legen die Probestunde in eine Gruppe, die zu Alter und Niveau passt.</p>
+          <p>Wir legen die Schnupperstunde in eine Gruppe, die zu Alter und Niveau passt.</p>
         </div>
         <div>
           <h3>Ausprobieren</h3>
-          <p>60 Minuten, kostenlos, ohne Mitgliedschaft. Schläger stellen wir, falls nötig.</p>
+          <p>60 Minuten, ohne Mitgliedschaft. Schläger stellen wir, falls nötig.</p>
         </div>
       </div>
       <p class="muted" style="margin-top:2rem">
@@ -393,80 +349,19 @@ const levels = [
     outline-offset: 2px;
   }
 
-  /* ---- Wochenraster ---- */
+  /* ---- Uhrzeitauswahl (Samstag) ---- */
+  /* Genau vier feste Zeitfenster — deshalb feste Spaltenzahl statt auto-fit,
+     damit sie auf einer Zeile nebeneinander bleiben statt umzubrechen. */
 
-  .grid-scroll {
-    overflow-x: auto;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    background: var(--paper);
+  .choices--times {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    max-width: 42rem;
   }
-  table.week {
-    width: 100%;
-    min-width: 34rem;
-    border-collapse: collapse;
-  }
-  .week th {
-    background: var(--paper-2);
-    font-size: var(--step--1);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 0.7rem 0.5rem;
-    border-bottom: 1px solid var(--line);
-    text-align: center;
-  }
-  .week thead th abbr {
-    text-decoration: none;
-  }
-  .week tbody th {
-    background: var(--paper);
-    text-align: right;
-    white-space: nowrap;
-    font-weight: 600;
-    color: var(--ink-2);
-    text-transform: none;
-    letter-spacing: 0;
-    padding-right: 0.85rem;
-    border-right: 1px solid var(--line);
-  }
-  .week td {
-    padding: 0;
-    border: 1px solid var(--line);
-    border-top: 0;
-    border-left: 0;
-  }
-  .cell {
-    display: block;
-    width: 100%;
-    min-width: 3.4rem;
-    height: 2.9rem;
-    border: 0;
-    background: transparent;
-    cursor: pointer;
-    position: relative;
-    transition: background 0.1s ease;
-  }
-  .cell:hover {
-    background: var(--paper-2);
-  }
-  .cell[aria-pressed="true"] {
-    background: var(--brand);
-  }
-  .cell[aria-pressed="true"]::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 0.75rem;
-    height: 0.4rem;
-    margin: -0.28rem 0 0 -0.38rem;
-    border-left: 2.5px solid var(--ink);
-    border-bottom: 2.5px solid var(--ink);
-    transform: rotate(-45deg);
-  }
-  .cell:focus-visible {
-    outline: 3px solid var(--ink);
-    outline-offset: -3px;
+
+  @media (max-width: 30rem) {
+    .choices--times {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 
   .check {
@@ -547,70 +442,23 @@ const levels = [
       grid-template-columns: 1fr;
     }
   }
-
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-  }
 </style>
 
 <script>
-  // Wunschzeiten-Picker. Kein Netzwerkverkehr: Die Auswahl wird ausschließlich
-  // im Browser zu einem Nachrichtentext zusammengesetzt und in die href-Werte
-  // der beiden Sende-Links geschrieben.
+  // Uhrzeit-Picker für den Schnuppertag Samstag. Kein Netzwerkverkehr: Die
+  // Auswahl wird ausschließlich im Browser zu einem Nachrichtentext
+  // zusammengesetzt und in den href-Wert des Sende-Links geschrieben.
   const form = document.getElementById("pf");
   const preview = document.getElementById("preview");
-  const wa = document.getElementById("wa") as HTMLAnchorElement | null;
   const mail = document.getElementById("mail") as HTMLAnchorElement | null;
 
-  if (form && preview && wa && mail) {
-    const WA_BASE = "https://wa.me/4915129409005";
+  if (form && preview && mail) {
     const MAIL_TO = "info@vision-tennis.de";
-    const DAY_ORDER = ["Mo", "Di", "Mi", "Do", "Fr", "Sa"];
 
-    const cells = Array.from(
-      form.querySelectorAll<HTMLButtonElement>(".cell"),
-    );
-
-    /** Gewählte Zellen nach Wochentag gruppieren und zu Zeitspannen zusammenfassen. */
     function selectedTimes(): string[] {
-      const byDay = new Map<string, number[]>();
-      for (const c of cells) {
-        if (c.getAttribute("aria-pressed") !== "true") continue;
-        const d = c.dataset.day!;
-        const h = Number(c.dataset.hour);
-        byDay.set(d, [...(byDay.get(d) ?? []), h]);
-      }
-      const out: string[] = [];
-      for (const day of DAY_ORDER) {
-        const hours = byDay.get(day);
-        if (!hours) continue;
-        hours.sort((a, b) => a - b);
-        // Zusammenhängende Stunden zu einer Spanne verdichten:
-        // 16,17,18 → „16–19 Uhr" statt drei Einzelangaben.
-        const spans: string[] = [];
-        let start = hours[0];
-        let prev = hours[0];
-        for (const h of hours.slice(1)) {
-          if (h === prev + 1) {
-            prev = h;
-            continue;
-          }
-          spans.push(`${start}–${prev + 1} Uhr`);
-          start = h;
-          prev = h;
-        }
-        spans.push(`${start}–${prev + 1} Uhr`);
-        out.push(`${day} ${spans.join(", ")}`);
-      }
-      return out;
+      return Array.from(
+        form!.querySelectorAll<HTMLInputElement>('input[name="time"]:checked'),
+      ).map((el) => el.value);
     }
 
     function value(name: string): string {
@@ -634,7 +482,7 @@ const levels = [
       const lines = [
         "Hallo Vision Tennis Academy,",
         "",
-        "ich möchte gern eine kostenlose Probestunde vereinbaren.",
+        "ich möchte gern eine Schnupperstunde vereinbaren.",
         "",
         `Verein: ${value("club")}`,
         `Alter: ${value("age")}`,
@@ -644,10 +492,10 @@ const levels = [
       const times = selectedTimes();
       const flexible = checked("flexible");
 
-      if (times.length) lines.push(`Passende Zeiten: ${times.join(" · ")}`);
-      if (flexible) lines.push("Wir sind zeitlich flexibel.");
+      if (times.length) lines.push(`Wunschzeit Samstag: ${times.join(" · ")}`);
+      if (flexible) lines.push("Keine der Uhrzeiten passt mir, ich bin flexibel.");
       if (!times.length && !flexible)
-        lines.push("Passende Zeiten: sage ich euch gern durch.");
+        lines.push("Wunschzeit Samstag: sage ich euch gern durch.");
 
       const note = value("note").trim();
       if (note) lines.push(`Hinweis: ${note}`);
@@ -661,19 +509,10 @@ const levels = [
     function update() {
       const msg = buildMessage();
       preview!.textContent = msg;
-      wa!.href = `${WA_BASE}?text=${encodeURIComponent(msg)}`;
       mail!.href =
         `mailto:${MAIL_TO}` +
-        `?subject=${encodeURIComponent("Anfrage kostenlose Probestunde")}` +
+        `?subject=${encodeURIComponent("Anfrage Schnupperstunde")}` +
         `&body=${encodeURIComponent(msg)}`;
-    }
-
-    for (const c of cells) {
-      c.addEventListener("click", () => {
-        const on = c.getAttribute("aria-pressed") === "true";
-        c.setAttribute("aria-pressed", on ? "false" : "true");
-        update();
-      });
     }
 
     form.addEventListener("input", update);

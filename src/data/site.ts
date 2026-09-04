@@ -20,7 +20,6 @@ export const site = {
   country: "DE",
   phone: "+49 1512 9409005",
   phoneHref: "+4915129409005",
-  whatsapp: "https://wa.me/4915129409005",
   email: "info@vision-tennis.de",
   jobsEmail: "jobs@vision-tennis.de",
   vatId: "DE355802486",
@@ -32,15 +31,14 @@ export const site = {
 /**
  * Der EINE Call-to-Action (Story-Element #9) — Wording und Ziel nie variieren.
  *
- * Ziel ist die Probestunden-Seite und nicht mehr direkt WhatsApp: Dort wählt man
- * Verein, Spielstärke und Wunschzeiten aus, und der letzte Klick öffnet dann
- * WhatsApp oder E-Mail mit fertigem Text. Der Kanal bleibt derselbe, nur die
- * Nachricht schreibt sich nicht mehr selbst.
+ * Ziel ist die Schnupperstundenseite: Dort wählt man Verein, Spielstärke und
+ * Wunschzeiten aus, und der letzte Klick öffnet das Mailprogramm mit fertigem
+ * Text. Kommunikation läuft bewusst über E-Mail statt WhatsApp — der noch
+ * kommende Chatbot übernimmt künftig erste Fragen.
  */
 export const cta = {
-  label: "Kostenloses Probetraining sichern",
-  href: "/probestunde/",
-  note: "Per WhatsApp oder E-Mail – wir melden uns kurzfristig zurück.",
+  label: "Schnupperstunde sichern",
+  href: "/schnupperstunde/",
 } as const;
 
 export const nav = [
@@ -77,7 +75,7 @@ export const clubs: Club[] = [
     city: "Dormagen",
     courts:
       "17 Außenplätze, ein Kleinfeldplatz für die Kleinen und sechs Hallenplätze",
-    season: "Ganzjährig – im Winter in der eigenen Halle",
+    season: "Ganzjährig, im Winter in der eigenen Halle",
     memberAdult: 375,
     memberYouth: 120,
     clubSite: "https://www.tc-bayer-dormagen.de",
@@ -91,8 +89,8 @@ export const clubs: Club[] = [
     zip: "50737",
     city: "Köln",
     courts:
-      "10 Außenplätze, ein Kleinfeldplatz im Freien und eine Drei-Platz-Tennishalle",
-    season: "Ganzjährig – im Winter in der eigenen Halle",
+      "10 Außenplätze, ein Kleinfeldplatz für die Kleinen und drei Hallenplätze",
+    season: "Ganzjährig, im Winter in der eigenen Halle",
     memberAdult: 290,
     memberYouth: 115,
     clubSite: "https://www.tcfk.de",
@@ -105,8 +103,8 @@ export const clubs: Club[] = [
     street: "Norfer Weg 75",
     zip: "41468",
     city: "Neuss",
-    courts: "7 Außenplätze und ein Kleinfeldplatz im Freien",
-    season: "Sommersaison – im Winter trainieren wir in Dormagen weiter",
+    courts: "7 Außenplätze und ein Kleinfeldplatz für die Kleinen",
+    season: "Sommersaison, im Winter trainieren wir in Dormagen weiter",
     memberAdult: 210,
     memberYouth: 85,
     clubSite: "https://www.uetv.de",
@@ -161,6 +159,10 @@ export const coachCount = headCoaches.length + coaches.length;
  * Gruppengröße, sondern auch an der Uhrzeit — und lässt sich nur als
  * „ab"-Preis angeben, solange der Termin nicht feststeht.
  *
+ * Aktiv ausgespielt: Die Anmeldung für die Wintersaison läuft noch bis
+ * Freitag, deshalb zeigt /training/ diese Preise schon jetzt, obwohl die
+ * Saison selbst erst am 28.09.2026 startet.
+ *
  * Die Sommerpreise sind bis zum nächsten Saisonwechsel bewusst nicht
  * ausgespielt; sie stehen in der Git-Historie (vor Commit „Winterpreise").
  */
@@ -170,12 +172,17 @@ export const winterSeason = {
   to: "25.04.2027",
 } as const;
 
-/** Trainingsanteil pro Person für die gesamte Saison, zzgl. Hallenkosten. */
+/**
+ * Trainingsanteil pro Person für die gesamte Saison, zzgl. Hallenkosten.
+ * `perHour` ist der saisonunabhängige Stundensatz (unverändert gegenüber der
+ * Sommersaison) und dient nur der Anzeige auf /training/ — die Saisonpreise
+ * unten (`youth`/`adult`) berechnen sich unabhängig davon über `winterFrom`.
+ */
 export const winterTraining = [
-  { group: "Einzeltraining", size: 1, youth: 1200, adult: 1200 },
-  { group: "Zweiergruppe", size: 2, youth: 648, adult: 648 },
-  { group: "Dreiergruppe", size: 3, youth: 456, adult: 456 },
-  { group: "Vierergruppe", size: 4, youth: 324, adult: 360 },
+  { group: "Einzeltraining", size: 1, perHour: 50, youth: 1200, adult: 1200 },
+  { group: "Zweiergruppe", size: 2, perHour: 54, youth: 648, adult: 648 },
+  { group: "Dreiergruppe", size: 3, perHour: 57, youth: 456, adult: 456 },
+  { group: "Vierergruppe", size: 4, perHour: 60, youth: 324, adult: 360 },
 ];
 
 export type HallSlot = {
@@ -201,7 +208,7 @@ export const winterHall: Record<string, HallTariff> = {
   "tc-bayer-dormagen": {
     venue: "Eigene Sechs-Platz-Halle am Holzweg 63",
     holidays:
-      "Jugendstunden ohne Ferien, Erwachsenenstunden mit Ferien — ausgenommen die Weihnachtsferien.",
+      "Jugendstunden ohne Ferien, Erwachsenenstunden mit Ferien, ausgenommen die Weihnachtsferien.",
     oneTariff: false,
     slots: [
       { days: "Mo–Fr", time: "07:00–10:00", youth: 320, adult: 320 },
@@ -228,8 +235,8 @@ export const winterHall: Record<string, HallTariff> = {
   },
   "uedesheimer-tv": {
     venue:
-      "Halle des TC Bayer Dormagen — die Uedesheimer Anlage ist reine Sommersaison",
-    holidays: "Mit Ferien — ausgenommen die Weihnachtsferien.",
+      "Halle des TC Bayer Dormagen, die Uedesheimer Anlage ist reine Sommersaison",
+    holidays: "Mit Ferien, ausgenommen die Weihnachtsferien.",
     oneTariff: true,
     slots: [
       { days: "Mo–Fr", time: "07:00–10:00", youth: 360, adult: 360 },

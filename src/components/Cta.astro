@@ -1,8 +1,8 @@
 ---
 // Der EINE Call-to-Action (Story-Element #9): immer dasselbe Wording, immer
-// dasselbe Ziel. Varianten betreffen nur die Größe. Das Ziel ist WhatsApp —
-// bewusste Kundenentscheidung; die E-Mail-Alternative steht als Zweitweg daneben
-// (siehe `withNote`), damit niemand ohne WhatsApp abspringt.
+// dasselbe Ziel. Varianten betreffen nur die Größe. Kommunikation läuft
+// hauptsächlich über E-Mail — kein WhatsApp-Link, damit dieser Kanal nicht
+// prominent als Kontaktweg auftaucht (siehe `withNote` für die Zusatzzeile).
 import { cta, site } from "../data/site";
 
 interface Props {
@@ -37,7 +37,7 @@ const { size = "md", withNote = false, class: extra = "" } = Astro.props;
         </svg>
       </a>
       <p class="cta-note">
-        oder <a href={`mailto:${site.email}`}>{site.email}</a> · {cta.note}
+        oder schreib uns eine E-Mail an <a href={`mailto:${site.email}`}>{site.email}</a>.
       </p>
     </div>
   ) : (

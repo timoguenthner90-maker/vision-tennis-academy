@@ -14,11 +14,28 @@ const title = "Service rund um dein Material — Vision Tennis Academy";
 const description =
   "Besaitung, Testschläger und Beratung bei deinem Trainer. Als HEAD-Partner bestellen wir deinen Wunschschläger und bringen ihn zur Trainingsstunde mit.";
 
+/** Vorformulierte Preisanfrage — Kunde ergänzt nur Schlägername, Link und gefundenen Preis. */
+const racketPriceBody = [
+  "Hallo Vision Tennis Academy,",
+  "",
+  "ich interessiere mich für folgenden Schläger und würde gern den Preis erfragen:",
+  "",
+  "Modell: (bitte Schlägername einfügen)",
+  "Link: (falls vorhanden)",
+  "Gefundener Preis: (falls vorhanden)",
+  "",
+  "Viele Grüße",
+].join("\n");
+const racketPriceHref =
+  `mailto:${site.email}` +
+  `?subject=${encodeURIComponent("Preisanfrage Schläger")}` +
+  `&body=${encodeURIComponent(racketPriceBody)}`;
+
 const services = [
   {
     tag: "Besaitung",
     t: "Neue Saiten für 25 €",
-    d: "Gib deinen Schläger beim Training ab. Für Premium-Saiten kommt je nach Material ein Aufpreis dazu — den nennen wir dir vorher.",
+    d: "Gib deinen Schläger beim Training ab. Für Premium-Saiten kommt je nach Material ein Aufpreis dazu, den nennen wir dir vorher.",
     points: ["Abgabe direkt beim Training", "25 € pro Besaitung", "Aufpreis nur bei Premium-Saiten"],
     img: "service-schlaeger",
     alt: "Tennisschläger und Schuhe auf einem Hartplatz",
@@ -27,14 +44,14 @@ const services = [
     tag: "Testschläger",
     t: "Erst spielen, dann entscheiden",
     d: "Du kannst bei uns jederzeit Testschläger ausleihen. Welcher Schläger passt, merkst du in einer Trainingsstunde deutlich schneller als in jeder Produktbeschreibung.",
-    points: ["Ausleihe jederzeit möglich", "Auch schon zur Probestunde", "Mehrere Modelle vergleichen"],
+    points: ["Ausleihe jederzeit möglich", "Auch schon zur Schnupperstunde", "Mehrere Modelle vergleichen"],
     img: "service-equipment",
     alt: "Schläger, Tasche und Schuhe vor einem Tennisnetz",
   },
   {
     tag: "Beratung",
     t: "Was zu deinem Spiel passt",
-    d: "Griffstärke, Schlägergewicht, Saitenhärte, Bälle für Kinder — sprich deinen Trainer an. Er sieht dich spielen und kann konkret einordnen, was sinnvoll ist.",
+    d: "Griffstärke, Schlägergewicht, Saitenhärte, Bälle für Kinder: Sprich deinen Trainer an. Er sieht dich spielen und kann konkret einordnen, was sinnvoll ist.",
     points: ["Beratung durch deinen Coach", "Auf Basis deines Spiels", "Ohne Verkaufsdruck"],
     img: "service-tasche",
     alt: "Spieler mit Schlägertasche am Spielfeldrand",
@@ -46,11 +63,11 @@ const services = [
   <section class="section section--tight">
     <div class="wrap">
       <span class="eyebrow">Service</span>
-      <h1>Material-Service — dort, wo du ohnehin schon bist.</h1>
+      <h1>Material-Service, dort wo du ohnehin schon bist.</h1>
       <p class="lead">
         Besaitung, Testschläger, Beratung und Bestellung laufen bei uns direkt über das
         Training. Als Partner von <strong>HEAD</strong> beziehen wir Ausrüstung über die
-        Marke — du fragst uns nach dem Preis, wir bestellen und bringen es zur nächsten
+        Marke. Du fragst uns nach dem Preis, wir bestellen und bringen es zur nächsten
         Stunde mit.
       </p>
       <div class="cta-row"><Cta withNote /></div>
@@ -96,7 +113,7 @@ const services = [
         <h2>Deinen Wunschschläger bestellst du über uns.</h2>
         <p class="lead">
           Die Vision Tennis Academy ist Partner der Sportmarke HEAD und bezieht ihr
-          Equipment über die Marke. Einen Onlineshop gibt es dafür bewusst nicht — du
+          Equipment über die Marke. Einen Onlineshop gibt es dafür bewusst nicht: Du
           fragst uns direkt nach dem Preis, alles Weitere übernehmen wir.
         </p>
       </div>
@@ -133,7 +150,7 @@ const services = [
           <span class="step__num" aria-hidden="true">3</span>
           <h3>Übergabe im Training</h3>
           <p>
-            Wir bringen es zu deiner nächsten Trainingsstunde mit — kein Versand, keine
+            Wir bringen es zu deiner nächsten Trainingsstunde mit: kein Versand, keine
             Wartezeit zu Hause, keine Rücksendung.
           </p>
         </li>
@@ -151,10 +168,10 @@ const services = [
           </p>
           <p>
             Deshalb leihen wir dir vorher einen Testschläger, sehen dich damit spielen und
-            sagen dir ehrlich, was passt — auch wenn am Ende ein anderes Modell dabei
+            sagen dir ehrlich, was passt, auch wenn am Ende ein anderes Modell dabei
             herauskommt als das, nach dem du gefragt hast.
           </p>
-          <a class="btn-ghost" href={`mailto:${site.email}`}>
+          <a class="btn-ghost" href={racketPriceHref}>
             Preis für einen Schläger anfragen
           </a>
         </div>
@@ -162,14 +179,14 @@ const services = [
     </div>
   </section>
 
-  <section class="section section--dark">
+  <section class="section section--dark" id="kontakt">
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">Noch kein Training bei uns?</span>
-        <h2>Bring einfach deinen Schläger zur Probestunde mit.</h2>
+        <h2>Bring einfach deinen Schläger zur Schnupperstunde mit.</h2>
         <p class="lead">
-          Die erste Stunde ist kostenlos. Wenn du noch keinen eigenen Schläger hast,
-          stellen wir für die Probestunde einen zur Verfügung.
+          Wenn du noch keinen eigenen Schläger hast, stellen wir für die
+          Schnupperstunde einen zur Verfügung.
         </p>
       </div>
       <Cta withNote />
@@ -194,6 +211,11 @@ const services = [
   .card--pic > :not(img) {
     margin-inline: clamp(1.25rem, 2.5vw, 1.75rem);
   }
+  /* Die Häkchenliste soll in allen drei Karten auf derselben Höhe beginnen,
+     unabhängig davon, wie lang der Beschreibungstext darüber ist. */
+  .card--pic p {
+    flex: 1;
+  }
   .card--pic > .card__tag {
     margin-top: clamp(1.25rem, 2.5vw, 1.75rem);
   }
@@ -214,6 +236,8 @@ const services = [
   /* Nummerierung kommt aus .step__num, nicht aus dem Listenmarker. */
   .steps {
     list-style: none;
+    margin: 0;
+    padding: 0;
   }
 
   /* Setzt die Testschläger-Logik unter die drei Bestellschritte ab. */

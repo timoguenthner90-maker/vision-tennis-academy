@@ -28,7 +28,7 @@
   },
   "requiredUrls": [
     "/",
-    "/probestunde/",
+    "/schnupperstunde/",
     "/training/",
     "/standorte/",
     "/academy/",

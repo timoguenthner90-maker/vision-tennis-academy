@@ -21,7 +21,7 @@ export const faqGroups: FaqGroup[] = [
       {
         q: "Wie und wo kann ich Tennistraining bei Vision Tennis buchen?",
         a: [
-          "Wir trainieren am TC Bayer Dormagen, am TC Ford Köln und beim Uedesheimer TV. Am schnellsten geht es, wenn du uns per WhatsApp oder E-Mail schreibst — dann suchen wir eine passende Gruppe. Die Termine der Vereine findest du außerdem auf der Seite Training.",
+          "Wir trainieren am TC Bayer Dormagen, am TC Ford Köln und beim Uedesheimer TV. Am schnellsten geht es, wenn du uns per E-Mail schreibst, dann suchen wir eine passende Gruppe. Die Termine der Vereine findest du außerdem auf der Seite Training.",
         ],
       },
       {
@@ -37,9 +37,9 @@ export const faqGroups: FaqGroup[] = [
         ],
       },
       {
-        q: "Wie komme ich zu einer Probestunde?",
+        q: "Wie komme ich zu einer Schnupperstunde?",
         a: [
-          "Eine Probestunde von 60 Minuten ist an jedem unserer drei Vereine kostenlos möglich. Schreib uns kurz, wie alt du bzw. dein Kind ist und wann ihr Zeit habt — wir legen die Stunde dann in eine passende Gruppe.",
+          "Eine Schnupperstunde von 60 Minuten ist an jedem unserer drei Vereine möglich. Schreib uns kurz, wie alt du bzw. dein Kind ist und wann ihr Zeit habt. Wir legen die Stunde dann in eine passende Gruppe.",
         ],
       },
       {
@@ -57,29 +57,35 @@ export const faqGroups: FaqGroup[] = [
       {
         q: "Wie groß ist eine Trainingsgruppe?",
         a: [
-          "Eine Gruppe besteht aus 1 bis 4 Personen. So bleibt genug Zeit für jede einzelne Person — das ist die Grundlage unseres Trainingskonzepts.",
+          "Eine Gruppe besteht aus 1 bis 4 Personen. So bleibt genug Zeit für jede einzelne Person, das ist die Grundlage unseres Trainingskonzepts.",
+        ],
+      },
+      {
+        q: "Was, wenn gerade keine passende Gruppe frei ist?",
+        a: [
+          "Unsere Trainer:innen versuchen das bei jeder Anfrage. Sind aktuell zu wenige Personen im selben Alter und auf ähnlichem Niveau angemeldet, kann es etwas dauern, bis eine Gruppe zusammenkommt, oder wir schlagen dir eine Alternative vor.",
         ],
       },
       {
         q: "Wo trainieren wir im Winter?",
         a: [
-          "In Dormagen und Köln jeweils in der eigenen Halle des Vereins. Die Anlage des Uedesheimer TV hat keine Halle — diese Gruppe trainiert über den Winter in Dormagen weiter.",
+          "In Dormagen und Köln jeweils in der eigenen Halle des Vereins. Die Anlage des Uedesheimer TV hat keine Halle, diese Gruppe trainiert über den Winter in Dormagen weiter.",
         ],
       },
       {
         q: "Wie melde ich mich ab, wenn ich einmal nicht kann?",
         a: [
-          "Schreib uns eine E-Mail an info@vision-tennis.de oder eine Nachricht per WhatsApp an +49 1512 9409005.",
+          "Schreib uns eine E-Mail an info@vision-tennis.de.",
         ],
       },
       {
         q: "Wann erhalte ich meine Trainingszeit?",
         a: [
-          "Nach Abschluss der Anmeldephase erstellen wir den Trainingsplan. Du bekommst deine Zeit anschließend per E-Mail — wir berücksichtigen dabei die von dir angegebenen Wunschzeiten so weit wie möglich.",
+          "Nach Abschluss der Anmeldephase erstellen wir den Trainingsplan. Du bekommst deine Zeit anschließend per E-Mail. Wir berücksichtigen dabei die von dir angegebenen Wunschzeiten so weit wie möglich.",
         ],
       },
       {
-        q: "Ich habe keine Trainingszeit erhalten — woran liegt das?",
+        q: "Ich habe keine Trainingszeit erhalten, woran liegt das?",
         a: [
           "Dafür gibt es mehrere mögliche Gründe: Es wurde noch keine passende Gruppe gefunden, unsere E-Mail ist im Spam-Ordner gelandet, bei der Adresse hat sich ein Tippfehler eingeschlichen oder der Plan ist noch nicht vollständig.",
           "Melde dich in dem Fall einfach direkt bei uns, dann klären wir es kurzfristig.",
@@ -88,13 +94,13 @@ export const faqGroups: FaqGroup[] = [
       {
         q: "Gibt es Feriencamps?",
         a: [
-          "Ja, wir bieten regelmäßig Camps an — vor allem in den Ferienzeiten, in denen das reguläre Training pausiert. Frag uns nach den nächsten Terminen.",
+          "Ja, wir bieten regelmäßig Camps an, vor allem in den Ferienzeiten, in denen das reguläre Training pausiert. Frag uns nach den nächsten Terminen.",
         ],
       },
       {
         q: "Was passiert, wenn es regnet?",
         a: [
-          "Wenn eine Halle frei ist, gehen wir hinein. Ist das nicht möglich, gibt es Alternativtraining — zum Beispiel Kraft-, Koordinations- und Schnelligkeitsübungen.",
+          "Wenn eine Halle frei ist, gehen wir hinein. Ist das nicht möglich, gibt es Alternativtraining, zum Beispiel Kraft-, Koordinations- und Schnelligkeitsübungen.",
         ],
       },
       {
@@ -116,13 +122,13 @@ export const faqGroups: FaqGroup[] = [
         ],
       },
       {
-        q: "Was kostet eine Probestunde?",
-        a: ["Die Probestunde ist kostenlos."],
+        q: "Was kostet eine Schnupperstunde?",
+        a: ["Den Preis nennen wir dir, wenn wir uns nach deiner Anfrage zurückmelden."],
       },
       {
         q: "Wie lang ist die Wintersaison?",
         a: [
-          "Vom 28.09.2026 bis zum 25.04.2027 — für Jugend- und Erwachsenentraining gleichermaßen.",
+          "Vom 28.09.2026 bis zum 25.04.2027, für Jugend- und Erwachsenentraining gleichermaßen.",
         ],
       },
       {
@@ -136,13 +142,13 @@ export const faqGroups: FaqGroup[] = [
         q: "Was kommt an Hallenkosten dazu?",
         a: [
           "Das hängt von Verein, Uhrzeit und Gruppengröße ab. Ein Beispiel: Eine Vierergruppe am Abend in Dormagen zahlt 125 € pro Person (500 € für die Saison, geteilt durch vier); dieselbe Gruppe am frühen Morgen 80 €.",
-          "Alle Zeitfenster stehen offen auf der Seite Training & Preise — dieselben Listen findest du auch im Buchungssystem deines Vereins.",
+          "Alle Zeitfenster stehen offen auf der Seite Training & Preise. Dieselben Listen findest du auch im Buchungssystem deines Vereins.",
         ],
       },
       {
         q: "Was zahle ich insgesamt mindestens?",
         a: [
-          "In der Vierergruppe: ab 404 € (Jugendliche) beziehungsweise ab 440 € (Erwachsene) in Dormagen, ab 414 € / 450 € in Uedesheim und ab 451,50 € / 487,50 € in Köln — jeweils für die gesamte Saison.",
+          "In der Vierergruppe: ab 404 € (Jugendliche) beziehungsweise ab 440 € (Erwachsene) in Dormagen, ab 414 € / 450 € in Uedesheim und ab 451,50 € / 487,50 € in Köln, jeweils für die gesamte Saison.",
           "Die Beträge gelten für den günstigsten Zeitpunkt in der Woche. Liegt deine Stunde abends, kommt entsprechend mehr dazu.",
         ],
       },
@@ -155,7 +161,7 @@ export const faqGroups: FaqGroup[] = [
       {
         q: "Gibt es Mannschaftstraining im Winter?",
         a: [
-          "Nein, Mannschaftstraining für 5 bis 8 Personen bieten wir nur in der Sommersaison an — dabei werden zwei Plätze gleichzeitig belegt, und dafür reicht die Hallenkapazität im Winter nicht.",
+          "Nein, Mannschaftstraining für 5 bis 8 Personen bieten wir nur in der Sommersaison an, dabei werden zwei Plätze gleichzeitig belegt, und dafür reicht die Hallenkapazität im Winter nicht.",
         ],
       },
       {
@@ -179,7 +185,7 @@ export const faqGroups: FaqGroup[] = [
       {
         q: "Kann ich einen Schläger ausleihen?",
         a: [
-          "Ja, du kannst jederzeit Testschläger ausleihen. Sprich dazu am besten deinen Trainer an — auch schon bei der Probestunde.",
+          "Ja, du kannst jederzeit Testschläger ausleihen. Sprich dazu am besten deinen Trainer an, auch schon bei der Schnupperstunde.",
         ],
       },
       {
@@ -192,13 +198,13 @@ export const faqGroups: FaqGroup[] = [
       {
         q: "Was kostet ein Schläger bei euch?",
         a: [
-          "Das hängt vom Modell ab — sag uns einfach, welcher Schläger dich interessiert, dann nennen wir dir den Preis. Am schnellsten geht das direkt beim Training oder per E-Mail an info@vision-tennis.de.",
+          "Das hängt vom Modell ab. Sag uns einfach, welcher Schläger dich interessiert, dann nennen wir dir den Preis. Am schnellsten geht das direkt beim Training oder per E-Mail an info@vision-tennis.de.",
         ],
       },
       {
         q: "Welcher Schläger ist der richtige für mich?",
         a: [
-          "Das hängt vor allem vom persönlichen Gefühl ab. Probier bei uns verschiedene Testschläger aus — nach einer Trainingsstunde weißt du deutlich mehr als nach jeder Produktbeschreibung. Erst danach bestellst du.",
+          "Das hängt vor allem vom persönlichen Gefühl ab. Probier bei uns verschiedene Testschläger aus. Nach einer Trainingsstunde weißt du deutlich mehr als nach jeder Produktbeschreibung. Erst danach bestellst du.",
         ],
       },
     ],
@@ -209,7 +215,7 @@ export const faqGroups: FaqGroup[] = [
       {
         q: "Muss ich Mitglied im Verein sein?",
         a: [
-          "Für die Probestunde nicht. Für regelmäßiges Training ist eine Mitgliedschaft im jeweiligen Verein erforderlich.",
+          "Für die Schnupperstunde nicht. Für regelmäßiges Training ist eine Mitgliedschaft im jeweiligen Verein erforderlich.",
         ],
       },
       {
@@ -230,7 +236,7 @@ export const faqGroups: FaqGroup[] = [
       {
         q: "Wie kündige ich meine Mitgliedschaft?",
         a: [
-          "Die Mitgliedschaft kündigst du direkt beim jeweiligen Verein — wir können das nicht für dich übernehmen.",
+          "Die Mitgliedschaft kündigst du direkt beim jeweiligen Verein, wir können das nicht für dich übernehmen.",
         ],
       },
     ],
@@ -247,7 +253,7 @@ export const faqGroups: FaqGroup[] = [
       {
         q: "Wie erreiche ich Vision Tennis?",
         a: [
-          "Per E-Mail an info@vision-tennis.de oder per Telefon und WhatsApp unter +49 1512 9409005.",
+          "Per E-Mail an info@vision-tennis.de. Die Telefonnummer für Rückfragen steht im Impressum.",
         ],
       },
     ],

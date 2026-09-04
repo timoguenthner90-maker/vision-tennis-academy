@@ -6,53 +6,28 @@
  */
 import Base from "../layouts/Base.astro";
 import Cta from "../components/Cta.astro";
-import {
-  clubs,
-  winterSeason,
-  winterTraining,
-  winterHall,
-  winterFrom,
-} from "../data/site";
+import { clubs, winterSeason, winterTraining } from "../data/site";
 
 const title = "Training & Preise — Vision Tennis Academy";
-const description = `Gruppentraining von 1 bis 4 Personen für Kinder ab 5 und Erwachsene. Alle Preise für ${winterSeason.label} offen — Trainingsanteil und Hallenkosten je Verein.`;
-
-/** „1.520 €", aber „451,50 €" — Nachkommastellen nur, wenn es welche gibt. */
-const eur = (n: number) =>
-  `${new Intl.NumberFormat("de-DE", {
-    minimumFractionDigits: Number.isInteger(n) ? 0 : 2,
-    maximumFractionDigits: 2,
-  }).format(n)} €`;
-
-/**
- * Jugend- und Erwachsenenpreis unterscheiden sich nur dort, wo entweder der
- * Trainingsanteil oder der günstigste Hallenslot abweicht — praktisch also nur
- * in der Vierergruppe. Sonst wäre eine zweite Spalte mit derselben Zahl nur
- * Rauschen, deshalb meldet `same` das zurück.
- */
-const fromPrices = (slug: string, size: number) => {
-  const youth = winterFrom(slug, size, true);
-  const adult = winterFrom(slug, size, false);
-  return { youth, adult, same: Math.abs(youth - adult) < 0.005 };
-};
+const description = `Gruppentraining von 1 bis 4 Personen für Kinder ab 5 und Erwachsene. Stundenpreise für ${winterSeason.label} nach Gruppengröße.`;
 
 const offers = [
   {
     tag: "Kinder & Jugendliche",
     t: "Von der Ballschule bis zum Turniertraining",
-    d: "Ab etwa 5 Jahren. Die Zuordnung erfolgt nach Alter und Niveau, nicht nach Jahrgang — Anfänger trainieren mit Anfängern, Ambitionierte mit Ambitionierten.",
+    d: "Ab etwa 5 Jahren. Die Zuordnung erfolgt nach Alter und Niveau, nicht nach Jahrgang. Anfänger trainieren mit Anfängern, Ambitionierte mit Ambitionierten.",
     points: ["Gruppen von 1 bis 4", "60 Minuten pro Woche", "Feste Zeit über die Saison"],
   },
   {
     tag: "Erwachsene",
     t: "Wiedereinstieg oder regelmäßiges Spiel",
-    d: "Von 18 bis 90 Jahren. Ob nach Jahren Pause oder als regelmäßig spielender Freizeitspieler — wir setzen dort an, wo du stehst.",
+    d: "Von 18 bis 90 Jahren. Ob nach Jahren Pause oder als regelmäßig spielender Freizeitspieler, wir setzen dort an, wo du stehst.",
     points: ["Einzeln, zu zweit oder in der Gruppe", "Auch tagsüber möglich", "Ganzjährig, im Winter in der Halle"],
   },
   {
     tag: "Mannschaften",
     t: "Medenrunde und Turnierspiel",
-    d: "Mannschaftstraining für 5 bis 8 Personen auf zwei Plätzen — ein Angebot der Sommersaison, weil im Winter die Hallenkapazität dafür fehlt.",
+    d: "Mannschaftstraining für 5 bis 8 Personen auf zwei Plätzen. Das gibt's nur im Sommer, weil im Winter die Hallenkapazität dafür fehlt.",
     points: ["5 bis 8 Personen", "Nur in der Sommersaison", "Zwei Plätze parallel"],
   },
 ];
@@ -64,7 +39,7 @@ const offers = [
       <span class="eyebrow">Training</span>
       <h1>Ein Trainingsplatz, der zu Alter, Niveau und Woche passt.</h1>
       <p class="lead">
-        Wir trainieren an drei Vereinen zwischen Düsseldorf und Köln — in Gruppen von
+        Wir trainieren an drei Vereinen zwischen Düsseldorf und Köln, in Gruppen von
         höchstens vier Personen, wöchentlich zur festen Zeit und mit demselben Trainer
         über die ganze Saison.
       </p>
@@ -114,236 +89,12 @@ const offers = [
   <section class="section">
     <div class="wrap">
       <div class="section-head">
-        <span class="eyebrow">Preise · {winterSeason.label}</span>
-        <h2>Alle Kosten offen — vor der ersten Stunde.</h2>
-        <p class="lead">
-          Die Wintersaison läuft vom {winterSeason.from} bis zum {winterSeason.to}. Ein
-          Winterpreis besteht aus zwei Teilen: dem Trainingsanteil, der überall gleich
-          ist, und den Hallenkosten deines Vereins.
-        </p>
-      </div>
-
-      <div class="grid grid--2 parts">
-        <div class="card">
-          <span class="card__tag">Teil 1 · überall gleich</span>
-          <h3>Trainingsanteil</h3>
-          <p>
-            Deckt Trainer:in und Organisation über die ganze Saison ab. Er hängt nur an
-            der Gruppengröße — und ist für Jugendliche in der Vierergruppe günstiger.
-          </p>
-        </div>
-        <div class="card">
-          <span class="card__tag">Teil 2 · je nach Verein</span>
-          <h3>Hallenanteil</h3>
-          <p>
-            Die Halle wird für die gesamte Saison gebucht und der Betrag durch die
-            Teilnehmerzahl geteilt. Je größer die Gruppe und je früher die Stunde, desto
-            weniger entfällt auf dich.
-          </p>
-        </div>
-      </div>
-
-      <h3 class="sub">Trainingsanteil pro Person und Saison</h3>
-      <div class="table-scroll">
-        <table>
-          <caption class="sr-only">Trainingsanteil nach Gruppengröße</caption>
-          <thead>
-            <tr>
-              <th scope="col">Gruppe</th>
-              <th scope="col">Jugendliche</th>
-              <th scope="col">Erwachsene</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              winterTraining.map((t) => (
-                <tr>
-                  <td>{t.group}</td>
-                  <td>{eur(t.youth)}</td>
-                  <td>{eur(t.adult)}</td>
-                </tr>
-              ))
-            }
-          </tbody>
-        </table>
-      </div>
-      <p class="muted table-note">
-        Pro Person für die gesamte Saison, inklusive Mehrwertsteuer — zuzüglich der
-        Hallenkosten unten.
-      </p>
-
-      <h3 class="sub">Was das je Verein bedeutet</h3>
-      <p class="lead lead--narrow">
-        Die „ab"-Preise gelten für den günstigsten Zeitpunkt in der Woche. Liegt deine
-        Stunde abends, kommt entsprechend mehr Hallenanteil dazu — die vollständige
-        Tabelle steht jeweils darunter.
-      </p>
-
-      {
-        clubs.map((c) => {
-          const hall = winterHall[c.slug];
-          return (
-            <div class="club-prices">
-              <div class="club-prices__head">
-                <img
-                  src={`/img/${c.logo}.webp`}
-                  alt={`Vereinswappen ${c.name}`}
-                  width="320"
-                  height="320"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <div>
-                  <h4>{c.name}</h4>
-                  <p class="muted">{hall.venue}</p>
-                </div>
-              </div>
-
-              <ul class="from-grid">
-                {winterTraining.map((t) => {
-                  const p = fromPrices(c.slug, t.size);
-                  return (
-                    <li class="from">
-                      <span class="from__group">{t.group}</span>
-                      {p.same ? (
-                        <span class="from__price">ab {eur(p.youth)}</span>
-                      ) : (
-                        <span class="from__split">
-                          <span class="from__price">
-                            ab {eur(p.youth)}
-                            <small>Jugendliche</small>
-                          </span>
-                          <span class="from__price">
-                            ab {eur(p.adult)}
-                            <small>Erwachsene</small>
-                          </span>
-                        </span>
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
-
-              <div class="table-scroll">
-                <table>
-                  <caption class="sr-only">Hallenkosten {c.name}</caption>
-                  <thead>
-                    <tr>
-                      <th scope="col">Tage</th>
-                      <th scope="col">Zeit</th>
-                      {hall.oneTariff ? (
-                        <th scope="col">je Platzstunde</th>
-                      ) : (
-                        <>
-                          <th scope="col">Jugendliche</th>
-                          <th scope="col">Erwachsene</th>
-                        </>
-                      )}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {hall.slots.map((s) => (
-                      <tr>
-                        <td>{s.days}</td>
-                        <td>{s.time}</td>
-                        {hall.oneTariff ? (
-                          <td>{eur(s.adult as number)}</td>
-                        ) : (
-                          <>
-                            <td>{s.youth === null ? "—" : eur(s.youth)}</td>
-                            <td>{s.adult === null ? "—" : eur(s.adult)}</td>
-                          </>
-                        )}
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              <p class="muted table-note">
-                Betrag für die gesamte Saison, geteilt durch die Teilnehmerzahl.
-                {" "}{hall.holidays} Der Einzug läuft anteilig per SEPA über den Verein.
-              </p>
-            </div>
-          );
-        })
-      }
-
-      <div class="notes grid grid--2">
-        <div class="card">
-          <h3>Was zusätzlich dazukommt</h3>
-          <p>
-            Für regelmäßiges Training ist eine Mitgliedschaft im jeweiligen Verein nötig.
-            Die Beiträge legen die Vereine selbst fest und liegen je nach Anlage zwischen
-            85 € und 375 € im Jahr — die Übersicht steht unter
-            <a href="/standorte/">Standorte</a>.
-          </p>
-          <p>
-            Für die kostenlose Probestunde brauchst du <strong>keine</strong> Mitgliedschaft.
-          </p>
-        </div>
-        <div class="card">
-          <h3>Wie abgerechnet wird</h3>
-          <p>
-            Nach dem Saisonstart erhältst du eine Rechnung über den Trainingsanteil. Der
-            Betrag wird per SEPA-Lastschrift eingezogen — es gibt keine Vorkasse. Die
-            Hallenkosten zieht der Verein separat und anteilig ein.
-          </p>
-          <p>
-            Eine Kündigung ist nicht nötig: Das Training endet automatisch mit der Saison.
-          </p>
-        </div>
-      </div>
-
-      <p class="muted team-note">
-        <strong>Mannschaftstraining für 5 bis 8 Personen</strong> bieten wir in der
-        Sommersaison auf zwei Plätzen an — im Winter reicht die Hallenkapazität dafür
-        nicht. Sprich uns an, wenn du für den Sommer planst.
-      </p>
-
-      <div class="cta-row"><Cta /></div>
-    </div>
-  </section>
-
-  <section class="section section--dark">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="eyebrow">Ablauf</span>
-        <h2>Wie eine Saison läuft.</h2>
-      </div>
-      <div class="grid grid--4">
-        <div>
-          <h3>Einstieg jederzeit</h3>
-          <p>Du kannst das ganze Jahr über anfangen. Wir suchen dann eine Gruppe, die passt.</p>
-        </div>
-        <div>
-          <h3>60 Minuten, wöchentlich</h3>
-          <p>Eine feste Stunde pro Woche. Die konkrete Zeit erhältst du nach der Anmeldephase per E-Mail.</p>
-        </div>
-        <div>
-          <h3>Ferien im Winter</h3>
-          <p>Jugendstunden in Dormagen pausieren in den Ferien. Erwachsenenstunden laufen durch — außer in den Weihnachtsferien.</p>
-        </div>
-        <div>
-          <h3>Drinnen statt draußen</h3>
-          <p>Die Wintersaison läuft komplett in der Halle. Wetter spielt damit keine Rolle mehr.</p>
-        </div>
-      </div>
-      <p class="muted season-note">
-        Die Wintersaison läuft vom {winterSeason.from} bis zum {winterSeason.to}. Danach
-        geht es zurück auf die Außenplätze — Uedesheim spielt bis dahin in Dormagen mit.
-      </p>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap">
-      <div class="section-head">
         <span class="eyebrow">Selbst buchen</span>
         <h2>Direkt beim Verein anmelden.</h2>
         <p class="lead">
           Wenn du lieber ohne Umweg buchst: Jeder unserer drei Vereine hat einen eigenen
-          Zugang im Buchungssystem. Für die kostenlose Probestunde meldest du dich am
-          besten trotzdem kurz bei uns — dann finden wir vorher die passende Gruppe.
+          Zugang im Buchungssystem. Für die Schnupperstunde meldest du dich am
+          besten trotzdem kurz bei uns, dann finden wir vorher die passende Gruppe.
         </p>
       </div>
       <div class="grid grid--3">
@@ -369,12 +120,164 @@ const offers = [
           ))
         }
       </div>
-      <div class="cta-row"><Cta withNote /></div>
+      <div class="cta-row cta-row--start"><Cta withNote /></div>
+    </div>
+  </section>
+
+  <section class="section section--muted">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Preise · {winterSeason.label}</span>
+        <h2>Schon vor der ersten Stunde weißt du, was es kostet.</h2>
+        <p class="lead">
+          Die Wintersaison läuft vom {winterSeason.from} bis zum {winterSeason.to}. Der
+          Preis setzt sich aus zwei Teilen zusammen: dem Trainingsanteil und dem
+          Hallenanteil.
+        </p>
+      </div>
+
+      <div class="price-block">
+        <div class="table-scroll">
+          <table>
+            <caption class="sr-only">Trainingsanteil pro Stunde nach Gruppengröße</caption>
+            <thead>
+              <tr>
+                <th scope="col">Gruppe</th>
+                <th scope="col">Pro Stunde (60 Min.)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                winterTraining.map((t) => (
+                  <tr>
+                    <td>{t.group}</td>
+                    <td>{t.perHour} €</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <dl class="price-parts">
+          <div>
+            <dt><span class="card__tag">Trainingsanteil</span></dt>
+            <dd>
+              Überall gleich, richtet sich nur nach der Gruppengröße. Für Jugendliche
+              in der Vierergruppe etwas günstiger.
+            </dd>
+          </div>
+          <div>
+            <dt><span class="card__tag">Hallenanteil</span></dt>
+            <dd>
+              Hängt von Verein und Uhrzeit ab. Den genauen Preis nennen wir dir bei
+              der Anmeldung.
+            </dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="notes grid grid--2">
+        <div class="pain">
+          <h3>Wie abgerechnet wird</h3>
+          <p>
+            Nach dem Saisonstart erhältst du eine Rechnung über den Trainingsanteil. Der
+            Betrag wird per SEPA-Lastschrift eingezogen, es gibt keine Vorkasse. Die
+            Hallenkosten zieht der Verein separat und anteilig ein. Eine Kündigung ist
+            nicht nötig: Das Training endet automatisch mit der Saison.
+          </p>
+        </div>
+        <div class="pain">
+          <h3>Mannschaftstraining</h3>
+          <p>
+            Für 5 bis 8 Personen bieten wir das nur in der Sommersaison an, im Winter
+            reicht die Hallenkapazität dafür nicht. Sprich uns an, wenn du für den
+            Sommer planst.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Ablauf</span>
+        <h2>Wie eine Saison läuft.</h2>
+      </div>
+      <div class="grid grid--4">
+        <div>
+          <h3>Einstieg jederzeit</h3>
+          <p>Du kannst das ganze Jahr über anfangen. Wir suchen dann eine Gruppe, die passt.</p>
+        </div>
+        <div>
+          <h3>60 Minuten, wöchentlich</h3>
+          <p>Eine feste Stunde pro Woche. Die konkrete Zeit erhältst du nach der Anmeldephase per E-Mail.</p>
+        </div>
+        <div>
+          <h3>Ferien im Winter</h3>
+          <p>Jugendstunden in Dormagen pausieren in den Ferien. Erwachsenenstunden laufen durch, außer in den Weihnachtsferien.</p>
+        </div>
+        <div>
+          <h3>Drinnen statt draußen</h3>
+          <p>Die Wintersaison läuft komplett in der Halle. Wetter spielt damit keine Rolle mehr.</p>
+        </div>
+      </div>
+      <p class="muted season-note">
+        Die Wintersaison läuft vom {winterSeason.from} bis zum {winterSeason.to}. Danach
+        geht es zurück auf die Außenplätze. Uedesheim spielt bis dahin in Dormagen mit.
+      </p>
+      <div class="cta-row"><Cta /></div>
     </div>
   </section>
 </Base>
 
 <style>
+  /* Angebotskarten: Die Häkchenliste soll in allen drei Karten auf derselben
+     Höhe beginnen, unabhängig davon, wie lang der Beschreibungstext darüber
+     ist. Betrifft gezielt nur Karten mit .ticks, nicht die übrigen Karten
+     dieser Seite (z. B. "Wie abgerechnet wird" ohne Häkchenliste). */
+  .card:has(.ticks) {
+    display: flex;
+    flex-direction: column;
+  }
+  .card:has(.ticks) p {
+    flex: 1;
+  }
+
+  /* Vereinskarten unter "Selbst buchen": "Termine ansehen" soll überall auf
+     gleicher Höhe stehen, auch wenn der Saison-Text unterschiedlich lang ist
+     (Uedesheim braucht zwei Zeilen, die anderen beiden nur eine). */
+  .club-card {
+    display: flex;
+    flex-direction: column;
+  }
+  .club-card p.muted {
+    flex: 1;
+  }
+
+  /* Die Preise-Sektion liegt jetzt auf grauem Grund (section--muted) — ohne
+     eigenen weißen Hintergrund würde die Tabelle optisch mit der Fläche
+     verschmelzen (th nutzt dieselbe --paper-2-Farbe wie der Sektionsgrund).
+     Nur zwei schmale Spalten mit kurzem Inhalt, deshalb bewusst kompakt statt
+     über die volle Breite gezogen. */
+  .table-scroll {
+    background: var(--paper);
+    max-width: 26rem;
+    border-top: 4px solid var(--brand);
+  }
+  .table-scroll table {
+    font-size: var(--step--1);
+  }
+  .table-scroll th,
+  .table-scroll td {
+    padding: 0.65rem 0.85rem;
+  }
+  .table-scroll th:last-child,
+  .table-scroll td:last-child {
+    text-align: center;
+  }
+
   .offer-head {
     display: grid;
     grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
@@ -397,103 +300,55 @@ const offers = [
     }
   }
 
-  .sub {
-    margin-top: 3rem;
-    margin-bottom: 0.6rem;
-  }
   .notes {
     margin-top: 2.5rem;
   }
-  .parts {
-    margin-bottom: 1rem;
-  }
-  .lead--narrow {
-    max-width: 46rem;
-  }
-  .table-note {
-    margin-top: 0.7rem;
-    font-size: var(--step--1);
-  }
-  .team-note {
-    margin-top: 1.5rem;
-    padding: 1rem 1.25rem;
-    border-left: 3px solid var(--brand);
-    background: var(--paper-2);
-    border-radius: var(--radius);
+  .notes p {
+    max-width: 42ch;
   }
 
-  /* Preisblock je Verein: Wappen + „ab"-Kacheln + vollständige Hallentabelle. */
-  .club-prices {
-    margin-top: 2.5rem;
-    padding-top: 2.5rem;
-    border-top: 1px solid var(--line);
+  /* Tabelle und Zwei-Teile-Erklärung als ein Block: Die Erklärung füllt den
+     Platz neben der schmalen Tabelle, statt darunter mit viel Leerraum zu
+     stehen. */
+  .price-block {
+    display: grid;
+    grid-template-columns: minmax(0, 26rem) minmax(0, 1fr);
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: start;
   }
-  .club-prices:first-of-type {
-    border-top: 0;
-    padding-top: 0.5rem;
+  .price-block .table-scroll {
+    max-width: none;
   }
-  .club-prices__head {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1.25rem;
+  @media (max-width: 45rem) {
+    .price-block {
+      grid-template-columns: 1fr;
+    }
   }
-  /* Gleiche Wappendarstellung wie .club-card__head — weißer Grund und feiner
-     Rahmen, damit das fremde Logo auf jedem Untergrund gleich sitzt. */
-  .club-prices__head img {
-    width: clamp(3.6rem, 7vw, 4.6rem);
-    height: clamp(3.6rem, 7vw, 4.6rem);
-    flex: none;
-    object-fit: contain;
-    border: 1px solid var(--line);
-    border-radius: 4px;
-    background: #fff;
-    padding: 0.35rem;
-  }
-  .club-prices__head h4 {
-    font-size: var(--step-1);
-    margin-bottom: 0.15rem;
-  }
-  .club-prices__head p {
+
+  .price-parts {
+    display: grid;
+    gap: 1.1rem;
     margin: 0;
-    font-size: var(--step--1);
+    align-content: start;
+  }
+  .price-parts > div {
+    padding-bottom: 1.1rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .price-parts > div:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+  .price-parts dt {
+    font-weight: 800;
+    margin-bottom: 0.3rem;
+  }
+  .price-parts dd {
+    margin: 0;
+    color: var(--ink-2);
+    max-width: 42ch;
   }
 
-  .from-grid {
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
-    gap: 0.75rem;
-    margin-bottom: 1.25rem;
-  }
-  .from {
-    padding: 0.9rem 1rem;
-    background: var(--paper-2);
-    border-radius: var(--radius);
-  }
-  .from__group {
-    display: block;
-    font-size: var(--step--1);
-    color: var(--ink-2);
-    margin-bottom: 0.35rem;
-  }
-  .from__price {
-    display: block;
-    font-weight: 800;
-    font-size: var(--step-1);
-    line-height: 1.25;
-  }
-  .from__price small {
-    display: block;
-    font-weight: 500;
-    font-size: var(--step--1);
-    color: var(--ink-2);
-  }
-  /* Zwei Preise nur dort, wo Jugend und Erwachsene sich unterscheiden. */
-  .from__split {
-    display: grid;
-    gap: 0.5rem;
-  }
   .season-note {
     margin-top: 2rem;
     margin-bottom: 0;

@@ -1,14 +1,21 @@
 ---
 /**
- * Consideration + Loyalty. Trägt Purpose, Werte und das vollständige Trainerteam —
+ * Consideration + Loyalty. Trägt Purpose, Werte und die drei Head Coaches —
  * laut Empathy Map ist „guter Trainer, gleicher Trainer" der stärkste Gain, also
- * bekommen die Coaches Gesicht und Lizenzstufe statt einer bloßen Zahl.
+ * bekommen sie Gesicht und Lizenzstufe statt einer bloßen Zahl.
+ *
+ * Die Übersicht des ganzen Trainerteams (vormals Abschnitt „Das Team") ist
+ * vorübergehend raus: Ein Teil der Coaches hatte nur Initialen statt echter
+ * Fotos, das wirkte uneinheitlich. Kommt zurück, sobald neue Fotos da sind —
+ * die Rosterdaten (`coaches` in data/site.ts) bleiben dafür unverändert.
+ *
  * Der Ausblick auf Padel und Pickleball steht bewusst unter „Wohin wir wollen"
- * und nicht im Angebot — beides ist noch nicht buchbar.
+ * und nicht im Angebot — eine langfristige Idee ohne konkreten Zeitplan, kein
+ * aktives Vorhaben.
  */
 import Base from "../layouts/Base.astro";
 import Cta from "../components/Cta.astro";
-import { headCoaches, coaches, coachCount } from "../data/site";
+import { headCoaches, coachCount } from "../data/site";
 
 const title = "Die Academy — Vision Tennis Academy";
 const description =
@@ -21,8 +28,6 @@ const values = [
   { t: "Leidenschaft", d: "Begeisterung für den Sport ist der Grund, wiederzukommen." },
   { t: "Persönliche Betreuung", d: "Jede:r wird einzeln gesehen, nicht als Gruppenmitglied." },
 ];
-
-const initials = (n: string) => n.slice(0, 2).toUpperCase();
 ---
 
 <Base title={title} description={description}>
@@ -33,7 +38,7 @@ const initials = (n: string) => n.slice(0, 2).toUpperCase();
       <p class="lead">
         Im Juni 2022 haben wir unsere Tennisschule gegründet und das Trainerteam nach und
         nach vergrößert. Heute sind wir {coachCount} Trainerinnen und Trainer an drei
-        Vereinen — mit einem Anspruch, der sich nicht verändert hat.
+        Vereinen, mit einem Anspruch, der sich nicht verändert hat.
       </p>
     </div>
   </section>
@@ -43,12 +48,12 @@ const initials = (n: string) => n.slice(0, 2).toUpperCase();
       <div class="two">
         <div>
           <span class="eyebrow">Warum wir das machen</span>
-          <h2>Menschen für Racketsport begeistern — und in Bewegung halten.</h2>
+          <h2>Menschen für Tennis begeistern und in Bewegung halten.</h2>
         </div>
         <div>
           <p>
             Wir wollen ein Umfeld schaffen, in dem sich Freizeitspieler und ambitionierte
-            Spieler gleichermaßen weiterentwickeln können — sportlich und persönlich. Ob
+            Spieler gleichermaßen weiterentwickeln können, sportlich und persönlich. Ob
             Anfängerin, Fortgeschrittener oder Turnierspieler: Unser Ziel ist es, dich auf
             deinem Weg zu begleiten.
           </p>
@@ -60,10 +65,10 @@ const initials = (n: string) => n.slice(0, 2).toUpperCase();
         </div>
       </div>
 
-      <ul class="values grid grid--3">
+      <ul class="values grid grid--4">
         {
           values.map((v) => (
-            <li class="pain">
+            <li class="value">
               <h3>{v.t}</h3>
               <p>{v.d}</p>
             </li>
@@ -79,8 +84,8 @@ const initials = (n: string) => n.slice(0, 2).toUpperCase();
         <span class="eyebrow">Head Coaches</span>
         <h2>Die drei Gründer.</h2>
         <p class="lead">
-          Jan, Max und Timo haben die Academy 2022 gegründet — alle drei DTB-B-Trainer und
-          alle drei weiterhin selbst auf dem Platz.
+          Jan, Max und Timo haben die Academy 2022 gegründet. Alle drei sind DTB-B-Trainer
+          und alle drei stehen weiterhin selbst auf dem Platz.
         </p>
       </div>
 
@@ -122,47 +127,6 @@ const initials = (n: string) => n.slice(0, 2).toUpperCase();
     </div>
   </section>
 
-  <section class="section section--muted">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="eyebrow">Das Team</span>
-        <h2>Unsere Trainerinnen und Trainer.</h2>
-        <p class="lead">
-          Vom DTB-A-Trainer bis zu den Nachwuchscoaches in Ausbildung — die Lizenzstufe
-          steht bei jeder Person dabei.
-        </p>
-      </div>
-
-      <div class="grid grid--4">
-        {
-          coaches.map((c) => (
-            <figure class="person">
-              {c.img ? (
-                <img
-                  data-reveal
-                  src={`/img/${c.img}.webp`}
-                  alt={`${c.name}, Coach der Vision Tennis Academy`}
-                  width="480"
-                  height="480"
-                  loading="lazy"
-                  decoding="async"
-                />
-              ) : (
-                <div class="person__initials" data-reveal aria-hidden="true">
-                  {initials(c.name)}
-                </div>
-              )}
-              <figcaption>
-                <span class="person__name">{c.name}</span>
-                <span class="person__role">{c.license}</span>
-              </figcaption>
-            </figure>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
   <section class="section section--dark">
     <div class="wrap">
       <div class="two">
@@ -177,10 +141,10 @@ const initials = (n: string) => n.slice(0, 2).toUpperCase();
             Organisation, auf die man sich verlassen kann.
           </p>
           <p>
-            Perspektivisch sollen neben Tennis auch <strong>Padel und Pickleball</strong>
-            feste Bestandteile unseres Angebots werden, dazu weitere Standorte und
-            Partnervereine. Beides ist in Planung und noch nicht buchbar — sobald es
-            losgeht, steht es hier.
+            Langfristig könnten neben Tennis auch <strong>Padel und Pickleball</strong>
+            Teil unseres Angebots werden, dazu weitere Standorte und Partnervereine. Eine
+            schöne Vorstellung für die Zukunft, aktuell aber ohne konkreten Zeitplan.
+            Sobald sich daran etwas ändert, steht es hier.
           </p>
           <Cta />
         </div>
@@ -210,9 +174,29 @@ const initials = (n: string) => n.slice(0, 2).toUpperCase();
     list-style: none;
     margin-bottom: 0;
   }
+  /* Werte als eigenständige Kacheln statt geliehener Painpoint-Optik (schwarzer
+     Balken wirkt wie ein Problem, nicht wie eine Stärke) — gelber Akzent oben,
+     im selben Stil wie Zitate und die Preistabelle auf /training/. */
+  .value {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--brand);
+    border-radius: var(--radius);
+    padding: clamp(1.1rem, 2.5vw, 1.5rem);
+  }
+  .value h3 {
+    font-size: var(--step-0);
+    margin-bottom: 0.35rem;
+  }
+  .value p {
+    color: var(--ink-2);
+    margin: 0;
+    font-size: 0.95rem;
+  }
 
   .heads {
     max-width: 60rem;
+    margin-inline: auto;
   }
 
   .team-band {

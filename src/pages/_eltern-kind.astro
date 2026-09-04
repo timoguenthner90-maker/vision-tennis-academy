@@ -1,11 +1,18 @@
 ---
 /**
- * Startseite nach dem Storytelling Skill Framework (12 Elemente, feste Reihenfolge).
- * Held = alle Zielgruppen der Academy gemeinsam (Kinder, Jugendliche, Erwachsene,
- * Mannschaft) — die Seite grenzt bewusst auf keine Persona ein. Persona-Unterseiten
- * (z. B. die Eltern/Kind-Seite unter src/pages/_eltern-kind.astro) sind vorbereitet,
- * aber aktuell bewusst nicht verlinkt — bei Bedarf Datei-Präfix „_" entfernen, damit
- * Astro die Route wieder baut. Die Marke tritt als Guide auf (#7).
+ * PAUSIERT: Dateiname trägt bewusst das „_"-Präfix, damit Astro daraus keine
+ * Route baut — die Seite ist aktuell nirgends auf der Website verlinkt.
+ * Reaktivieren: Datei in „eltern-kind.astro" umbenennen (Präfix entfernen)
+ * und bei Bedarf wieder einen Verweis von der Startseite ergänzen.
+ *
+ * Persona-Unterseite „Eltern & Kind" nach dem Storytelling Skill Framework
+ * (12 Elemente, feste Reihenfolge). Held = Elternteil (Empathy Map des Kunden).
+ * Die Marke tritt als Guide auf (#7).
+ *
+ * Ursprünglich die allgemeine Startseite — seit der Persona-Aufteilung eigene
+ * Unterseite unter /eltern-kind/, unverändert im Aufbau übernommen. Die
+ * Startseite (index.astro) spricht seitdem alle Zielgruppen der Academy an;
+ * diese Seite bleibt die vertiefte Version für die Zielgruppe Eltern/Kind.
  *
  *  1 Logo + 2 Navigation → Header.astro
  *  3 Heroshot · 4 Headline · 5 Einleitung · 9 CTA   → Hero
@@ -19,18 +26,17 @@
 import Base from "../layouts/Base.astro";
 import Cta from "../components/Cta.astro";
 import { clubs, coachCount, headCoaches, site } from "../data/site";
-import { organizationLd, websiteLd } from "../data/jsonld";
 
-const title = "Vision Tennis Academy — Tennistraining Dormagen & Köln";
+const title = "Tennistraining für Kinder — Vision Tennis Academy";
 const description =
-  "Tennistraining für Kinder, Jugendliche und Erwachsene an drei Vereinen zwischen Düsseldorf und Köln. Gruppen von 1 bis 4, feste Zeiten, Schnupperstunde möglich.";
+  "Passende Gruppe nach Alter und Niveau für dein Kind, höchstens vier Personen, fester Trainer. Schnupperstunde an drei Vereinen bei Köln und Düsseldorf.";
 
 // Element #6 — die sechs Painpoints stammen unverändert aus der Empathy Map
 // des Kunden (Pains + die offenen Fragen aus „Was sagt sie?").
 const pains = [
   {
     t: "„Ist die Gruppe wirklich passend?“",
-    d: "Zu stark, zu schwach, zu alt, zu jung: In der falschen Gruppe geht die Motivation schnell verloren.",
+    d: "Zu stark, zu schwach, zu alt, zu jung — in der falschen Gruppe verliert ein Kind schnell die Lust am Sport.",
   },
   {
     t: "Trainingszeiten, die nicht in die Woche passen",
@@ -42,7 +48,7 @@ const pains = [
   },
   {
     t: "Kommunikation, die abreißt",
-    d: "Fällt Training aus? Wie läuft es überhaupt? Ohne verlässliche Rückmeldung bleibt Unsicherheit zurück.",
+    d: "Fällt Training aus? Wie läuft es überhaupt? Ohne verlässliche Rückmeldung bleibt bei Eltern Unsicherheit zurück.",
   },
   {
     t: "Ständig wechselnde Trainer",
@@ -58,7 +64,7 @@ const pains = [
 const steps = [
   {
     t: "Melde dich bei uns",
-    d: "Eine kurze E-Mail: Alter, bisherige Erfahrung und der Wunschtermin. Mehr brauchen wir nicht.",
+    d: "Eine kurze E-Mail: Alter, bisherige Erfahrung und wann ihr Zeit habt. Mehr brauchen wir nicht.",
   },
   {
     t: "Schnupperstunde",
@@ -98,34 +104,32 @@ const testimonials = [
 ];
 ---
 
-<Base title={title} description={description} jsonLd={[organizationLd, websiteLd]}>
+<Base title={title} description={description}>
   <!-- #3 Heroshot · #4 Headline · #5 Einleitung · #9 CTA
-       Das Bild trägt die Sektion vollflächig, der Text liegt darüber. Ein
-       Verlaufs-Scrim von links sichert den Kontrast, ohne das Motiv rechts
-       zuzudecken. Motiv bewusst neutral gewählt (Aufschlag von hinten, kein
-       erkennbares Alter oder Geschlecht im Vordergrund), damit der erste
-       Eindruck keine Zielgruppe bevorzugt. In Graustufen passend zur
-       Bildsprache der übrigen Seite. -->
+       Das Bild trägt die Sektion vollflächig. Die Bildkomposition hat links freie
+       Platzfläche — genau dort sitzt der Text. Ein Verlaufs-Scrim von links sichert
+       den Kontrast, ohne das Motiv rechts zuzudecken. -->
   <section class="hero">
     <img
       class="hero__bg"
-      src="/img/hero-court-serve.webp"
-      alt="Ein Spieler beim Aufschlag auf dem Sandplatz vor der Bande der Vision Tennis Academy"
-      width="1822"
-      height="863"
+      src="/img/hero-court-1280.webp"
+      srcset="/img/hero-court-800.webp 800w, /img/hero-court-1280.webp 1280w, /img/hero-court-1720.webp 1720w"
+      sizes="100vw"
+      alt="Ein Kind spielt auf einem sonnenbeschienenen Sandplatz eine Vorhand über das Netz"
+      width="1720"
+      height="914"
       fetchpriority="high"
       decoding="async"
     />
     <div class="wrap hero__inner">
       <div class="hero__text">
         <span class="eyebrow">Dormagen · Köln · Neuss</span>
-        <h1>Tennistraining für jedes Alter, jeden Anspruch.</h1>
+        <h1>Tennistraining, das zu deinem Kind passt.</h1>
         <p class="lead">
-          Kinder, Jugendliche, Erwachsene und Mannschaften trainieren bei uns in
-          passenden Gruppen nach Alter und Spielstärke, mit fester Zeit und festem
-          Trainer, an drei Vereinen zwischen Düsseldorf und Köln.
+          Passende Gruppe nach Alter und Niveau, höchstens vier Personen, feste Zeit
+          und fester Trainer — an drei Vereinen zwischen Düsseldorf und Köln.
         </p>
-        <Cta />
+        <Cta withNote />
       </div>
     </div>
   </section>
@@ -137,7 +141,7 @@ const testimonials = [
         <span class="eyebrow">Warum die Wahl so schwerfällt</span>
         <h2>Beim Tennistraining entscheidet sich vieles vor der ersten Stunde.</h2>
         <p class="lead">
-          Nicht die Frage, ob trainiert wird, sondern in welcher Gruppe, zu welcher
+          Nicht die Frage, ob trainiert wird — sondern in welcher Gruppe, zu welcher
           Zeit und bei wem. Genau daran scheitern die meisten Anmeldungen.
         </p>
       </div>
@@ -164,16 +168,16 @@ const testimonials = [
         <span class="eyebrow">Wer wir sind</span>
         <h2>Drei Trainer, die eine Tennisschule wollten, die verlässlich läuft.</h2>
         <p>
-          Im Juni 2022 haben Jan, Max und Timo die Vision Tennis Academy gegründet. Alle
-          drei sind DTB-B-Trainer und alle drei stehen selbst noch auf dem Platz. Aus
-          drei Coaches sind inzwischen {coachCount} geworden, vom DTB-A-Trainer bis zu
-          den Nachwuchscoaches in Ausbildung.
+          Im Juni 2022 haben Jan, Max und Timo die Vision Tennis Academy gegründet — alle
+          drei DTB-B-Trainer, alle drei selbst noch auf dem Platz. Aus drei Coaches sind
+          inzwischen {coachCount} geworden, vom DTB-A-Trainer bis zu den Nachwuchscoaches
+          in Ausbildung.
         </p>
         <p>
           Der Anspruch ist dabei derselbe geblieben: Training, das sich an der einzelnen
           Person orientiert, nicht an der Gruppengröße. Deshalb trainieren bei uns
           höchstens vier Personen gleichzeitig, und deshalb bleibt der Trainer über die
-          Saison derselbe. Was wir ergänzt haben, ist die Organisation drumherum:
+          Saison derselbe. Was wir ergänzt haben, ist die Organisation drumherum —
           Anmeldung, Gruppeneinteilung und Abrechnung laufen digital, damit vom Training
           mehr übrig bleibt als Verwaltung.
         </p>
@@ -322,9 +326,9 @@ const testimonials = [
         <span class="eyebrow">Der nächste Schritt</span>
         <h2>Eine Stunde ausprobieren, dann entscheiden.</h2>
         <p class="lead">
-          Ob für dein Kind, für dich selbst oder fürs Mannschaftstraining: Schreib
-          uns kurz, worum es geht und wann ihr Zeit habt. Wir suchen die passende
-          Gruppe und melden uns zurück.
+          Schreib uns kurz, wie alt dein Kind ist und wann ihr Zeit habt — oder ob du
+          selbst wieder anfangen willst. Wir suchen die passende Gruppe und melden uns
+          zurück.
         </p>
         <Cta withNote />
       </div>
@@ -344,14 +348,14 @@ const testimonials = [
 
 <style>
   /* Der Hero füllt höchstens einen Bildschirm abzüglich Kopfleiste. Sonst rutscht
-     der CTA unter die Falz. Nach unten begrenzt, damit er auf sehr flachen
-     Fenstern nicht zusammengedrückt wird. */
+     der CTA unter die Falz — genau das war vorher der Fall. Nach unten begrenzt,
+     damit er auf sehr flachen Fenstern nicht zusammengedrückt wird. */
   .hero {
     position: relative;
     isolation: isolate;
-    background: #1a1a1a; /* neutraler Grauton als Fallback, falls das Bild noch lädt */
+    background: #241009; /* Sandplatz-Ton als Fallback, falls das Bild noch lädt */
     color: #fff;
-    min-height: clamp(28rem, calc(100svh - 7rem), 40rem);
+    min-height: clamp(30rem, calc(100svh - 7rem), 44rem);
     display: flex;
     align-items: center;
     padding-block: clamp(2.25rem, 5vw, 3.5rem);
@@ -367,24 +371,25 @@ const testimonials = [
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* Bild ist breiter als die meisten Ausschnitte — Ausschnitt Richtung Spieler
-       verschoben, damit die Aktion rechts erhalten bleibt und links Platz für
-       den Text frei wird. */
-    object-position: 78% 38%;
+    /* Das Bild ist breiter als der Ausschnitt, es wird also horizontal
+       beschnitten. 100% schiebt den Ausschnitt ganz nach rechts — dadurch
+       rutscht das Kind, das im Original nah am rechten Rand steht, so weit
+       wie möglich Richtung Bildmitte. */
+    object-position: 100% 50%;
     z-index: -2;
   }
 
   /* Scrim: links kräftig, rechts offen, damit das Motiv sichtbar bleibt.
-     Neutral in Schwarz statt warmem Braun, passend zum Graustufenbild. */
+     Der zweite Verlauf von unten fängt den CTA-Bereich ab. */
   .hero::before {
     content: "";
     position: absolute;
     inset: 0;
     z-index: -1;
     background:
-      linear-gradient(100deg, rgba(8, 8, 8, 0.92) 0%, rgba(8, 8, 8, 0.8) 34%,
-        rgba(8, 8, 8, 0.4) 62%, rgba(8, 8, 8, 0.1) 100%),
-      linear-gradient(to top, rgba(8, 8, 8, 0.5) 0%, rgba(8, 8, 8, 0) 45%);
+      linear-gradient(100deg, rgba(10, 6, 4, 0.92) 0%, rgba(10, 6, 4, 0.82) 34%,
+        rgba(10, 6, 4, 0.42) 62%, rgba(10, 6, 4, 0.12) 100%),
+      linear-gradient(to top, rgba(10, 6, 4, 0.55) 0%, rgba(10, 6, 4, 0) 45%);
   }
 
   .hero__inner {
@@ -401,7 +406,7 @@ const testimonials = [
 
   .hero h1 {
     margin-bottom: 1.25rem;
-    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 2px 24px rgba(10, 6, 4, 0.5);
   }
 
   .hero .lead {
@@ -416,12 +421,12 @@ const testimonials = [
       padding-block: clamp(3rem, 9vw, 5rem);
     }
     .hero__bg {
-      object-position: 82% 40%;
+      object-position: 88% 50%;
     }
     .hero::before {
       background:
-        linear-gradient(180deg, rgba(8, 8, 8, 0.78) 0%, rgba(8, 8, 8, 0.68) 45%,
-          rgba(8, 8, 8, 0.86) 100%);
+        linear-gradient(180deg, rgba(10, 6, 4, 0.8) 0%, rgba(10, 6, 4, 0.7) 45%,
+          rgba(10, 6, 4, 0.86) 100%);
     }
   }
 

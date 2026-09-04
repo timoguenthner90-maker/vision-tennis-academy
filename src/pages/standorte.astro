@@ -6,18 +6,12 @@
  */
 import Base from "../layouts/Base.astro";
 import Cta from "../components/Cta.astro";
-import { clubs, winterSeason, winterFrom } from "../data/site";
+import { clubs } from "../data/site";
 import { clubsLd } from "../data/jsonld";
 
 const title = "Standorte — Vision Tennis Academy";
 const description =
   "Wir trainieren am TC Bayer Dormagen, am TC Ford Köln und beim Uedesheimer TV. Anlagen, Adressen, Mitgliedsbeiträge und Buchung im Überblick.";
-
-const eur = (n: number) =>
-  `${new Intl.NumberFormat("de-DE", {
-    minimumFractionDigits: Number.isInteger(n) ? 0 : 2,
-    maximumFractionDigits: 2,
-  }).format(n)} €`;
 ---
 
 <Base title={title} description={description} jsonLd={clubsLd}>
@@ -61,7 +55,7 @@ const eur = (n: number) =>
             </address>
             <p>{c.courts}.</p>
             <p><strong>Saison:</strong> {c.season}.</p>
-            <div class="cta-row">
+            <div class="cta-row cta-row--start">
               <a class="btn-ghost" href={c.booking} rel="noopener">
                 Termine im Buchungssystem
               </a>
@@ -85,24 +79,11 @@ const eur = (n: number) =>
             </dl>
             <p class="muted">
               Der Beitrag wird vom Verein erhoben, nicht von uns, und ist für regelmäßiges
-              Training nötig. Für die kostenlose Probestunde brauchst du keine
+              Training nötig. Für die Schnupperstunde brauchst du keine
               Mitgliedschaft.
             </p>
-
-            <h3 class="winter-head">Training im {winterSeason.label}</h3>
-            <dl>
-              <div>
-                <dt>Erwachsene</dt>
-                <dd>ab {eur(winterFrom(c.slug, 4, false))}</dd>
-              </div>
-              <div>
-                <dt>Jugendliche</dt>
-                <dd>ab {eur(winterFrom(c.slug, 4, true))}</dd>
-              </div>
-            </dl>
             <p class="muted">
-              Vierergruppe, gesamte Saison, inklusive Hallenanteil zum günstigsten
-              Zeitpunkt. Alle Gruppengrößen und Uhrzeiten stehen unter
+              Die Trainingspreise stehen gesammelt unter
               <a href="/training/">Training &amp; Preise</a>.
             </p>
           </div>
@@ -111,14 +92,14 @@ const eur = (n: number) =>
     ))
   }
 
-  <section class="section section--dark">
+  <section class="section section--dark" id="kontakt">
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">Noch unsicher?</span>
         <h2>Welcher Standort passt, klären wir vorher.</h2>
         <p class="lead">
           Schreib uns, wo ihr wohnt und wann ihr Zeit habt. Wir sagen dir, an welcher
-          Anlage gerade eine passende Gruppe läuft — und legen die Probestunde dort hin.
+          Anlage gerade eine passende Gruppe läuft und legen die Schnupperstunde dort hin.
         </p>
       </div>
       <Cta withNote />
@@ -164,14 +145,11 @@ const eur = (n: number) =>
     max-width: 55ch;
   }
 
-  /* Zweiter Block in der Faktenspalte: Beitrag oben, Winterpreis darunter. */
-  .winter-head {
-    margin-top: 1.75rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--line);
-  }
-
   .club__facts {
+    /* Rückt die Kachel auf Höhe des Vereinsnamens links statt auf Höhe des
+       kleinen "Standort x von y"-Labels darüber — sonst wirkt sie höher als
+       der Rest der Spalte. */
+    margin-top: calc(var(--step--1) * 1.65 + 0.9rem);
     border: 1px solid var(--line);
     border-top: 4px solid var(--brand);
     border-radius: var(--radius);
@@ -211,6 +189,9 @@ const eur = (n: number) =>
   @media (max-width: 55rem) {
     .club {
       grid-template-columns: 1fr;
+    }
+    .club__facts {
+      margin-top: 0;
     }
   }
 </style>

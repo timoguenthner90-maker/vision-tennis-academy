@@ -11,7 +11,7 @@ import { faqLd } from "../data/jsonld";
 
 const title = "Häufige Fragen — Vision Tennis Academy";
 const description =
-  "Antworten zu Training, Gruppen, Preisen, Saison, Mitgliedschaft und Material — von der Probestunde bis zur Abrechnung per SEPA-Lastschrift.";
+  "Antworten zu Training, Gruppen, Preisen, Saison, Mitgliedschaft und Material, von der Schnupperstunde bis zur Abrechnung per SEPA-Lastschrift.";
 
 const slug = (s: string) =>
   s
@@ -30,8 +30,8 @@ const slug = (s: string) =>
       <span class="eyebrow">FAQ</span>
       <h1>Häufige Fragen.</h1>
       <p class="lead">
-        Von der Probestunde bis zur Abrechnung. Wenn deine Frage hier nicht steht:
-        Schreib uns einfach — wir antworten kurzfristig.
+        Von der Schnupperstunde bis zur Abrechnung. Wenn deine Frage hier nicht steht:
+        Schreib uns einfach, wir antworten kurzfristig.
       </p>
 
       <nav class="faq-toc" aria-label="Themen">
@@ -55,12 +55,16 @@ const slug = (s: string) =>
           <div class="faq-group" id={slug(g.title)}>
             <h2>{g.title}</h2>
             {g.items.map((item) => (
-              <article class="faq-item">
-                <h3>{item.q}</h3>
-                {item.a.map((p) => (
-                  <p>{p}</p>
-                ))}
-              </article>
+              <details class="faq-item">
+                <summary>
+                  <h3>{item.q}</h3>
+                </summary>
+                <div class="faq-item__a">
+                  {item.a.map((p) => (
+                    <p>{p}</p>
+                  ))}
+                </div>
+              </details>
             ))}
           </div>
         ))
@@ -68,11 +72,11 @@ const slug = (s: string) =>
     </div>
   </section>
 
-  <section class="section section--dark">
+  <section class="section section--dark" id="kontakt">
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">Frage offen geblieben?</span>
-        <h2>Schreib uns — meistens ist es in zwei Sätzen geklärt.</h2>
+        <h2>Schreib uns, meistens ist es in zwei Sätzen geklärt.</h2>
       </div>
       <Cta withNote />
     </div>

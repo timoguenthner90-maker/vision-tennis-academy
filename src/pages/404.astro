@@ -18,7 +18,7 @@ import { nav } from "../data/site";
       <span class="eyebrow">Fehler 404</span>
       <h1>Diese Seite gibt es nicht.</h1>
       <p class="lead">
-        Möglicherweise suchst du etwas aus unserem früheren Onlineshop — den führen wir
+        Möglicherweise suchst du etwas aus unserem früheren Onlineshop, den führen wir
         nicht mehr. Equipment gibt es weiterhin: Als HEAD-Partner bestellen wir auf
         Anfrage und bringen es zur Trainingsstunde mit.
       </p>
@@ -27,7 +27,7 @@ import { nav } from "../data/site";
         {nav.map((i) => <li><a href={i.href}>{i.label}</a></li>)}
       </ul>
 
-      <div class="cta-row"><Cta withNote /></div>
+      <div class="cta-row cta-row--start"><Cta withNote /></div>
     </div>
   </section>
 </Base>

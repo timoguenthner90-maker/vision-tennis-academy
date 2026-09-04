@@ -1,8 +1,10 @@
 ---
 /**
- * Kein Formular: bewusste Entscheidung des Kunden. Der CTA führt zu WhatsApp,
- * E-Mail steht gleichwertig daneben. Ohne Formular gibt es keine Datenverarbeitung
- * über die Website und damit keinen Consent-Bedarf.
+ * Kein Formular: bewusste Entscheidung des Kunden. Kommunikation läuft
+ * hauptsächlich über E-Mail; kein WhatsApp-Link und keine Telefonnummer auf
+ * dieser Seite (die Nummer steht ausschließlich im Impressum). Ohne Formular
+ * gibt es keine Datenverarbeitung über die Website und damit keinen
+ * Consent-Bedarf.
  */
 import Base from "../layouts/Base.astro";
 import Cta from "../components/Cta.astro";
@@ -10,17 +12,17 @@ import { site, clubs } from "../data/site";
 
 const title = "Kontakt — Vision Tennis Academy";
 const description =
-  "Erreich uns per WhatsApp, Telefon oder E-Mail. Wir melden uns kurzfristig zurück und suchen die passende Trainingsgruppe an einem unserer drei Vereine.";
+  "Erreich uns per E-Mail. Wir melden uns kurzfristig zurück und suchen die passende Trainingsgruppe an einem unserer drei Vereine.";
 ---
 
 <Base title={title} description={description}>
   <section class="section section--tight">
     <div class="wrap">
       <span class="eyebrow">Kontakt</span>
-      <h1>Schreib uns — kurz reicht.</h1>
+      <h1>Schreib uns einfach kurz.</h1>
       <p class="lead">
         Alter, bisherige Erfahrung und wann ihr Zeit habt: Mehr brauchen wir nicht, um
-        eine passende Gruppe zu finden und einen Termin für die kostenlose Probestunde
+        eine passende Gruppe zu finden und einen Termin für die Schnupperstunde
         vorzuschlagen.
       </p>
       <div class="cta-row"><Cta withNote /></div>
@@ -31,29 +33,17 @@ const description =
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">Wege zu uns</span>
-        <h2>Drei Adressen — je nachdem, worum es geht.</h2>
+        <h2>Die richtige Adresse für dein Anliegen.</h2>
       </div>
       <div class="grid grid--3">
         <article class="card">
           <span class="card__tag">Am schnellsten</span>
-          <h3>WhatsApp &amp; Telefon</h3>
-          <p>
-            <a href={`tel:${site.phoneHref}`}>{site.phone}</a>
-          </p>
-          <p class="muted">
-            Nachrichten beantworten wir in der Regel am selben Tag. Während des Trainings
-            kann es etwas länger dauern.
-          </p>
-        </article>
-
-        <article class="card">
-          <span class="card__tag">Für alles Schriftliche</span>
           <h3>E-Mail</h3>
           <p>
             <a href={`mailto:${site.email}`}>{site.email}</a>
           </p>
           <p class="muted">
-            Anmeldung, Abmeldung vom Training, Fragen zur Rechnung — alles an diese
+            Anmeldung, Abmeldung vom Training, Fragen zur Rechnung: alles an diese
             Adresse.
           </p>
         </article>
@@ -84,7 +74,7 @@ const description =
           {site.zip} {site.city}
         </address>
         <p class="muted">
-          Das ist unsere Geschäftsadresse — trainiert wird an den drei Vereinsanlagen.
+          Das ist unsere Geschäftsadresse, trainiert wird an den drei Vereinsanlagen.
         </p>
         <ul class="social">
           <li><a class="btn-ghost" href={site.instagram} rel="noopener">Instagram</a></li>
@@ -110,7 +100,7 @@ const description =
     </div>
   </section>
 
-  <section class="section section--dark">
+  <section class="section section--dark" id="kontakt">
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">Der nächste Schritt</span>
