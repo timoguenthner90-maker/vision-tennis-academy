@@ -19,11 +19,9 @@ Domain-Referenzen auf `https://vision-tennis.de` umgestellt (`astro.config.mjs`,
 - Lighthouse-LCP schlug fehl (2718ms > 2500ms) - Ursache: das neue
   Heroshot-Bild `hero-court-serve.webp` (215 KB, unkomprimiert exportiert).
   Fix: staerker komprimiert (WebP q75, 215→164 KB), gleiches Bild/gleiche
-  Aufloesung. **Offene Rueckfrage an Tina:** der Code-Kommentar bei diesem
-  Bild sagt weiterhin "In Graustufen passend zur Bildsprache" - das Bild
-  ist aber laut Commit-Nachricht bewusst eingefaerbt ("Headerbild farbig").
-  Bitte bestaetigen, ob Farbe so gewollt ist (dann Kommentar anpassen) oder
-  ob es zurueck auf Graustufen soll.
+  Aufloesung. Rueckfrage geklaert: Farbe ist bewusst so gewollt (bestaetigt
+  04.09.2026) - der veraltete "Graustufen"-Kommentar in `index.astro` wurde
+  entsprechend korrigiert.
 - pa11y (WCAG2AA) fand 2 Fehler - beide durch das (separat integrierte)
   Ace-Chat-Widget verursacht, nicht durch Tinas Aenderungen: das
   Eingabefeld hatte kein zugaengliches Label. Behoben.
