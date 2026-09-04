@@ -4,7 +4,49 @@
 > Hier endet die Automatik: Es braucht genau eine Entscheidung — **freigeben**
 > oder **zurück mit Kommentar**.
 
-## Status: freigegeben und auf Production
+## Update 04.09.2026 — Re-Verifikation fuer den Produktions-Umzug (Plan A)
+
+Anlass: Domain + VPS sind bereit, der echte Umzug von Netlify auf eigene
+Infrastruktur steht an (Ace-Chat-Integration inklusive). Vor dem Umzug
+wurden zwei neue Tina-Commits eingespielt
+(`c850328` "Schnupperstunde statt Probetraining, WhatsApp entfernt",
+`dac56e3` "Headerbild farbig, Jobs-Team-Foto, Jobs in Navigation") und der
+komplette Verify-Gauntlet erneut gegen den neuen Stand gefahren, PLUS die
+Domain-Referenzen auf `https://vision-tennis.de` umgestellt (`astro.config.mjs`,
+`src/data/site.ts`, `public/robots.txt`).
+
+**Zwei Funde dabei, beide behoben:**
+- Lighthouse-LCP schlug fehl (2718ms > 2500ms) - Ursache: das neue
+  Heroshot-Bild `hero-court-serve.webp` (215 KB, unkomprimiert exportiert).
+  Fix: staerker komprimiert (WebP q75, 215→164 KB), gleiches Bild/gleiche
+  Aufloesung. **Offene Rueckfrage an Tina:** der Code-Kommentar bei diesem
+  Bild sagt weiterhin "In Graustufen passend zur Bildsprache" - das Bild
+  ist aber laut Commit-Nachricht bewusst eingefaerbt ("Headerbild farbig").
+  Bitte bestaetigen, ob Farbe so gewollt ist (dann Kommentar anpassen) oder
+  ob es zurueck auf Graustufen soll.
+- pa11y (WCAG2AA) fand 2 Fehler - beide durch das (separat integrierte)
+  Ace-Chat-Widget verursacht, nicht durch Tinas Aenderungen: das
+  Eingabefeld hatte kein zugaengliches Label. Behoben.
+
+**Ergebnis nach den Fixes (lokal, `npx serve dist -l 4399`):**
+
+| Pruefung | Ergebnis |
+|---|---|
+| `npm run build` | ✅ 12 Seiten, Exit 0 |
+| `npx astro check` | ✅ 0 Fehler, 0 Warnungen |
+| `scripts/verify.mjs` | ✅ 0 hard failures, 0 warnings |
+| `scripts/check-no-shop.mjs` | ✅ keine E-Commerce-Rueckstaende |
+| Lighthouse (`/`, lokal) | ✅ Performance 0.98 · A11y 1.00 · Best Practices 1.00 · SEO 1.00 (LCP 2,33s · CLS 0 · TBT 0ms) |
+| pa11y WCAG2AA (`/`) | ✅ 0 Fehler |
+
+**Noch NICHT Teil dieses Updates** (bewusst zurueckgestellt auf Plan B,
+siehe `.claude/plans/sorted-yawning-koala.md`): tatsaechliches Deployment,
+DNS-Umstellung, Chat-Widget-Funktionsfaehigkeit in Production (haengt an
+der Hosting-Entscheidung), Redirect-Anpassung der alten Shopify-URLs
+(Stichprobe ergab: aktuell zeigt kein Redirect auf den umbenannten Pfad
+`/probestunde/` → `/schnupperstunde/`, daher unveraendert uebernommen).
+
+## Status: freigegeben und auf Production (Netlify, Stand 13.08.2026)
 
 **Live: https://vision-tennis-academy.netlify.app**
 

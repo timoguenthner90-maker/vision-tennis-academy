@@ -8,7 +8,7 @@
  * public/robots.txt übereinstimmen — Canonical, OG-URLs, Sitemap und JSON-LD
  * hängen daran. Beim Umzug auf die Kundendomain alle drei zusammen umstellen.
  */
-export const SITE_URL = "https://vision-tennis-academy.netlify.app";
+export const SITE_URL = "https://vision-tennis.de";
 
 export const site = {
   name: "Vision Tennis Academy",

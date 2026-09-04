@@ -2,11 +2,12 @@
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 
-// site = vorläufige Production-URL (Netlify-Subdomain). Bei Umzug auf die echte
-// Kundendomain hier UND in public/robots.txt nachziehen — canonical, OG-URLs und
-// Sitemap hängen alle an diesem Wert.
+// site = echte Kundendomain (Produktions-Umzug 04.09.2026, siehe Plan A in
+// .claude/plans/sorted-yawning-koala.md). Haengt an src/data/site.ts (SITE_URL)
+// und public/robots.txt (Sitemap-Zeile) — alle drei muessen synchron bleiben,
+// canonical, OG-URLs und Sitemap haengen alle an diesem Wert.
 export default defineConfig({
-  site: "https://vision-tennis-academy.netlify.app",
+  site: "https://vision-tennis.de",
   integrations: [
     sitemap({
       filter: (page) => !page.includes("/404"),
