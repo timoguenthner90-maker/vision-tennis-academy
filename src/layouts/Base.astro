@@ -72,15 +72,16 @@ const blocks = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     </main>
     <Footer />
 
-    <!-- Ace Chat-Widget: PUBLIC_ACE_API_BASE per Env-Var/.env steuerbar,
-         damit lokal gegen den lokalen Ace-Container (localhost:8010) und in
-         Produktion gegen den echten Ace-Host gezeigt werden kann, ohne
-         Code-Aenderung (siehe .env.example). -->
+    <!-- Ace Chat-Widget: same-origin in Production (Caddy proxied /static/widget.js
+         und /tenants/vision-tennis/channels/webchat/* auf ace-core, siehe
+         infra/Caddyfile.homepage) - kein Cross-Origin-Request noetig, die CSP
+         bleibt bei connect-src 'self'. Lokal PUBLIC_ACE_API_BASE per .env auf
+         den lokalen Ace-Container setzen (siehe .env.example). -->
     <script
       is:inline
       data-tenant="vision-tennis"
-      data-api-base={import.meta.env.PUBLIC_ACE_API_BASE || "http://localhost:8010"}
-      src={`${import.meta.env.PUBLIC_ACE_API_BASE || "http://localhost:8010"}/static/widget.js`}
+      data-api-base={import.meta.env.PUBLIC_ACE_API_BASE || ""}
+      src={`${import.meta.env.PUBLIC_ACE_API_BASE || ""}/static/widget.js`}
       defer
     ></script>
 
