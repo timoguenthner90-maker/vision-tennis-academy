@@ -81,6 +81,15 @@ const blocks = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
       is:inline
       data-tenant="vision-tennis"
       data-api-base={import.meta.env.PUBLIC_ACE_API_BASE || ""}
+      data-title="Vision Tennis Academy"
+      data-intro="Du sprichst hier mit einer KI, die aus unseren FAQ antwortet. Bei komplexeren Fragen verweist sie dich direkt an uns."
+      data-quick-replies={JSON.stringify([
+        { label: "Kosten Probetraining", message: "Was kostet ein Probetraining?" },
+        { label: "Standorte", message: "Wo sind eure Standorte?" },
+        { label: "Anmeldung", message: "Wie melde ich mich an?" },
+      ])}
+      data-whatsapp="+4915129409005"
+      data-contact-email="info@vision-tennis.de"
       src={`${import.meta.env.PUBLIC_ACE_API_BASE || ""}/static/widget.js`}
       defer
     ></script>
