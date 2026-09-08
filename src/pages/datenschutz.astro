@@ -1,11 +1,11 @@
 ---
 /**
- * ENTWURF — vor dem Production-Deploy juristisch prüfen lassen (SPEC.md §7.8).
- *
- * Der Text beschreibt exakt den technischen Stand dieser Seite: statisches
- * Hosting bei Netlify, keine Cookies, kein Tracking, keine Webfonts, keine
- * externen Skripte und kein Formular. Deshalb ist er deutlich kürzer als eine
- * Shop-Datenschutzerklärung — es gibt schlicht weniger Verarbeitung.
+ * Beschreibt den technischen Stand dieser Seite: statisches Hosting bei
+ * Netlify, keine Cookies, kein Tracking, keine Webfonts, keine externen
+ * Skripte, kein klassisches Kontaktformular - dafuer der Ace-Chat (siehe
+ * Abschnitt 5, sessionStorage statt Cookie, KI-Verarbeitung via OpenAI).
+ * Empfehlung: vor endgueltiger rechtlicher Absicherung einmal von einem
+ * Anwalt/Datenschutzbeauftragten gegenlesen lassen (bisher nicht erfolgt).
  */
 import Base from "../layouts/Base.astro";
 import { site } from "../data/site";
@@ -22,8 +22,7 @@ const description =
       <h1>Datenschutzerklärung</h1>
 
       <p class="muted">
-        Entwurfsfassung, Stand August 2026. Sie beschreibt den technischen Stand dieser
-        Website.
+        Stand September 2026. Sie beschreibt den technischen Stand dieser Website.
       </p>
 
       <h2>1. Verantwortlicher</h2>
@@ -40,12 +39,13 @@ const description =
 
       <h2>2. Grundsatz</h2>
       <p>
-        Diese Website ist eine rein statische Seite. Sie setzt <strong>keine Cookies</strong>,
-        verwendet <strong>keine Analyse- oder Tracking-Dienste</strong>, bindet
-        <strong>keine externen Schriftarten, Karten, Videos oder Social-Media-Plugins</strong>
-        ein und enthält <strong>kein Kontaktformular</strong>. Beim Besuch werden
-        ausschließlich die Daten verarbeitet, die für die Auslieferung der Seiten
-        technisch notwendig sind.
+        Diese Website ist überwiegend eine statische Seite. Sie setzt <strong>keine
+        Cookies</strong>, verwendet <strong>keine Analyse- oder Tracking-Dienste</strong>,
+        bindet <strong>keine externen Schriftarten, Karten, Videos oder
+        Social-Media-Plugins</strong> ein und enthält <strong>kein klassisches
+        Kontaktformular</strong>. Beim Besuch werden ausschließlich die Daten verarbeitet,
+        die für die Auslieferung der Seiten technisch notwendig sind. Eine Ausnahme ist der
+        Website-Chat, siehe Abschnitt 5.
       </p>
 
       <h2>3. Hosting und Server-Logfiles</h2>
@@ -88,7 +88,30 @@ const description =
         keine gesetzlichen Aufbewahrungsfristen entgegenstehen.
       </p>
 
-      <h2>5. Externe Links</h2>
+      <h2>5. Website-Chat</h2>
+      <p>
+        Diese Website bindet einen Chat-Assistenten ("Ace") ein, mit dem Sie Fragen zu
+        Training, Standorten und Anmeldung direkt im Browser stellen können. Der Chat setzt
+        <strong>keine Cookies</strong>. Beim Öffnen des Chats wird lediglich eine zufällige
+        Sitzungs-ID im <code>sessionStorage</code> Ihres Browsers abgelegt, damit die
+        einzelnen Nachrichten eines Gesprächs zusammengehalten werden können; diese wird
+        automatisch gelöscht, sobald Sie den Browser-Tab schließen, und nicht automatisch
+        mit anderen Anfragen an unseren Server mitgesendet.
+      </p>
+      <p>
+        Ihre Chat-Nachrichten werden an unseren eigenen Server übermittelt und dort zur
+        Erstellung einer Antwort auch mit Hilfe der KI-Dienste der OpenAI Ireland Ltd.
+        (bzw. deren Muttergesellschaft OpenAI, L.L.C., USA) verarbeitet. Mit OpenAI besteht
+        ein Auftragsverarbeitungsvertrag. Der Gesprächsverlauf wird bei uns gespeichert, um
+        die Anfrage nachvollziehen und beantworten zu können.
+      </p>
+      <p>
+        Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer
+        schnellen, unkomplizierten Beantwortung von Interessentenanfragen) bzw. Art. 6
+        Abs. 1 lit. b DSGVO, soweit die Anfrage der Anbahnung eines Trainingsvertrags dient.
+      </p>
+
+      <h2>6. Externe Links</h2>
       <p>
         Diese Website verlinkt auf Angebote Dritter, insbesondere auf das Buchungssystem
         Sportision, die Websites der Partnervereine sowie unsere Profile bei Instagram und
@@ -97,7 +120,7 @@ const description =
         keine Daten an diese Anbieter übertragen.
       </p>
 
-      <h2>6. Trainingsbetrieb</h2>
+      <h2>7. Trainingsbetrieb</h2>
       <p>
         Für die Durchführung des Trainings verarbeiten wir die zur Vertragserfüllung
         erforderlichen Daten (Art. 6 Abs. 1 lit. b DSGVO), insbesondere Name,
@@ -106,7 +129,7 @@ const description =
         Aufbewahrungsfristen bleiben unberührt.
       </p>
 
-      <h2>7. Ihre Rechte</h2>
+      <h2>8. Ihre Rechte</h2>
       <p>Ihnen stehen gegenüber uns folgende Rechte zu:</p>
       <ul>
         <li>Auskunft über die verarbeiteten Daten (Art. 15 DSGVO)</li>
@@ -121,14 +144,14 @@ const description =
         <a href={`mailto:${site.email}`}>{site.email}</a>.
       </p>
 
-      <h2>8. Beschwerderecht</h2>
+      <h2>9. Beschwerderecht</h2>
       <p>
         Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren.
         Zuständig ist die Landesbeauftragte für Datenschutz und Informationsfreiheit
         Nordrhein-Westfalen, Kavalleriestraße 2–4, 40213 Düsseldorf.
       </p>
 
-      <h2>9. Änderungen</h2>
+      <h2>10. Änderungen</h2>
       <p>
         Wir passen diese Erklärung an, wenn sich die Funktionen der Website oder die
         Rechtslage ändern. Es gilt jeweils die hier veröffentlichte Fassung.
