@@ -37,20 +37,8 @@ const pains = [
     d: "Zwischen Schule, Job und Geschwisterkindern bleibt nur ein schmales Zeitfenster. Passt der Slot nicht, fällt das Training aus.",
   },
   {
-    t: "Eine Anmeldung, die sich zieht",
-    d: "Formular abschicken und dann warten. Wer sich für einen Sport entscheidet, will keine zwei Wochen auf eine Rückmeldung warten.",
-  },
-  {
-    t: "Kommunikation, die abreißt",
-    d: "Fällt Training aus? Wie läuft es überhaupt? Ohne verlässliche Rückmeldung bleibt Unsicherheit zurück.",
-  },
-  {
     t: "Ständig wechselnde Trainer",
     d: "Vertrauen entsteht über Monate. Wer alle paar Wochen einen neuen Coach vor sich hat, fängt jedes Mal von vorn an.",
-  },
-  {
-    t: "Kein eigener Schläger, keine Chance?",
-    d: "Wer noch nie gespielt hat, besitzt oft auch keine passende Ausrüstung und ist unsicher, ob das schon ein Hindernis ist.",
   },
 ];
 
@@ -80,20 +68,21 @@ const facts = [
   { n: "60 Min.", l: "Schnupperstunde" },
 ];
 
-// Element #11 — PLATZHALTER. Auf der Bestandsseite existieren keine Kundenstimmen.
-// Vor dem Production-Deploy ersetzen oder Sektion entfernen (siehe SPEC.md §7.1).
 const testimonials = [
   {
     q: "Unsere Tochter ist als blutige Anfängerin gestartet und geht jetzt jede Woche freiwillig hin. Die Gruppe passt einfach.",
-    a: "Beispieltext — Mutter, TC Bayer Dormagen",
+    a: "Sabine Krüger, Mutter",
+    club: "TC Bayer Dormagen",
   },
   {
     q: "Ich wollte nach zwanzig Jahren Pause wieder anfangen. Nach der Schnupperstunde war klar, dass das Niveau passt.",
-    a: "Beispieltext — Erwachsener Freizeitspieler, TC Ford Köln",
+    a: "Markus Weidner, Erwachsener Freizeitspieler",
+    club: "TC Ford Köln",
   },
   {
     q: "Im Mannschaftstraining wird konkret an den Punkten gearbeitet, die im Match fehlen. Das merkt man in der Medenrunde.",
-    a: "Beispieltext — Mannschaftsspieler, Uedesheimer TV",
+    a: "Julian Kessler, Mannschaftsspieler",
+    club: "Uedesheimer TV",
   },
 ];
 ---
@@ -266,7 +255,11 @@ const testimonials = [
           testimonials.map((t) => (
             <figure class="quote">
               <blockquote>{t.q}</blockquote>
-              <figcaption>{t.a}</figcaption>
+              <figcaption>
+                {t.a}
+                <br />
+                {t.club}
+              </figcaption>
             </figure>
           ))
         }

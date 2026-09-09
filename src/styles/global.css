@@ -468,11 +468,14 @@ dd {
   border-top: 4px solid var(--brand);
   border-radius: var(--radius);
   padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  display: flex;
+  flex-direction: column;
 }
 .quote blockquote {
   margin: 0 0 1rem;
   font-size: var(--step-1);
   line-height: 1.45;
+  flex: 1;
 }
 .quote figcaption {
   font-size: var(--step--1);
