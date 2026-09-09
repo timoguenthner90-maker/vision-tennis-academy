@@ -124,9 +124,24 @@ if (htmlFiles.length === 0) {
 }
 
 // ---------- link resolution ----------
+// Pfade, die in Produktion NICHT aus diesem statischen Build kommen,
+// sondern vom Reverse-Proxy (Caddy) an eine andere Anwendung
+// weitergereicht werden - deklariert unter "proxiedPaths" in
+// acceptance.json.
+//
+// Hintergrund: seit das Ace-Chat-Widget auf same-origin umgestellt wurde,
+// steht in Base.astro ein relativer Verweis auf /static/widget.js. Diese
+// Datei liegt bewusst nicht im dist/ (ace-core liefert sie aus), der
+// Link-Checker meldete sie deshalb auf JEDER Seite als gebrochen - 12
+// harte Fehler, der Gauntlet war dauerhaft rot und nicht mehr gruen zu
+// bekommen. Bewusst eine deklarierte Liste statt den Check abzuschalten:
+// echte gebrochene Links werden weiterhin gefunden.
+const proxiedPaths = new Set(cfg.proxiedPaths ?? []);
+
 function linkExists(fromFile, raw) {
   let href = raw.split("#")[0].split("?")[0];
   if (!href) return true; // pure anchor / same page
+  if (proxiedPaths.has(href)) return true;
   let target;
   if (href.startsWith("/")) target = href.slice(1);
   else {

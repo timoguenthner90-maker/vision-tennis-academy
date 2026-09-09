@@ -19,7 +19,12 @@
     "missingCanonical": true,
     "missingOpenGraph": true
   },
-  "exemptFromSeo": ["404.html"],
+  "exemptFromSeo": [
+    "404.html"
+  ],
+  "proxiedPaths": [
+    "/static/widget.js"
+  ],
   "lighthouse": {
     "performance": 0.9,
     "accessibility": 0.95,
