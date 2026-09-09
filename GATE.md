@@ -1,3 +1,13 @@
+> **Nachtrag 09.09.2026 — Hosting hat sich geaendert.**
+> Dieses Dokument haelt den Freigabe-Stand vom 13.08.2026 fest, als die Seite
+> noch bei Netlify lag. Aktuell laeuft sie auf einem eigenen Strato-VPS
+> (Caddy als Webserver; Mail und Domain ebenfalls bei Strato), Netlify wird
+> nicht mehr genutzt. Die Weiterleitungen der alten Shopify-URLs liegen jetzt
+> in `infra/Caddyfile.homepage` (Repo `vision-mail-report`), nicht mehr in
+> `netlify.toml` - diese Datei wurde entfernt. Der Deploy-Weg ist
+> `infra/scripts/deploy_homepage.sh`.
+> Die Angaben unten bleiben als historischer Freigabe-Nachweis stehen.
+
 # Freigabe-Gate — Vision Tennis Academy
 
 > Stage 5 der `astro-delivery-pipeline`. Alles davor lief unbeaufsichtigt durch.

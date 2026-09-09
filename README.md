@@ -1,7 +1,7 @@
 # Vision Tennis Academy — Website
 
-Statische Astro-Seite für die Vision Tennis Academy GbR (Dormagen). Ersetzt den
-bisherigen Shopify-Store auf `vision-tennis.de` — **ohne Shop**.
+Statische Astro-Seite für die Vision Tennis Academy GbR (Dormagen). Hat den
+früheren Shopify-Store auf `vision-tennis.de` ersetzt — **ohne Shop**.
 
 - **Spec:** [`SPEC.md`](SPEC.md) · **Acceptance-Set:** [`acceptance.json`](acceptance.json)
 - **Strategische Grundlage:** [`docs/6P-Business-Analyse.md`](docs/6P-Business-Analyse.md)
@@ -48,14 +48,25 @@ npx pa11y --standard WCAG2AA http://localhost:4399/
 | `scripts/check-no-shop.mjs` | Prüft den Build auf E-Commerce-Rückstände |
 | `scripts/prepare-images.mjs` | Bildaufbereitung (WebP, Graustufen) — einmalig gelaufen |
 | `scripts/screenshots.mjs` | Gate-Screenshots in drei Breakpoints |
-| `netlify.toml` | Redirects der alten Shopify-URLs + Security-Header |
 
 ## Deploy
 
+Die Seite laeuft auf einem eigenen Strato-VPS (Caddy als Webserver, Mail und
+Domain ebenfalls bei Strato). Netlify wird nicht mehr genutzt.
+
+Ablauf: **lokal arbeiten -> nach GitHub pushen -> von dort auf den VPS
+ausliefern.** GitHub ist immer der aktuellste Stand.
+
 ```bash
-netlify deploy            # Preview (Draft-URL)
-netlify deploy --prod     # erst nach Freigabe am Gate
+# Ausliefern (holt vorher origin/main, laeuft das komplette Gate und
+# bricht bei rotem Gate ab - liefert dann NICHTS aus):
+bash ../vision-mail-report/infra/scripts/deploy_homepage.sh
 ```
+
+Weiterleitungen der alten Shopify-URLs und die Security-Header liegen jetzt
+im Webserver: `infra/Caddyfile.homepage` im Repo `vision-mail-report`. Sie
+bleiben bewusst bestehen, obwohl der Shop abgeschaltet ist - alte Links,
+Lesezeichen und Suchergebnisse zeigen weiterhin dorthin.
 
 ## Beim Umzug auf die echte Domain
 
@@ -65,5 +76,5 @@ Drei Stellen müssen zusammenpassen, sonst brechen Canonical, OG-URLs und Sitema
 2. `site` in `astro.config.mjs` (kann die TS-Konstante nicht importieren)
 3. `Sitemap:`-Zeile in `public/robots.txt`
 
-Erst danach die DNS umstellen. Ab diesem Moment greifen die Redirects in
-`netlify.toml` — und der Shopify-Shop ist offline.
+Erst danach die DNS umstellen. (Erledigt: die Domain zeigt auf den VPS, der
+Shopify-Shop ist abgeschaltet, die Weiterleitungen greifen in Caddy.)
