@@ -37,7 +37,7 @@ export const site = {
  * kommende Chatbot übernimmt künftig erste Fragen.
  */
 export const cta = {
-  label: "Schnupperstunde sichern",
+  label: "Schnupperstunde buchen",
   href: "/schnupperstunde/",
 } as const;
 
