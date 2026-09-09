@@ -70,7 +70,7 @@ export type Club = {
 export const clubs: Club[] = [
   {
     slug: "tc-bayer-dormagen",
-    name: "TC Bayer Dormagen",
+    name: "TC Dormagen",
     street: "Holzweg 63",
     zip: "41542",
     city: "Dormagen",
@@ -236,7 +236,7 @@ export const winterHall: Record<string, HallTariff> = {
   },
   "uedesheimer-tv": {
     venue:
-      "Halle des TC Bayer Dormagen, die Uedesheimer Anlage ist reine Sommersaison",
+      "Halle des TC Dormagen, die Uedesheimer Anlage ist reine Sommersaison",
     holidays: "Mit Ferien, ausgenommen die Weihnachtsferien.",
     oneTariff: true,
     slots: [

@@ -21,7 +21,7 @@ export const faqGroups: FaqGroup[] = [
       {
         q: "Wie und wo kann ich Tennistraining bei Vision Tennis buchen?",
         a: [
-          "Wir trainieren am TC Bayer Dormagen, am TC Ford Köln und beim Uedesheimer TV. Am schnellsten geht es, wenn du uns per E-Mail schreibst, dann suchen wir eine passende Gruppe. Die Termine der Vereine findest du außerdem auf der Seite Training.",
+          "Wir trainieren am TC Dormagen, am TC Ford Köln und beim Uedesheimer TV. Am schnellsten geht es, wenn du uns per E-Mail schreibst, dann suchen wir eine passende Gruppe. Die Termine der Vereine findest du außerdem auf der Seite Training.",
         ],
       },
       {
@@ -221,14 +221,14 @@ export const faqGroups: FaqGroup[] = [
       {
         q: "Was kostet die Mitgliedschaft in den Vereinen?",
         a: [
-          "TC Bayer Dormagen: 375 € für Erwachsene, 120 € für Jugendliche. TC Ford Köln: 290 € bzw. 115 €. Uedesheimer TV: 210 € bzw. 85 €.",
+          "TC Dormagen: 375 € für Erwachsene, 120 € für Jugendliche. TC Ford Köln: 290 € bzw. 115 €. Uedesheimer TV: 210 € bzw. 85 €.",
           "Die Beiträge werden von den Vereinen festgelegt, nicht von uns. Details stehen auf den Websites der Vereine.",
         ],
       },
       {
         q: "Wie sind die Anlagen ausgestattet?",
         a: [
-          "TC Bayer Dormagen: 17 Außenplätze, ein Kleinfeldplatz und sechs Hallenplätze, Clubhaus mit Duschen und Restaurant, Holzweg 63 in Dormagen.",
+          "TC Dormagen: 17 Außenplätze, ein Kleinfeldplatz und sechs Hallenplätze, Clubhaus mit Duschen und Restaurant, Holzweg 63 in Dormagen.",
           "TC Ford Köln: 10 Außenplätze, ein Kleinfeldplatz im Freien und eine Drei-Platz-Halle, Clubhaus mit Duschen, Scheibenstraße 23 in Köln.",
           "Uedesheimer TV: 7 Außenplätze und ein Kleinfeldplatz im Freien, Clubhaus, Norfer Weg 75 in Neuss.",
         ],
