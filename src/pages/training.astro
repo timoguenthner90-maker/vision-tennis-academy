@@ -177,18 +177,6 @@ const offers = [
         </dl>
       </div>
 
-      <div class="notes">
-        <div class="pain">
-          <h3>Wie abgerechnet wird</h3>
-          <p>
-            Nach dem Saisonstart erhältst du eine Rechnung über den Trainingsanteil. Der
-            Betrag wird per SEPA-Lastschrift eingezogen, es gibt keine Vorkasse. Die
-            Hallenkosten zieht der Verein separat und anteilig ein. Eine Kündigung ist
-            nicht nötig: Das Training endet automatisch mit der Saison.
-          </p>
-        </div>
-      </div>
-
       <div class="team-price">
         <span class="eyebrow">Mannschaftstraining · nur Sommersaison</span>
         <div class="price-block">
@@ -234,6 +222,18 @@ const offers = [
               </dd>
             </div>
           </dl>
+        </div>
+      </div>
+
+      <div class="notes">
+        <div class="pain">
+          <h3>Wie abgerechnet wird</h3>
+          <p>
+            Nach dem Saisonstart erhältst du eine Rechnung über den Trainingsanteil. Der
+            Betrag wird per SEPA-Lastschrift eingezogen, es gibt keine Vorkasse. Die
+            Hallenkosten zieht der Verein separat und anteilig ein. Eine Kündigung ist
+            nicht nötig: Das Training endet automatisch mit der Saison.
+          </p>
         </div>
       </div>
     </div>
@@ -341,7 +341,9 @@ const offers = [
   }
 
   .notes {
-    margin-top: 2.5rem;
+    margin-top: 3rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--line);
   }
   .notes p {
     max-width: 42ch;
@@ -351,9 +353,7 @@ const offers = [
      nur mit eigenem Eyebrow statt kompletter Kopfzeile — er ergänzt den
      Hauptpreis, statt ihn zu wiederholen. */
   .team-price {
-    margin-top: 3rem;
-    padding-top: 2.5rem;
-    border-top: 1px solid var(--line);
+    margin-top: 2.5rem;
   }
   .team-price .eyebrow {
     margin-bottom: 1.25rem;
