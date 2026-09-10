@@ -25,6 +25,12 @@ const offers = [
     points: ["Einzeln, zu zweit oder in der Gruppe", "Auch tagsüber möglich", "Ganzjährig, im Winter in der Halle"],
   },
   {
+    tag: "Erwachsene Anfänger:innen",
+    t: "Tennis zum ersten Mal ausprobieren",
+    d: "Ohne Vorerfahrung, ohne Vergleich mit erfahrenen Spielern. Du lernst die Grundlagen in deinem Tempo, in einer Gruppe auf demselben Stand wie du.",
+    points: ["Nur mit anderen Anfänger:innen", "Abend- und Wochenendtermine für Berufstätige", "Schläger stellen wir, falls nötig"],
+  },
+  {
     tag: "Mannschaften",
     t: "Medenrunde und Turnierspiel",
     d: "Mannschaftstraining für 5 bis 8 Personen auf zwei Plätzen. Das gibt's nur im Sommer, weil im Winter die Hallenkapazität dafür fehlt.",
@@ -69,7 +75,7 @@ const offers = [
           decoding="async"
         />
       </div>
-      <div class="grid grid--3">
+      <div class="grid grid--2">
         {
           offers.map((o) => (
             <article class="card">
