@@ -136,63 +136,29 @@ const offers = [
         </p>
       </div>
 
-      <div class="price-tables grid grid--2">
-        <div>
-          <span class="eyebrow">Einzel- &amp; Gruppentraining</span>
-          <div class="table-scroll">
-            <table>
-              <caption class="sr-only">Trainingsanteil pro Stunde nach Gruppengröße</caption>
-              <thead>
-                <tr>
-                  <th scope="col">Gruppe</th>
-                  <th scope="col">Pro Stunde (60 Min.)</th>
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  winterTraining.map((t) => (
-                    <tr>
-                      <td>{t.group}</td>
-                      <td>{t.perHour} €</td>
-                    </tr>
-                  ))
-                }
-              </tbody>
-            </table>
-          </div>
+      <div class="price-block">
+        <div class="table-scroll">
+          <table>
+            <caption class="sr-only">Trainingsanteil pro Stunde nach Gruppengröße</caption>
+            <thead>
+              <tr>
+                <th scope="col">Gruppe</th>
+                <th scope="col">Pro Stunde (60 Min.)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                winterTraining.map((t) => (
+                  <tr>
+                    <td>{t.group}</td>
+                    <td>{t.perHour} €</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
         </div>
 
-        <div>
-          <span class="eyebrow">Mannschaftstraining · nur Sommersaison</span>
-          <div class="table-scroll">
-            <table>
-              <caption class="sr-only">Mannschaftstraining, Saisonpreis nach Wochenumfang</caption>
-              <thead>
-                <tr>
-                  <th scope="col">Umfang</th>
-                  <th scope="col">Saison gesamt</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1 Stunde pro Woche</td>
-                  <td>1.050 €</td>
-                </tr>
-                <tr>
-                  <td>1,5 Stunden pro Woche</td>
-                  <td>1.575 €</td>
-                </tr>
-                <tr>
-                  <td>2 Stunden pro Woche</td>
-                  <td>2.100 €</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <div class="price-explain grid grid--2">
         <dl class="price-parts">
           <div>
             <dt><span class="card__tag">Trainingsanteil</span></dt>
@@ -219,24 +185,56 @@ const offers = [
             </dd>
           </div>
         </dl>
-
-        <dl class="price-parts">
-          <div>
-            <dt><span class="card__tag">70 € pro Stunde</span></dt>
-            <dd>
-              Für 5 bis 8 Personen auf zwei Plätzen, pauschal und unabhängig von der
-              genauen Personenzahl.
-            </dd>
-          </div>
-          <div>
-            <dt><span class="card__tag">Nur im Sommer</span></dt>
-            <dd>
-              Im Winter reicht die Hallenkapazität dafür nicht. Sprich uns an, wenn
-              du für den Sommer planst.
-            </dd>
-          </div>
-        </dl>
       </div>
+
+      <div class="team-price">
+        <span class="eyebrow">Mannschaftstraining · nur Sommersaison</span>
+        <div class="price-block">
+          <div class="table-scroll">
+            <table>
+              <caption class="sr-only">Mannschaftstraining, Saisonpreis nach Wochenumfang</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Umfang</th>
+                  <th scope="col">Saison gesamt</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1 Stunde pro Woche</td>
+                  <td>1.050 €</td>
+                </tr>
+                <tr>
+                  <td>1,5 Stunden pro Woche</td>
+                  <td>1.575 €</td>
+                </tr>
+                <tr>
+                  <td>2 Stunden pro Woche</td>
+                  <td>2.100 €</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <dl class="price-parts">
+            <div>
+              <dt><span class="card__tag">70 € pro Stunde</span></dt>
+              <dd>
+                Für 5 bis 8 Personen auf zwei Plätzen, pauschal und unabhängig von der
+                genauen Personenzahl.
+              </dd>
+            </div>
+            <div>
+              <dt><span class="card__tag">Nur im Sommer</span></dt>
+              <dd>
+                Im Winter reicht die Hallenkapazität dafür nicht. Sprich uns an, wenn
+                du für den Sommer planst.
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -341,21 +339,34 @@ const offers = [
     }
   }
 
-  /* Beide Preistabellen stehen nebeneinander, alle Erklärungen folgen
-     gemeinsam darunter — statt jede Tabelle einzeln mit ihrem Text zu
-     paaren. Macht den Vergleich der beiden Preismodelle leichter. */
-  .price-tables {
-    align-items: start;
-  }
-  .price-tables .eyebrow {
-    margin-bottom: 1rem;
-  }
-
-  .price-explain {
+  /* Zweiter Preisblock im selben Stil wie oben (Tabelle + Kurz-Erklärung),
+     nur mit eigenem Eyebrow statt kompletter Kopfzeile — er ergänzt den
+     Hauptpreis, statt ihn zu wiederholen. */
+  .team-price {
     margin-top: 3rem;
     padding-top: 2.5rem;
     border-top: 1px solid var(--line);
+  }
+  .team-price .eyebrow {
+    margin-bottom: 1.25rem;
+  }
+
+  /* Tabelle und Zwei-Teile-Erklärung als ein Block: Die Erklärung füllt den
+     Platz neben der schmalen Tabelle, statt darunter mit viel Leerraum zu
+     stehen. */
+  .price-block {
+    display: grid;
+    grid-template-columns: minmax(0, 26rem) minmax(0, 1fr);
+    gap: clamp(1.5rem, 4vw, 3rem);
     align-items: start;
+  }
+  .price-block .table-scroll {
+    max-width: none;
+  }
+  @media (max-width: 45rem) {
+    .price-block {
+      grid-template-columns: 1fr;
+    }
   }
 
   .price-parts {
