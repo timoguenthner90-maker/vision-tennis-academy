@@ -177,7 +177,7 @@ const offers = [
         </dl>
       </div>
 
-      <div class="notes grid grid--2">
+      <div class="notes">
         <div class="pain">
           <h3>Wie abgerechnet wird</h3>
           <p>
@@ -187,49 +187,53 @@ const offers = [
             nicht nötig: Das Training endet automatisch mit der Saison.
           </p>
         </div>
-        <div class="pain">
-          <h3>Mannschaftstraining</h3>
-          <p>
-            Für 5 bis 8 Personen auf zwei Plätzen, nur in der Sommersaison, weil im
-            Winter die Hallenkapazität dafür fehlt. Sprich uns an, wenn du für den
-            Sommer planst.
-          </p>
-        </div>
       </div>
 
       <div class="team-price">
-        <div class="section-head">
-          <span class="eyebrow">Mannschaftstraining · Sommersaison</span>
-          <p class="lead">
-            70 € pro Stunde, unabhängig von der genauen Personenzahl: Der Satz gilt
-            pauschal für die Gruppe, weil zwei Plätze gleichzeitig belegt werden und
-            die Teilnahme von bis zu acht Personen garantiert ist.
-          </p>
-        </div>
-        <div class="table-scroll">
-          <table>
-            <caption class="sr-only">Mannschaftstraining, Saisonpreis nach Wochenumfang</caption>
-            <thead>
-              <tr>
-                <th scope="col">Umfang</th>
-                <th scope="col">Saison gesamt</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1 Stunde pro Woche</td>
-                <td>1.050 €</td>
-              </tr>
-              <tr>
-                <td>1,5 Stunden pro Woche</td>
-                <td>1.575 €</td>
-              </tr>
-              <tr>
-                <td>2 Stunden pro Woche</td>
-                <td>2.100 €</td>
-              </tr>
-            </tbody>
-          </table>
+        <span class="eyebrow">Mannschaftstraining · nur Sommersaison</span>
+        <div class="price-block">
+          <div class="table-scroll">
+            <table>
+              <caption class="sr-only">Mannschaftstraining, Saisonpreis nach Wochenumfang</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Umfang</th>
+                  <th scope="col">Saison gesamt</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1 Stunde pro Woche</td>
+                  <td>1.050 €</td>
+                </tr>
+                <tr>
+                  <td>1,5 Stunden pro Woche</td>
+                  <td>1.575 €</td>
+                </tr>
+                <tr>
+                  <td>2 Stunden pro Woche</td>
+                  <td>2.100 €</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <dl class="price-parts">
+            <div>
+              <dt><span class="card__tag">70 € pro Stunde</span></dt>
+              <dd>
+                Für 5 bis 8 Personen auf zwei Plätzen, pauschal und unabhängig von der
+                genauen Personenzahl.
+              </dd>
+            </div>
+            <div>
+              <dt><span class="card__tag">Nur im Sommer</span></dt>
+              <dd>
+                Im Winter reicht die Hallenkapazität dafür nicht. Sprich uns an, wenn
+                du für den Sommer planst.
+              </dd>
+            </div>
+          </dl>
         </div>
       </div>
     </div>
@@ -343,16 +347,16 @@ const offers = [
     max-width: 42ch;
   }
 
+  /* Zweiter Preisblock im selben Stil wie oben (Tabelle + Kurz-Erklärung),
+     nur mit eigenem Eyebrow statt kompletter Kopfzeile — er ergänzt den
+     Hauptpreis, statt ihn zu wiederholen. */
   .team-price {
-    margin-top: 2.5rem;
+    margin-top: 3rem;
     padding-top: 2.5rem;
     border-top: 1px solid var(--line);
   }
-  .team-price .section-head {
-    margin-bottom: 1.5rem;
-  }
-  .team-price .table-scroll {
-    max-width: 26rem;
+  .team-price .eyebrow {
+    margin-bottom: 1.25rem;
   }
 
   /* Tabelle und Zwei-Teile-Erklärung als ein Block: Die Erklärung füllt den
