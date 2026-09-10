@@ -190,11 +190,46 @@ const offers = [
         <div class="pain">
           <h3>Mannschaftstraining</h3>
           <p>
-            Für 5 bis 8 Personen kostet es 70 € pro Stunde, weil zwei Plätze
-            gleichzeitig belegt werden. Das gibt es nur in der Sommersaison, im
-            Winter reicht die Hallenkapazität dafür nicht. Sprich uns an, wenn du
-            für den Sommer planst.
+            Für 5 bis 8 Personen auf zwei Plätzen, nur in der Sommersaison, weil im
+            Winter die Hallenkapazität dafür fehlt. Sprich uns an, wenn du für den
+            Sommer planst.
           </p>
+        </div>
+      </div>
+
+      <div class="team-price">
+        <div class="section-head">
+          <span class="eyebrow">Mannschaftstraining · Sommersaison</span>
+          <p class="lead">
+            70 € pro Stunde, unabhängig von der genauen Personenzahl: Der Satz gilt
+            pauschal für die Gruppe, weil zwei Plätze gleichzeitig belegt werden und
+            die Teilnahme von bis zu acht Personen garantiert ist.
+          </p>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <caption class="sr-only">Mannschaftstraining, Saisonpreis nach Wochenumfang</caption>
+            <thead>
+              <tr>
+                <th scope="col">Umfang</th>
+                <th scope="col">Saison gesamt</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1 Stunde pro Woche</td>
+                <td>1.050 €</td>
+              </tr>
+              <tr>
+                <td>1,5 Stunden pro Woche</td>
+                <td>1.575 €</td>
+              </tr>
+              <tr>
+                <td>2 Stunden pro Woche</td>
+                <td>2.100 €</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -306,6 +341,18 @@ const offers = [
   }
   .notes p {
     max-width: 42ch;
+  }
+
+  .team-price {
+    margin-top: 2.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--line);
+  }
+  .team-price .section-head {
+    margin-bottom: 1.5rem;
+  }
+  .team-price .table-scroll {
+    max-width: 26rem;
   }
 
   /* Tabelle und Zwei-Teile-Erklärung als ein Block: Die Erklärung füllt den
