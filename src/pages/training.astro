@@ -174,16 +174,6 @@ const offers = [
               der Anmeldung.
             </dd>
           </div>
-          <div>
-            <dt><span class="card__tag">Wie abgerechnet wird</span></dt>
-            <dd>
-              Nach dem Saisonstart erhältst du eine Rechnung über den Trainingsanteil.
-              Der Betrag wird per SEPA-Lastschrift eingezogen, es gibt keine Vorkasse.
-              Die Hallenkosten zieht der Verein separat und anteilig ein. Eine
-              Kündigung ist nicht nötig: Das Training endet automatisch mit der
-              Saison.
-            </dd>
-          </div>
         </dl>
       </div>
 
@@ -235,6 +225,18 @@ const offers = [
         </div>
       </div>
 
+      <div class="notes">
+        <div class="pain">
+          <h3>Wie abgerechnet wird</h3>
+          <p>
+            Nach dem Saisonstart erhältst du eine Rechnung über den Trainingsanteil.
+            Der Betrag wird per SEPA-Lastschrift eingezogen, es gibt keine Vorkasse.
+            Die Hallenkosten zieht der Verein separat und anteilig ein — für beide
+            Preismodelle gleich. Eine Kündigung ist nicht nötig: Das Training endet
+            automatisch mit der Saison.
+          </p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -349,6 +351,17 @@ const offers = [
   }
   .team-price .eyebrow {
     margin-bottom: 1.25rem;
+  }
+
+  /* Schließt den ganzen Preisabschnitt ab — gilt für beide Preismodelle
+     gleichermaßen, deshalb erst nach beiden Tabellen statt in der ersten. */
+  .notes {
+    margin-top: 3rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--line);
+  }
+  .notes p {
+    max-width: 52ch;
   }
 
   /* Tabelle und Zwei-Teile-Erklärung als ein Block: Die Erklärung füllt den
