@@ -75,7 +75,7 @@ const offers = [
           decoding="async"
         />
       </div>
-      <div class="grid grid--2">
+      <div class="grid offers-grid">
         {
           offers.map((o) => (
             <article class="card">
@@ -343,6 +343,17 @@ const offers = [
   }
   @media (max-width: 55rem) {
     .offer-head {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Vier Angebotskarten fest als 2x2 statt mit grid--2s auto-fit, das auf
+     breiten Bildschirmen auch drei Spalten zulassen würde. */
+  .offers-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 45rem) {
+    .offers-grid {
       grid-template-columns: 1fr;
     }
   }
