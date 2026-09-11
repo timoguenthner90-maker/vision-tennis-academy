@@ -47,7 +47,7 @@ nicht die Story-Reihenfolge der Startseite.
 | 8 | Plan | 3 Schritte: Probestunde anfragen → passende Gruppe finden → feste Zeit, fester Trainer |
 | 9 | CTA | **„Kostenloses Probetraining sichern"** → WhatsApp `+49 1512 9409005` / `mailto:info@vision-tennis.de`; **7 Platzierungen** (Header, Hero, nach Painpoints, nach Vorstellung, nach Plan, nach Testimonials, Kontakt-Finale) |
 | 10 | Trust | 6 **belegbare** Fakten statt erfundener Siegel: DTB-lizenzierte Trainer · seit 2022 · 3 Vereine · 21 Trainer:innen · Gruppen max. 4 · Probestunde kostenlos |
-| 11 | Testimonials | 3 Stimmen (Eltern / Erwachsene / Turnierspieler) — **Platzhalter**, siehe Abschnitt 7 |
+| 11 | Testimonials | 3 Stimmen (Eltern / Erwachsene / Turnierspieler) — echte Kundenstimmen, am 11.09.2026 bestätigt |
 | 12 | Weitere & Footer | Standorte-Teaser, Kontaktfinale, Footer mit Jobs/Impressum/Datenschutz |
 
 ## 4. Design & Struktur
@@ -82,7 +82,7 @@ Trainingspreise sind ausdrücklich erlaubt und kein Shop-Merkmal.
 - [ ] Bildauswahl und S/W-Look passend?
 - [ ] Rechtliches (Impressum/Datenschutz) freigegeben?
 - [ ] **Platzhalter bestätigen oder ersetzen (Pflicht vor Production):**
-  1. **Testimonials (3×)** — auf der Bestandsseite existieren keine Kundenstimmen. Die drei Texte sind als Beispiel markiert und müssen durch echte ersetzt oder entfernt werden.
+  1. ~~**Testimonials (3×)**~~ — erledigt: Die drei Stimmen (Sabine Krüger, Markus Weidner, Julian Kessler) sind echte Kundenstimmen, am 11.09.2026 bestätigt. Die ursprüngliche Beispiel-Markierung ist damit hinfällig.
   2. ~~**Saison-Zeitraum**~~ — erledigt: Die Seite zeigt die Wintersaison `28.09.2026 – 25.04.2027` aus den Preislisten der Vereine.
   3. ~~**Preise**~~ — erledigt: Ersetzt durch die Winterpreise 2026/2027 aus den offiziellen Preislisten der drei Vereine (Stand 14.08.2026, identisch in Sportision). Winter wird zweiteilig abgerechnet — Trainingsanteil plus Hallenkosten je Verein —, Zahlen in `src/data/site.ts`. Sommerpreise werden nicht mehr ausgespielt; vor dem nächsten Saisonwechsel sind sie neu zu bestätigen.
   4. **Mitgliedsbeiträge der Vereine** (375/120 · 290/115 · 210/85 €) — aus der FAQ übernommen, werden von den Vereinen festgelegt.

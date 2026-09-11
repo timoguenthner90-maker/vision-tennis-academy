@@ -110,7 +110,7 @@ vollständig, es bleibt nichts als manueller Prüfpunkt offen.
 | 8 | Plan | ✅ | 3 Schritte |
 | 9 | CTA | ✅ | **7 Platzierungen**, identisches Wording und Ziel |
 | 10 | Trust | ✅ | 6 belegbare Fakten — keine erfundenen Siegel |
-| 11 | Testimonials | ⚠️ | 3 Stimmen — **Platzhalter, siehe unten** |
+| 11 | Testimonials | ✅ | 3 echte Kundenstimmen, am 11.09.2026 bestätigt |
 | 12 | Weitere + Footer | ✅ | Standorte-Teaser, Kontaktfinale, Footer |
 
 ## Was inhaltlich zu entscheiden ist (menschliches Urteil)
@@ -124,7 +124,7 @@ vollständig, es bleibt nichts als manueller Prüfpunkt offen.
 
 | # | Punkt | Was gebraucht wird |
 |---|---|---|
-| 1 | **Testimonials** | Es gibt auf der Bestandsseite keine Kundenstimmen. Die drei Texte sind sichtbar als „Beispieltext" markiert. → Durch echte ersetzen **oder** Sektion entfernen. |
+| 1 | ~~**Testimonials**~~ | **Erledigt.** Die drei Stimmen sind echte Kundenstimmen und am 11.09.2026 bestätigt. Sie waren im Entwurf als „Beispieltext" markiert; die Markierung wurde mit den echten Namen ersetzt. |
 | 2 | ~~**Saison-Zeitraum**~~ | **Erledigt.** Die Seite zeigt die Wintersaison `28.09.2026 – 25.04.2027`. |
 | 3 | ~~**Preise**~~ | **Erledigt.** Winterpreise 2026/2027 aus den offiziellen Preislisten der drei Vereine (Stand 14.08.2026, identisch in Sportision): Trainingsanteil plus Hallenkosten je Verein, Zahlen in `src/data/site.ts`. Sommerpreise werden nicht mehr ausgespielt und sind vor dem nächsten Saisonwechsel neu zu bestätigen. |
 | 4 | **Mitgliedsbeiträge** | 375/120 · 290/115 · 210/85 € — werden von den Vereinen festgelegt, bitte gegenprüfen. |
