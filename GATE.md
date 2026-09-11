@@ -14,6 +14,59 @@
 > Hier endet die Automatik: Es braucht genau eine Entscheidung — **freigeben**
 > oder **zurück mit Kommentar**.
 
+## Update 11.09.2026 — SEO-Welle 1 (lokale Sichtbarkeit + Preise maschinenlesbar)
+
+Anlass: Ein Vergleich mit dem Wettbewerbsumfeld ergab zwei Luecken. Erstens war
+die Seite geografisch unsichtbar — kein einziger H1 trug einen Ortsnamen, und
+die lokal wichtigste Seite hiess im Title nur "Standorte". Zweitens lagen die
+Preise zwar auf `/training/`, aber nicht maschinenlesbar. Jan Hofer
+(Duesseldorf/Erkrath) zeichnet beides aus und ist im Umfeld die bestbewertete
+Tennisschule; die uebrigen Wettbewerber haben nur CMS-Standard.
+
+**Geaendert:**
+- `src/pages/index.astro` — H1 und Title tragen jetzt Dormagen, Neuss und Koeln.
+  Das Eyebrow wurde von "Dormagen · Koeln · Neuss" auf "Tennisschule seit 2022"
+  geaendert, weil es nach der neuen H1 doppelt stand.
+- `src/pages/standorte.astro` — Title, Description und H1 mit den drei echten
+  Orten. Die H1 nannte zuvor Duesseldorf, wo Vision keinen Standort hat, und
+  liess Neuss aus.
+- `src/data/jsonld.ts` — neuer Export `trainingServiceLd`: Service mit
+  OfferCatalog und einem Offer je Gruppengroesse.
+- `src/pages/training.astro` — bindet dieses JSON-LD ein.
+
+**Eine Entscheidung, die man dem Code nicht ansieht:** Ausgezeichnet ist
+`perHour` — der Trainingsanteil je Trainerstunde, NICHT der Endpreis. Der
+Hallenanteil haengt an Verein und Uhrzeit und steht erst bei der Anmeldung
+fest. Jedes Offer traegt deshalb eine `description`, die genau das sagt, und
+ein `validThrough` zum Saisonende, damit die Auszeichnung nach dem
+Saisonwechsel ablaeuft statt still falsch zu werden.
+
+**Ergebnis des Gauntlets (lokal):**
+
+| Pruefung | Ergebnis |
+|---|---|
+| `npm run build` | ✅ 12 Seiten, Exit 0 |
+| `npx astro check` | ✅ 0 Fehler, 0 Warnungen |
+| `scripts/verify.mjs` | ✅ 0 hard failures, 12 Seiten |
+| `scripts/check-no-shop.mjs` | ✅ keine E-Commerce-Rueckstaende |
+| Titles | ✅ index und standorte je 59 Zeichen (Grenze 60) |
+| Descriptions | ✅ alle 12 im Bereich 50–160 |
+| H1 | ✅ genau einer pro Seite |
+| JSON-LD | ✅ valide; die vier Pflichttypen plus Service, OfferCatalog, Offer, UnitPriceSpecification |
+| Lighthouse (`/`) | ✅ Performance 0.98 · A11y 1.00 · Best Practices 0.98 · SEO 1.00 |
+| pa11y WCAG2AA | ✅ 0 Issues auf `/`, `/training/`, `/standorte/`, `/academy/` |
+
+`widget.js` gibt lokal 404 — erwartbar, der Pfad existiert erst hinter dem
+Caddy-Proxy und steht in `acceptance.json` unter `proxiedPaths`.
+
+**Urteil: GRUEN.** Deployment selbst ist nicht Teil dieses Laufs.
+
+**Offen geblieben:** Titles und Descriptions liegen als `const` im Frontmatter
+aller zwoelf Seiten statt in `src/data/`. Das widerspricht der Regel, dass
+Inhalte nach `src/data/` gehoeren; sauber waere ein `pageMeta`-Record in
+`site.ts`. Die Startseiten-Description sitzt ausserdem mit exakt 160 Zeichen
+auf der Obergrenze.
+
 ## Update 04.09.2026 — Re-Verifikation fuer den Produktions-Umzug (Plan A)
 
 Anlass: Domain + VPS sind bereit, der echte Umzug von Netlify auf eigene

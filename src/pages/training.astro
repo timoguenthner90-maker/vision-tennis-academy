@@ -7,6 +7,7 @@
 import Base from "../layouts/Base.astro";
 import Cta from "../components/Cta.astro";
 import { clubs, winterSeason, winterTraining } from "../data/site";
+import { trainingServiceLd } from "../data/jsonld";
 
 const title = "Training & Preise — Vision Tennis Academy";
 const description = `Gruppentraining von 1 bis 4 Personen für Kinder ab 5 und Erwachsene. Stundenpreise für ${winterSeason.label} nach Gruppengröße.`;
@@ -39,7 +40,7 @@ const offers = [
 ];
 ---
 
-<Base title={title} description={description}>
+<Base title={title} description={description} jsonLd={trainingServiceLd}>
   <section class="section section--tight">
     <div class="wrap">
       <span class="eyebrow">Training</span>
