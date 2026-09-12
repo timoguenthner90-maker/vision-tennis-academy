@@ -1,0 +1,305 @@
+---
+// Chat-Widget, das gegen das eigene Ace-Backend spricht (kein SaaS-
+// Drittanbieter). Bewusst so gebaut, dass es das Zero-JS/Zero-Tracking-
+// Versprechen der Seite so wenig wie möglich verletzt:
+//   - Der Button selbst ist reines CSS/HTML, kostet nichts beim Laden.
+//   - Das eigentliche Chat-Script lädt erst, wenn jemand den Button klickt.
+//   - Keine Cookies, kein localStorage - die session_id lebt nur im
+//     Seiten-Speicher (JS-Variable), ein Reload startet ein neues Gespräch.
+//   - Erst der erste Klick löst überhaupt eine Netzwerk-Anfrage aus.
+import { site } from "../data/site";
+
+// Muss auf die öffentlich erreichbare Ace-core-Adresse zeigen (siehe
+// infra/Caddyfile im ace-core-Repo, Domain ace.vision-tennis.de) - bis die
+// DNS-Umstellung (siehe DOMAIN_MIGRATION_CHECKLIST.md) steht, hier die
+// tatsächlich erreichbare Adresse eintragen.
+const CHAT_API_URL = "https://ace.vision-tennis.de/tenants/vision-tennis/channels/webchat/message";
+---
+
+<div id="chat-widget" data-api={CHAT_API_URL} data-whatsapp={site.whatsapp} data-email={site.email}>
+  <button id="chat-toggle" type="button" aria-expanded="false" aria-controls="chat-panel">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+    </svg>
+    <span class="chat-toggle-label">Fragen?</span>
+  </button>
+
+  <div id="chat-panel" role="dialog" aria-modal="false" aria-label="Chat mit Vision Tennis Academy" hidden>
+    <div class="chat-head">
+      <strong>Vision Tennis Academy</strong>
+      <button id="chat-close" type="button" aria-label="Chat schließen">×</button>
+    </div>
+    <p class="chat-disclosure">
+      Du sprichst hier mit einer KI, die aus unseren FAQ antwortet. Bei komplexeren Fragen
+      verweist sie dich direkt an uns.
+    </p>
+    <div id="chat-log" aria-live="polite"></div>
+    <div class="chat-quick" id="chat-quick">
+      <button type="button" data-q="Was kostet ein Probetraining?">Kosten Probetraining</button>
+      <button type="button" data-q="Welche Standorte gibt es?">Standorte</button>
+      <button type="button" data-q="Wie läuft die Anmeldung ab?">Anmeldung</button>
+    </div>
+    <form id="chat-form">
+      <label for="chat-input" class="sr-only">Deine Nachricht</label>
+      <input id="chat-input" name="message" type="text" maxlength="500" placeholder="Deine Frage..." autocomplete="off" required />
+      <button type="submit" aria-label="Senden">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </form>
+    <p class="chat-fallback">
+      Lieber direkt schreiben? <a href={site.whatsapp} rel="noopener">WhatsApp</a> ·
+      <a href={`mailto:${site.email}`}>{site.email}</a>
+    </p>
+  </div>
+</div>
+
+<style>
+  #chat-widget {
+    position: fixed;
+    right: clamp(1rem, 3vw, 1.75rem);
+    bottom: clamp(1rem, 3vw, 1.75rem);
+    z-index: 60;
+    font-family: var(--sans);
+  }
+
+  #chat-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--ink);
+    color: var(--brand);
+    border: none;
+    border-radius: 999px;
+    padding: 0.85rem 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(20, 20, 20, 0.25);
+  }
+  #chat-toggle:hover {
+    background: #000;
+  }
+  .chat-toggle-label {
+    font-size: var(--step--1);
+    font-weight: 600;
+  }
+
+  #chat-panel {
+    position: absolute;
+    right: 0;
+    bottom: calc(100% + 0.75rem);
+    width: min(340px, calc(100vw - 2rem));
+    max-height: min(520px, calc(100vh - 8rem));
+    display: flex;
+    flex-direction: column;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: 0 20px 50px rgba(20, 20, 20, 0.28);
+    overflow: hidden;
+  }
+  #chat-panel[hidden] {
+    display: none;
+  }
+
+  .chat-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 0.75rem 1rem;
+    font-size: var(--step-0);
+  }
+  #chat-close {
+    background: none;
+    border: none;
+    color: var(--paper);
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0 0.25rem;
+  }
+
+  .chat-disclosure {
+    font-size: var(--step--1);
+    color: var(--ink-3);
+    padding: 0.6rem 1rem 0;
+    margin: 0;
+  }
+
+  #chat-log {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.75rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-height: 120px;
+  }
+  .chat-msg {
+    max-width: 85%;
+    padding: 0.5rem 0.7rem;
+    border-radius: var(--radius);
+    font-size: var(--step--1);
+    line-height: 1.4;
+    white-space: pre-wrap;
+  }
+  .chat-msg--visitor {
+    align-self: flex-end;
+    background: var(--brand);
+    color: var(--ink);
+  }
+  .chat-msg--bot {
+    align-self: flex-start;
+    background: var(--paper-2);
+    color: var(--ink);
+  }
+  .chat-msg--pending {
+    opacity: 0.6;
+  }
+
+  .chat-quick {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding: 0 1rem 0.6rem;
+  }
+  .chat-quick button {
+    font-size: var(--step--1);
+    padding: 0.35rem 0.6rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .chat-quick button:hover {
+    border-color: var(--ink);
+  }
+  .chat-quick[data-used] {
+    display: none;
+  }
+
+  #chat-form {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.6rem 1rem 0.75rem;
+    border-top: 1px solid var(--line);
+  }
+  #chat-input {
+    flex: 1;
+    font: inherit;
+    font-size: var(--step--1);
+    padding: 0.55rem 0.7rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+  #chat-form button[type="submit"] {
+    background: var(--ink);
+    color: var(--brand);
+    border: none;
+    border-radius: var(--radius);
+    padding: 0 0.75rem;
+    cursor: pointer;
+  }
+
+  .chat-fallback {
+    font-size: var(--step--1);
+    color: var(--ink-3);
+    padding: 0 1rem 0.85rem;
+    margin: 0;
+    text-align: center;
+  }
+  .chat-fallback a {
+    color: var(--ink);
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+</style>
+
+<script>
+  // Laeuft erst, wenn die Seite geladen ist - macht aber KEINE Netzwerk-
+  // Anfrage, bis der Besucher aktiv eine Nachricht schickt.
+  const widget = document.getElementById("chat-widget")!;
+  const apiUrl = widget.dataset.api!;
+  const toggle = document.getElementById("chat-toggle")!;
+  const panel = document.getElementById("chat-panel")!;
+  const closeBtn = document.getElementById("chat-close")!;
+  const log = document.getElementById("chat-log")!;
+  const form = document.getElementById("chat-form") as HTMLFormElement;
+  const input = document.getElementById("chat-input") as HTMLInputElement;
+  const quick = document.getElementById("chat-quick")!;
+
+  // Nur im Seitenspeicher, bewusst kein Cookie/localStorage - ein Reload
+  // beginnt absichtlich ein neues Gespraech (siehe Kommentar oben im Astro-Teil).
+  const sessionId = crypto.randomUUID();
+  let opened = false;
+
+  function openPanel() {
+    panel.hidden = false;
+    toggle.setAttribute("aria-expanded", "true");
+    if (!opened) {
+      opened = true;
+      input.focus();
+    }
+  }
+  function closePanel() {
+    panel.hidden = true;
+    toggle.setAttribute("aria-expanded", "false");
+  }
+
+  toggle.addEventListener("click", () => (panel.hidden ? openPanel() : closePanel()));
+  closeBtn.addEventListener("click", closePanel);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !panel.hidden) closePanel();
+  });
+
+  function addMessage(text: string, role: "visitor" | "bot", pending = false) {
+    const el = document.createElement("div");
+    el.className = `chat-msg chat-msg--${role}` + (pending ? " chat-msg--pending" : "");
+    el.textContent = text;
+    log.appendChild(el);
+    log.scrollTop = log.scrollHeight;
+    return el;
+  }
+
+  async function sendMessage(message: string) {
+    quick.setAttribute("data-used", "");
+    addMessage(message, "visitor");
+    const pendingEl = addMessage("...", "bot", true);
+
+    try {
+      const resp = await fetch(apiUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ session_id: sessionId, message }),
+      });
+      if (!resp.ok) throw new Error("request failed");
+      const data = await resp.json();
+      pendingEl.textContent = data.reply;
+      pendingEl.classList.remove("chat-msg--pending");
+    } catch {
+      pendingEl.textContent =
+        "Da ist etwas schiefgelaufen. Schreib uns gerne direkt per WhatsApp oder E-Mail (siehe unten).";
+      pendingEl.classList.remove("chat-msg--pending");
+    }
+  }
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const value = input.value.trim();
+    if (!value) return;
+    input.value = "";
+    sendMessage(value);
+  });
+
+  quick.querySelectorAll<HTMLButtonElement>("button[data-q]").forEach((btn) => {
+    btn.addEventListener("click", () => sendMessage(btn.dataset.q!));
+  });
+</script>
