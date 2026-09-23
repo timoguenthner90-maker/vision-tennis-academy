@@ -7,10 +7,10 @@
  * läuft weiterhin über Sportision. Was hier fehlte, war der Schritt davor —
  * die Schnupperstunde. Genau dort springen Interessenten laut Journey ab.
  *
- * Schnupperstunden finden ausschließlich samstags statt (siehe
- * `saturdayTimes`) — deshalb nur eine Uhrzeitauswahl statt eines vollen
- * Wochenrasters. Die Auswahl sammelt keine echten Verfügbarkeiten, sondern
- * Wunschzeiten; daraus entsteht eine fertige E-Mail.
+ * Schnupperstunden finden ausschließlich samstags statt. Die Uhrzeit können
+ * Interessierte sich nicht aussuchen — die stimmen wir nach der Anfrage
+ * direkt mit ihnen ab. Formular sammelt nur Verein, Alter und Spielstärke;
+ * daraus entsteht eine fertige E-Mail.
  *
  * Bewusst kein WhatsApp-Link: Kommunikation läuft hauptsächlich über E-Mail,
  * der noch kommende Chatbot übernimmt künftig erste Fragen.
@@ -24,10 +24,7 @@ import { clubs, site } from "../data/site";
 
 const title = "Schnupperstunde anfragen — Vision Tennis Academy";
 const description =
-  "Verein, Spielstärke und Wunschuhrzeit für deine Schnupperstunde am Samstag auswählen. Wir suchen die passende Gruppe und melden uns zurück.";
-
-/** Schnupperstunden finden ausschließlich samstags zu diesen Uhrzeiten statt. */
-const saturdayTimes = ["10–11 Uhr", "11–12 Uhr", "12–13 Uhr", "14–15 Uhr"];
+  "Verein, Alter und Spielstärke für deine Schnupperstunde am Samstag auswählen. Wir suchen die passende Gruppe, stimmen die Uhrzeit ab und melden uns zurück.";
 
 const ages = [
   "Kind, 5–12 Jahre",
@@ -131,29 +128,12 @@ const levels = [
 
         <!-- Schritt 3 — Uhrzeit am Schnuppertag Samstag -->
         <fieldset class="step-block">
-          <legend><span class="step-n">3</span> Welche Uhrzeit am Samstag?</legend>
+          <legend><span class="step-n">3</span> Uhrzeit am Samstag</legend>
           <p class="hint">
-            Die Schnupperstunde findet samstags statt. Tipp alle Uhrzeiten an, die
-            grundsätzlich gehen. Mehrfachauswahl ist gewollt.
+            Die Schnupperstunde findet immer samstags statt. Eine passende Uhrzeit
+            stimmen wir nach deiner Anfrage direkt mit dir ab, aussuchen kannst du
+            sie dir hier nicht.
           </p>
-
-          <div class="choices choices--times" role="group" aria-label="Uhrzeit am Samstag">
-            {
-              saturdayTimes.map((t) => (
-                <label class="choice choice--sm">
-                  <input type="checkbox" name="time" value={t} />
-                  <span class="choice__body">
-                    <span class="choice__t">Sa, {t}</span>
-                  </span>
-                </label>
-              ))
-            }
-          </div>
-
-          <label class="check">
-            <input type="checkbox" name="flexible" />
-            <span>Keine der Uhrzeiten passt mir, schlagt mir gern etwas vor.</span>
-          </label>
 
           <p class="sub-label" style="margin-top:1.5rem">Optional</p>
           <div class="two-col">
@@ -348,37 +328,6 @@ const levels = [
     outline-offset: 2px;
   }
 
-  /* ---- Uhrzeitauswahl (Samstag) ---- */
-  /* Genau vier feste Zeitfenster — deshalb feste Spaltenzahl statt auto-fit,
-     damit sie auf einer Zeile nebeneinander bleiben statt umzubrechen. */
-
-  .choices--times {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    max-width: 42rem;
-  }
-
-  @media (max-width: 30rem) {
-    .choices--times {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  .check {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.7rem;
-    margin-top: 1.1rem;
-    font-size: 0.95rem;
-    cursor: pointer;
-  }
-  .check input {
-    width: 1.15rem;
-    height: 1.15rem;
-    margin-top: 0.2rem;
-    accent-color: var(--brand-deep);
-    flex: none;
-  }
-
   .field {
     display: grid;
     gap: 0.4rem;
@@ -454,12 +403,6 @@ const levels = [
   if (form && preview && mail) {
     const MAIL_TO = "info@vision-tennis.de";
 
-    function selectedTimes(): string[] {
-      return Array.from(
-        form!.querySelectorAll<HTMLInputElement>('input[name="time"]:checked'),
-      ).map((el) => el.value);
-    }
-
     function value(name: string): string {
       const checked = form!.querySelector<HTMLInputElement>(
         `input[name="${name}"]:checked`,
@@ -469,12 +412,6 @@ const levels = [
         `input[name="${name}"]:not([type="radio"]):not([type="checkbox"])`,
       );
       return text?.value ?? "";
-    }
-
-    function checked(name: string): boolean {
-      return !!form!.querySelector<HTMLInputElement>(
-        `input[name="${name}"]:checked`,
-      );
     }
 
     function buildMessage(): string {
@@ -488,13 +425,7 @@ const levels = [
         `Spielstärke: ${value("level")}`,
       ];
 
-      const times = selectedTimes();
-      const flexible = checked("flexible");
-
-      if (times.length) lines.push(`Wunschzeit Samstag: ${times.join(" · ")}`);
-      if (flexible) lines.push("Keine der Uhrzeiten passt mir, ich bin flexibel.");
-      if (!times.length && !flexible)
-        lines.push("Wunschzeit Samstag: sage ich euch gern durch.");
+      lines.push("Uhrzeit am Samstag: stimmen wir gemeinsam ab.");
 
       const note = value("note").trim();
       if (note) lines.push(`Hinweis: ${note}`);
