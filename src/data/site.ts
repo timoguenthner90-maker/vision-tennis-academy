@@ -31,8 +31,9 @@ export const site = {
 /**
  * Der EINE Call-to-Action (Story-Element #9) — Wording und Ziel nie variieren.
  *
- * Ziel ist die Schnupperstundenseite: Dort wählt man Verein, Spielstärke und
- * Wunschzeiten aus, und der letzte Klick öffnet das Mailprogramm mit fertigem
+ * Ziel ist die Schnupperstundenseite: Dort wählt man Verein, Alter und
+ * Spielstärke aus (die Uhrzeit wird nach der Anfrage abgestimmt, nicht
+ * ausgewählt), und der letzte Klick öffnet das Mailprogramm mit fertigem
  * Text. Kommunikation läuft bewusst über E-Mail statt WhatsApp — der noch
  * kommende Chatbot übernimmt künftig erste Fragen.
  */
