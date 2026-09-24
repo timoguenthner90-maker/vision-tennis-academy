@@ -39,7 +39,7 @@ export const faqGroups: FaqGroup[] = [
       {
         q: "Wie komme ich zu einer Schnupperstunde?",
         a: [
-          "Eine Schnupperstunde von 60 Minuten ist an jedem unserer drei Vereine möglich. Schreib uns kurz, wie alt du bzw. dein Kind ist und wann ihr Zeit habt. Wir legen die Stunde dann in eine passende Gruppe.",
+          "Eine Schnupperstunde von 60 Minuten ist an jedem unserer drei Vereine möglich, immer samstags. Schreib uns kurz, wie alt du bzw. dein Kind ist. Wir legen die Stunde in eine passende Gruppe und schlagen dir eine Uhrzeit vor.",
         ],
       },
       {
